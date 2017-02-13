@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.wiatec.bplay.activity.MainActivity">
+
+    <data>
+        <variable
+            name="onEvent"
+            type="com.wiatec.bplay.activity.MainActivity.OnEventListener"/>
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@drawable/main_bg"
+        android:id="@+id/activity_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_height="30dp">
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+
+            <ImageButton
+                android:layout_gravity="end"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/ibt_logout"
+                android:src="@mipmap/ic_launcher"
+                android:onClick="@{(view) -> onEvent.onClick(view)}"
+                android:layout_width="30dp"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <com.wiatec.bplay.custom_view.ViewPagerIndicator
+            android:id="@+id/viewPagerIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</layout>

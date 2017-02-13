@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">BPlay</string>
+    <string name="app_name_caps">BPLAY</string>
+
+    <string name="notice">Notice</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="create">Create</string>
+    <string name="create_account">Create an account?</string>
+    <string name="username">UserName</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="password_different">password different</string>
+    <string name="username_empty">username input empty</string>
+    <string name="password_empty">password input empty</string>
+    <string name="email_empty">email input empty</string>
+    <string name="register_fail">Register fail , please try again</string>
+    <string name="login_fail">Login fail , please check user information and try again</string>
+    <string name="network_error">Network connect error , please check </string>
+    <string name="copyright">Copyright © 2016-2017 LegacyDirect. All Rights Reserved</string>
+    <string name="live">Live</string>
+    <string name="news">News</string>
+    <string name="movies">Movies</string>
+    <string name="music">Music</string>
+    <string name="sports">Sports</string>
+    <string name="radios">Radios</string>
+    <string name="my">My</string>
+
+</resources>
