@@ -13,9 +13,9 @@ public class SQLHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "BPLAY";
     public static final String TABLE_NAME = "CHANNEL";
     private static final String CREATE_TABLE_CHANNEL = "create table if not exists "+TABLE_NAME+"(_id integer primary key autoincrement" +
-            ",name text ,url text ,icon text,type text,country text,sequence text,style text)";
+            ",name text ,url text ,icon text,type text,country text,sequence text,style text,favorite text)";
     private static final String DROP_TABLE_CHANNEL = "drop table if exists "+TABLE_NAME;
-    private static final int VERSION = 1;
+    private static final int VERSION = 3;
 
     public SQLHelper(Context context ) {
         super(context, DATABASE_NAME, null, VERSION);

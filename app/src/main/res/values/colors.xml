@@ -7,11 +7,20 @@
     <color name="colorMain">#0f131a</color>
     <color name="colorMain1">#202635</color>
     <color name="colorRed">#FF0000</color>
-    <color name="colorGreen">#00FF00</color>
+    <color name="colorRed1">#f44747</color>
+    <color name="colorRed2">#ed2094</color>
+    <color name="colorGreen">#ff00FF00</color>
+    <color name="colorGreen1">#07a107</color>
     <color name="colorBlue">#0000FF</color>
+    <color name="colorBlue1">#7979e9</color>
+    <color name="colorBlue2">#060323</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorGrayB">#bbbbbb</color>
     <color name="colorGray">#a3a3a3</color>
     <color name="colorTranslucent">#00000000</color>
     <color name="colorTranslucent5">#55000000</color>
+    <color name="colorTranslucentWhite1">#11ffffff</color>
+    <color name="colorTranslucentWhite3">#33ffffff</color>
+    <color name="colorTranslucentWhite5">#55ffffff</color>
 </resources>

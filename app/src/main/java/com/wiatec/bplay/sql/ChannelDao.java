@@ -8,7 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.wiatec.bplay.Application;
 import com.wiatec.bplay.beans.Channel;
+import com.wiatec.bplay.utils.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,7 +36,7 @@ public class ChannelDao {
     }
 
     public boolean isExists(Channel channel){
-        Cursor cursor = sqLiteDatabase.query(SQLHelper.TABLE_NAME ,null , "name=?" , new String []{channel.getName()} , null,null,null);
+        Cursor cursor = sqLiteDatabase.query(SQLHelper.TABLE_NAME ,null , "name=? and url=?" , new String []{channel.getName() ,channel.getUrl()} , null,null,null);
         boolean flag = cursor.moveToNext();
         if(cursor != null){
             cursor.close();
@@ -55,6 +57,7 @@ public class ChannelDao {
             contentValues.put("country",channel.getCountry());
             contentValues.put("sequence",channel.getSequence());
             contentValues.put("style",channel.getStyle());
+            contentValues.put("favorite",channel.getFavorite());
             sqLiteDatabase.insert(SQLHelper.TABLE_NAME , null ,contentValues);
             flag = true;
         }catch (Exception e){
@@ -75,6 +78,7 @@ public class ChannelDao {
             contentValues.put("country",channel.getCountry());
             contentValues.put("sequence",channel.getSequence());
             contentValues.put("style",channel.getStyle());
+            contentValues.put("favorite",channel.getFavorite());
             sqLiteDatabase.update(SQLHelper.TABLE_NAME,contentValues , "name=?" , new String []{channel.getName()});
             flag = true;
         }catch (Exception e){
@@ -110,14 +114,81 @@ public class ChannelDao {
 
     public List<Channel> queryByCountry(String country){
         Cursor cursor = null;
-        List<Channel> list = null;
+        List<Channel> list = new ArrayList<>();
         try {
-            cursor = sqLiteDatabase.query(SQLHelper.TABLE_NAME ,null , "country=?" , new String []{country} , null,null,null);
+            cursor = sqLiteDatabase.query(SQLHelper.TABLE_NAME ,null , "country=?" , new String []{country} , null,null,"sequence");
             while(cursor.moveToNext()){
                 Channel channel = new Channel();
                 channel.setId(cursor.getInt(cursor.getColumnIndex("_id")));
+                channel.setName(cursor.getString(cursor.getColumnIndex("name")));
+                channel.setUrl(cursor.getString(cursor.getColumnIndex("url")));
+                channel.setIcon(cursor.getString(cursor.getColumnIndex("icon")));
+                channel.setType(cursor.getString(cursor.getColumnIndex("type")));
+                channel.setCountry(cursor.getString(cursor.getColumnIndex("country")));
+                channel.setSequence(cursor.getInt(cursor.getColumnIndex("sequence")));
+                channel.setStyle(cursor.getString(cursor.getColumnIndex("style")));
+                channel.setFavorite(cursor.getString(cursor.getColumnIndex("favorite")));
+                list.add(channel);
             }
+        }catch (Exception e){
+            e.printStackTrace();
+            Logger.d(e.getMessage());
+        }finally {
+            if(cursor != null){
+                cursor.close();
+                cursor = null;
+            }
+        }
+        return list;
+    }
 
+    public List<Channel> queryByStyle(String style){
+        Cursor cursor = null;
+        List<Channel> list  = new ArrayList<>();
+        try {
+            cursor = sqLiteDatabase.query(SQLHelper.TABLE_NAME ,null , "style=?" , new String []{style} , null,null,"name");
+            while(cursor.moveToNext()){
+                Channel channel = new Channel();
+                channel.setId(cursor.getInt(cursor.getColumnIndex("_id")));
+                channel.setName(cursor.getString(cursor.getColumnIndex("name")));
+                channel.setUrl(cursor.getString(cursor.getColumnIndex("url")));
+                channel.setIcon(cursor.getString(cursor.getColumnIndex("icon")));
+                channel.setType(cursor.getString(cursor.getColumnIndex("type")));
+                channel.setCountry(cursor.getString(cursor.getColumnIndex("country")));
+                channel.setSequence(cursor.getInt(cursor.getColumnIndex("sequence")));
+                channel.setStyle(cursor.getString(cursor.getColumnIndex("style")));
+                channel.setFavorite(cursor.getString(cursor.getColumnIndex("favorite")));
+                list.add(channel);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if(cursor != null){
+                cursor.close();
+                cursor = null;
+            }
+        }
+        return list;
+    }
+
+    public List<Channel> queryFavorite(){
+        Cursor cursor = null;
+        List<Channel> list  = new ArrayList<>();
+        try {
+            cursor = sqLiteDatabase.query(SQLHelper.TABLE_NAME ,null , "favorite=?" , new String []{"true"} , null,null,"name");
+            while(cursor.moveToNext()){
+                Channel channel = new Channel();
+                channel.setId(cursor.getInt(cursor.getColumnIndex("_id")));
+                channel.setName(cursor.getString(cursor.getColumnIndex("name")));
+                channel.setUrl(cursor.getString(cursor.getColumnIndex("url")));
+                channel.setIcon(cursor.getString(cursor.getColumnIndex("icon")));
+                channel.setType(cursor.getString(cursor.getColumnIndex("type")));
+                channel.setCountry(cursor.getString(cursor.getColumnIndex("country")));
+                channel.setSequence(cursor.getInt(cursor.getColumnIndex("sequence")));
+                channel.setStyle(cursor.getString(cursor.getColumnIndex("style")));
+                channel.setFavorite(cursor.getString(cursor.getColumnIndex("favorite")));
+                list.add(channel);
+            }
         }catch (Exception e){
             e.printStackTrace();
         }finally {

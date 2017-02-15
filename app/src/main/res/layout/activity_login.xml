@@ -54,6 +54,8 @@
             android:id="@+id/bt_login"
             android:layout_below="@id/s2"
             android:text="@string/login"
+            android:textColor="@drawable/text_login"
+            android:background="@drawable/bt_login_bg"
             android:textSize="20sp"
             android:onClick="@{(view) -> onEvent.onClick(view)}"
             android:textAllCaps="false"
@@ -79,7 +81,7 @@
             android:onClick="@{(view) -> onEvent.onClick(view)}"
             android:textAllCaps="false"
             android:background="@color/colorTranslucent"
-            android:textColor="@drawable/text_register"
+            android:textColor="@drawable/text_create"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

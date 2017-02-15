@@ -18,6 +18,7 @@ import com.wiatec.bplay.fragment.FragmentNews;
 import com.wiatec.bplay.fragment.FragmentRadios;
 import com.wiatec.bplay.fragment.FragmentSports;
 import com.wiatec.bplay.presenter.MainPresenter;
+import com.wiatec.bplay.sql.ChannelDao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +46,6 @@ public class MainActivity extends BaseActivity<IMainActivity , MainPresenter> im
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main);
         binding.setOnEvent(new OnEventListener());
-
         if(fragmentLive == null){
             fragmentLive = new FragmentLive();
         }
@@ -83,9 +83,7 @@ public class MainActivity extends BaseActivity<IMainActivity , MainPresenter> im
         binding.viewPager.setAdapter(fragmentAdapter);
         binding.viewPager.setCurrentItem(0);
         binding.viewPagerIndicator.setItem(7 ,1/6f ,1/6f);
-        String [] titles = {getString(R.string.live) , getString(R.string.news)
-                , getString(R.string.movies) , getString(R.string.music) , getString(R.string.sports)
-                , getString(R.string.radios),getString(R.string.my)};
+        String [] titles = {getString(R.string.live) , getString(R.string.news), getString(R.string.movies) , getString(R.string.music) , getString(R.string.sports), getString(R.string.radios),getString(R.string.my)};
         binding.viewPagerIndicator.setButtonTitle(titles , R.color.colorTranslucent , R.drawable.blue_light,25 , 0xffa3a3a3 , 0xffffffff);
         binding.viewPagerIndicator.attachViewPager(binding.viewPager , 0);
     }
@@ -98,12 +96,18 @@ public class MainActivity extends BaseActivity<IMainActivity , MainPresenter> im
     public class OnEventListener{
         public void onClick (View view){
             switch (view.getId()){
-                case R.id.ibt_logout:
-                    logout();
-                    break;
+
                 default:
                     break;
             }
         }
+    }
+
+    public void logout1(){
+       logout();
+   }
+
+    public String getToken(){
+        return token;
     }
 }

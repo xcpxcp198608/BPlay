@@ -4,14 +4,31 @@
 
     </data>
 
-    <LinearLayout android:orientation="vertical" android:layout_width="match_parent"
+    <LinearLayout
+        android:padding="20dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:text="@string/music"
-            android:textColor="@color/colorWhite"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        <LinearLayout
+            android:background="@color/colorTranslucentWhite1"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:src="@mipmap/bplay_logo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginLeft="10dp"
+            android:background="@color/colorTranslucentWhite1"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 </layout>

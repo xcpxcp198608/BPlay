@@ -18,6 +18,12 @@ import java.util.List;
  */
 
 public class ChannelData implements IChannelData{
+    private ChannelDao channelDao;
+
+    public ChannelData() {
+        channelDao = ChannelDao.getInstance(Application.getContext());
+    }
+
     @Override
     public void load(String token , final OnLoadListener onLoadListener) {
         OkMaster.post(F.url.channel).parames("token" ,token).enqueue(new StringListener() {
@@ -27,9 +33,10 @@ public class ChannelData implements IChannelData{
                     return;
                 }
                 List<Channel> list = new Gson().fromJson(s,new TypeToken<List<Channel>>(){}.getType());
-                Logger.d(list.toString());
-                ChannelDao channelDao = ChannelDao.getInstance(Application.getContext());
-                channelDao.multiInsert(list);
+//                Logger.d(list.toString());
+                if(list != null && list.size()>0){
+                    channelDao.multiInsert(list);
+                }
                 onLoadListener.onSuccess(list , true);
             }
 
@@ -43,11 +50,40 @@ public class ChannelData implements IChannelData{
 
     @Override
     public void showByCountry(String country, OnLoadListener onLoadListener) {
-
+        try {
+            List<Channel> list = channelDao.queryByCountry(country);
+            if(list != null && list.size() >0){
+                onLoadListener.onSuccess(list ,true);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            onLoadListener.onFailure(e.getMessage());
+        }
     }
 
     @Override
     public void showByStyle(String style, OnLoadListener onLoadListener) {
+        try {
+            List<Channel> list = channelDao.queryByStyle(style);
+            if(list != null && list.size() >0){
+                onLoadListener.onSuccess(list ,true);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            onLoadListener.onFailure(e.getMessage());
+        }
+    }
 
+    @Override
+    public void showFavorite(OnLoadListener onLoadListener) {
+        try {
+            List<Channel> list = channelDao.queryFavorite();
+            if(list != null && list.size() >0){
+                onLoadListener.onSuccess(list ,true);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            onLoadListener.onFailure(e.getMessage());
+        }
     }
 }

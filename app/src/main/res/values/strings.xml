@@ -7,7 +7,11 @@
     <string name="cancel">Cancel</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="ad">Advertisement</string>
+    <string name="detail">Detail</string>
+    <string name="pass">Pass</string>
     <string name="login">Login</string>
+    <string name="logout">Logout</string>
     <string name="register">Register</string>
     <string name="create">Create</string>
     <string name="create_account">Create an account?</string>
@@ -29,5 +33,11 @@
     <string name="sports">Sports</string>
     <string name="radios">Radios</string>
     <string name="my">My</string>
+    <string name="my_channel">MyChannel</string>
+    <string name="account_settings">Account Settings</string>
+    <string name="favorite">Favorite</string>
+    <string name="add_favorite">add to favorite</string>
+    <string name="remove_favorite">remove from favorite</string>
+
 
 </resources>

@@ -13,6 +13,7 @@ public interface IChannelData {
     void load(String token , OnLoadListener onLoadListener);
     void showByCountry(String country , OnLoadListener onLoadListener);
     void showByStyle(String style , OnLoadListener onLoadListener);
+    void showFavorite(OnLoadListener onLoadListener);
     interface OnLoadListener {
         void onSuccess(List<Channel> list , boolean finished);
         void onFailure(String e);

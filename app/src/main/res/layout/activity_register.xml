@@ -58,6 +58,8 @@
         <Button
             android:id="@+id/bt_register"
             android:text="@string/register"
+            android:textColor="@drawable/text_register"
+            android:background="@drawable/bt_register_bg"
             android:onClick="@{(view) -> onEvent.onClick(view) }"
             android:textAllCaps="false"
             android:layout_width="match_parent"

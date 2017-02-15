@@ -128,6 +128,7 @@ public class ViewPagerIndicator extends LinearLayout {
             }
         }
         setOnItemClickListener();
+        setOnItemSelectedListener();
     }
     //创建TextView
     private TextView createTextView (String s){
@@ -167,6 +168,7 @@ public class ViewPagerIndicator extends LinearLayout {
             }
         }
         setOnItemClickListener();
+        setOnItemSelectedListener();
     }
 
     private Button createButton (String s){
@@ -197,6 +199,7 @@ public class ViewPagerIndicator extends LinearLayout {
             }
         }
         setOnItemClickListener();
+        setOnItemSelectedListener();
     }
     //创建ImageView
     private ImageView createImageView (int resId , int backgroundResId){
@@ -273,6 +276,7 @@ public class ViewPagerIndicator extends LinearLayout {
             view.setLayoutParams(lp);
         }
         setOnItemClickListener();
+        setOnItemSelectedListener();
     }
 
     public interface PagerChangeListener {
@@ -386,6 +390,23 @@ public class ViewPagerIndicator extends LinearLayout {
                 @Override
                 public void onClick(View v) {
                     mViewPager.setCurrentItem(j);
+                }
+            });
+        }
+    }
+
+    //设置title获得焦点时联动到对应的pager页的fragment
+    public void setOnItemSelectedListener(){
+        int count = getChildCount();
+        for (int i = 0; i < count  ; i++) {
+            final int j = i;
+            View view = getChildAt(j);
+            view.setOnFocusChangeListener(new OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if(hasFocus){
+                        mViewPager.setCurrentItem(j);
+                    }
                 }
             });
         }

@@ -1,10 +1,13 @@
 package com.wiatec.bplay.beans;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by patrick on 2017/2/10.
  */
 
-public class Channel {
+public class Channel implements Parcelable {
     private int id;
     private String name;
     private String url;
@@ -13,6 +16,7 @@ public class Channel {
     private String country;
     private int sequence;
     private String style;
+    private String favorite;
 
     public int getId() {
         return id;
@@ -78,6 +82,14 @@ public class Channel {
         this.style = style;
     }
 
+    public String getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(String favorite) {
+        this.favorite = favorite;
+    }
+
     @Override
     public String toString() {
         return "Channel{" +
@@ -89,6 +101,52 @@ public class Channel {
                 ", country='" + country + '\'' +
                 ", sequence=" + sequence +
                 ", style='" + style + '\'' +
+                ", favorite='" + favorite + '\'' +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.name);
+        dest.writeString(this.url);
+        dest.writeString(this.icon);
+        dest.writeString(this.type);
+        dest.writeString(this.country);
+        dest.writeInt(this.sequence);
+        dest.writeString(this.style);
+        dest.writeString(this.favorite);
+    }
+
+    public Channel() {
+    }
+
+    protected Channel(Parcel in) {
+        this.id = in.readInt();
+        this.name = in.readString();
+        this.url = in.readString();
+        this.icon = in.readString();
+        this.type = in.readString();
+        this.country = in.readString();
+        this.sequence = in.readInt();
+        this.style = in.readString();
+        this.favorite = in.readString();
+    }
+
+    public static final Parcelable.Creator<Channel> CREATOR = new Parcelable.Creator<Channel>() {
+        @Override
+        public Channel createFromParcel(Parcel source) {
+            return new Channel(source);
+        }
+
+        @Override
+        public Channel[] newArray(int size) {
+            return new Channel[size];
+        }
+    };
 }
