@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 
 import com.bumptech.glide.Glide;
 import com.wiatec.bplay.R;
@@ -29,7 +30,7 @@ import rx.schedulers.Schedulers;
  * Created by patrick on 2017/2/14.
  */
 
-public class AdActivity extends BaseActivity1<IAdActivity , AdPresenter> implements IAdActivity{
+public class AdActivity extends BaseActivity<IAdActivity , AdPresenter> implements IAdActivity{
 
     private ActivityAdBinding binding;
     private int delayTime = 6;
@@ -38,25 +39,24 @@ public class AdActivity extends BaseActivity1<IAdActivity , AdPresenter> impleme
     private String link;
 
     @Override
-    protected AdPresenter createPresenter() {
+    public AdPresenter createPresenter() {
         return new AdPresenter(this);
     }
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_ad);
+        binding = DataBindingUtil.setContentView(this , R.layout.activity_ad);
         binding.setOnEvent(new OnEventListener());
         channel = getIntent().getParcelableExtra("channel");
-        if (channel == null) {
-            return;
-        }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        if (channel == null) {
+            return;
+        }
         presenter.loadAdImage();
         delay();
     }
@@ -79,8 +79,12 @@ public class AdActivity extends BaseActivity1<IAdActivity , AdPresenter> impleme
 
     @Override
     public void loadAd(ImageInfo imageInfo) {
-        Glide.with(AdActivity.this).load(imageInfo.getUrl()).placeholder(R.mipmap.bplay_logo)
-                .error(R.mipmap.bplay_logo).into(binding.ivAd);
+        Glide.with(AdActivity.this)
+                .load(imageInfo.getUrl())
+                .placeholder(R.mipmap.bplay_logo)
+                .error(R.mipmap.bplay_logo)
+                .dontAnimate()
+                .into(binding.ivAd);
         link = imageInfo.getLink();
     }
 
@@ -121,12 +125,18 @@ public class AdActivity extends BaseActivity1<IAdActivity , AdPresenter> impleme
     }
 
     private void goPlay(){
-        if(channel != null){
-            Intent intent = new Intent(AdActivity.this , PlayActivity.class);
-            intent.putExtra("channel" , channel);
-            startActivity(intent);
-            finish();
+        Intent intent = new Intent();
+        String type = channel.getType();
+        if("live".equals(type)){
+            intent.setClass(AdActivity.this,PlayActivity.class);
+        }else if("radio".equals(type)){
+            intent.setClass(AdActivity.this,PlayRadioActivity.class);
+        }else{
+            intent.setClass(AdActivity.this,PlayActivity.class);
         }
+        intent.putExtra("channel" ,channel);
+        startActivity(intent);
+        finish();
     }
 
     public class OnEventListener{

@@ -1,6 +1,6 @@
 package com.wiatec.bplay.fragment;
 
-import android.app.Activity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -11,11 +11,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.Toast;
 
 import com.wiatec.bplay.Application;
 import com.wiatec.bplay.R;
@@ -26,14 +21,8 @@ import com.wiatec.bplay.adapter.ChannelTypeAdapter;
 import com.wiatec.bplay.animator.Zoom;
 import com.wiatec.bplay.beans.Channel;
 import com.wiatec.bplay.beans.ChannelType;
-import com.wiatec.bplay.custom_view.GridDividerItemDecoration;
-import com.wiatec.bplay.custom_view.GridOffsetsItemDecoration;
-import com.wiatec.bplay.custom_view.LinearDividerItemDecoration;
-import com.wiatec.bplay.custom_view.RecyclerViewLinearDecoration;
 import com.wiatec.bplay.databinding.FragmentLiveBinding;
 import com.wiatec.bplay.presenter.FragmentLivePresenter;
-import com.wiatec.bplay.sql.ChannelDao;
-import com.wiatec.bplay.utils.Logger;
 
 import java.util.List;
 
@@ -74,16 +63,11 @@ public class FragmentLive extends BaseFragment<IFragmentLive ,FragmentLivePresen
         }
     }
 
-
     @Override
     public void loadChannelType(final List<ChannelType> list) {
-        ChannelTypeAdapter channelTypeAdapter = null;
-        if(channelTypeAdapter == null){
-            channelTypeAdapter = new ChannelTypeAdapter(list);
-        }
+        ChannelTypeAdapter channelTypeAdapter = new ChannelTypeAdapter(list);
         binding.rvChannelType.setAdapter(channelTypeAdapter);
         binding.rvChannelType.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.rvChannelType.addItemDecoration(new RecyclerViewLinearDecoration(getContext() , LinearLayoutManager.VERTICAL , 5,R.color.colorTranslucent));
         channelTypeAdapter.setOnItemClickListener(new ChannelTypeAdapter.OnItemClickListener() {
             @Override
             public void onItemClickListener(View view, int position) {
@@ -115,19 +99,13 @@ public class FragmentLive extends BaseFragment<IFragmentLive ,FragmentLivePresen
 
     @Override
     public void loadChannel(final List<Channel> list , boolean finished) {
-        ChannelAdapter channelAdapter = null;
-        if(channelAdapter == null){
-            channelAdapter = new ChannelAdapter(list);
-        }
+        ChannelAdapter channelAdapter = new ChannelAdapter(list);
         binding.rvChannel.setAdapter(channelAdapter);
         binding.rvChannel.setLayoutManager(new GridLayoutManager(getContext() ,5));
-        binding.rvChannel.addItemDecoration(new GridOffsetsItemDecoration(GridOffsetsItemDecoration.GRID_OFFSETS_VERTICAL));
         channelAdapter.setOnItemClickListener(new ChannelAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Intent intent = new Intent(getContext() , AdActivity.class);
-                intent.putExtra("channel" ,list.get(position));
-                startActivity(intent);
+                activity.play(list.get(position));
             }
         });
         channelAdapter.setOnItemSelectedListener(new ChannelAdapter.OnItemSelectedListener() {

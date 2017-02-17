@@ -3,9 +3,15 @@ package com.wiatec.bplay.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wiatec.bplay.Application;
@@ -45,6 +51,11 @@ public class SplashActivity extends BaseActivity<ISplashActivity , SplashPresent
     @Override
     protected void onStart() {
         super.onStart();
+        String model = Build.MODEL;
+        if(!"BTVi3".equals(model) && !"MorphoBT E110".equals(model)){
+            Toast.makeText(SplashActivity.this,getString(R.string.device_notice),Toast.LENGTH_SHORT).show();
+            return;
+        }
         if(NetUtils.isConnected(SplashActivity.this)){
             presenter.checkUpdate();
         }else{
@@ -84,16 +95,32 @@ public class SplashActivity extends BaseActivity<ISplashActivity , SplashPresent
 
     }
 
-    private void showUpdateDialog(UpdateInfo updateInfo){
-        AlertDialog.Builder builder = new AlertDialog.Builder(SplashActivity.this);
-        builder.setTitle(getString(R.string.notice));
-        builder.setMessage(updateInfo.getInfo());
-        builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+    private void showUpdateDialog(final UpdateInfo updateInfo){
+        AlertDialog alertDialog = new AlertDialog.Builder(SplashActivity.this).create();
+        alertDialog.show();
+        alertDialog.setCancelable(false);
+        Window window = alertDialog.getWindow();
+        if(window == null){
+            return;
+        }
+        window.setContentView(R.layout.dialog_update);
+        Button btConfirm = (Button) window.findViewById(R.id.bt_confirm);
+        Button btCancel = (Button) window.findViewById(R.id.bt_cancel);
+        TextView textView = (TextView) window.findViewById(R.id.tv_info);
+        textView.setText(updateInfo.getInfo());
+        btConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-
+            public void onClick(View v) {
+                Intent intent = new Intent(SplashActivity.this , UpdateActivity.class);
+                intent.putExtra("updateInfo" , updateInfo);
+                startActivity(intent);
             }
         });
-        builder.show();
+        btCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }

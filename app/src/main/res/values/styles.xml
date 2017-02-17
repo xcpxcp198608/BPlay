@@ -9,4 +9,13 @@
         <item name="android:windowBackground">@drawable/main_bg</item>
     </style>
 
+
+    <style name="AppTheme1" parent="Theme.AppCompat">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@drawable/main_bg</item>
+    </style>
+
 </resources>

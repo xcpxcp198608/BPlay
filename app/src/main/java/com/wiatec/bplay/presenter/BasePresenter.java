@@ -1,5 +1,8 @@
 package com.wiatec.bplay.presenter;
 
+import com.wiatec.bplay.data.ChannelData;
+import com.wiatec.bplay.data.IChannelData;
+
 import java.lang.ref.WeakReference;
 
 /**
@@ -8,9 +11,13 @@ import java.lang.ref.WeakReference;
 
 public abstract class BasePresenter<V> {
     private WeakReference<V> weakReference;
+    protected IChannelData iChannelData;
 
     public void attachView(V v){
         weakReference = new WeakReference<V>(v);
+        if(iChannelData == null) {
+            iChannelData = new ChannelData();
+        }
     }
 
     public void detachView(){

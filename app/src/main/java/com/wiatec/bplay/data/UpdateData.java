@@ -24,24 +24,21 @@ import okhttp3.Response;
 public class UpdateData implements IUpdateData {
     @Override
     public void load(final OnLoadListener onLoadListener) {
-        OkMaster.get(F.url.update).enqueue(new Callback() {
+        OkMaster.get(F.url.update).enqueue(new StringListener() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                Logger.d(e.getMessage());
+            public void onSuccess(String s) throws IOException {
+                if(s == null){
+                    return;
+                }
+                UpdateInfo updateInfo = new Gson().fromJson(s , new TypeToken<UpdateInfo>(){}.getType());
+                if(updateInfo != null){
+                    onLoadListener.onSuccess(updateInfo);
+                }
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if(response != null){
-                    String s = response.body().string();
-//                    Logger.d(s);
-                    UpdateInfo updateInfo = new Gson().fromJson(s , new TypeToken<UpdateInfo>(){}.getType());
-                    if(updateInfo != null){
-                        onLoadListener.onSuccess(updateInfo);
-                    }
-                }else{
-                    Logger.d("response is null");
-                }
+            public void onFailure(String e) {
+                Logger.d(e);
             }
         });
 

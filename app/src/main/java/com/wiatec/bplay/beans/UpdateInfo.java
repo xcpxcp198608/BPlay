@@ -1,10 +1,13 @@
 package com.wiatec.bplay.beans;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by patrick on 2017/1/13.
  */
 
-public class UpdateInfo {
+public class UpdateInfo implements Parcelable {
     private int id;
     private int code;
     private String fileName;
@@ -81,4 +84,45 @@ public class UpdateInfo {
                 ", info='" + info + '\'' +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeInt(this.code);
+        dest.writeString(this.fileName);
+        dest.writeString(this.packageName);
+        dest.writeString(this.url);
+        dest.writeString(this.version);
+        dest.writeString(this.info);
+    }
+
+    public UpdateInfo() {
+    }
+
+    protected UpdateInfo(Parcel in) {
+        this.id = in.readInt();
+        this.code = in.readInt();
+        this.fileName = in.readString();
+        this.packageName = in.readString();
+        this.url = in.readString();
+        this.version = in.readString();
+        this.info = in.readString();
+    }
+
+    public static final Parcelable.Creator<UpdateInfo> CREATOR = new Parcelable.Creator<UpdateInfo>() {
+        @Override
+        public UpdateInfo createFromParcel(Parcel source) {
+            return new UpdateInfo(source);
+        }
+
+        @Override
+        public UpdateInfo[] newArray(int size) {
+            return new UpdateInfo[size];
+        }
+    };
 }

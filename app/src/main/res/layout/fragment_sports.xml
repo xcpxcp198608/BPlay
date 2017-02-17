@@ -12,18 +12,20 @@
 
         <LinearLayout
             android:background="@color/colorTranslucentWhite1"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:layout_width="0dp"
             android:layout_height="match_parent">
 
             <ImageButton
+                android:background="@drawable/channel_type_bg"
                 android:src="@mipmap/bplay_logo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent" />
 
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_channel_sports"
             android:layout_marginLeft="10dp"
             android:background="@color/colorTranslucentWhite1"
             android:layout_weight="3"

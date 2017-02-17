@@ -109,7 +109,7 @@ public class ViewPagerIndicator extends LinearLayout {
         mShapeHeightRate =shapeHeightRate;
     }
     //设置Table为TextView
-    public void setTextTitle(String [] texts ,int textSize ,int textColor, int textSelectColor) {
+    public void setTextTitle(String [] texts,int backgroundResId ,int selectBackgroundId ,int textSize ,int textColor, int textSelectColor) {
         mTableCount = texts.length;
         if(textSize>0){
             mTextSize = textSize;
@@ -120,7 +120,12 @@ public class ViewPagerIndicator extends LinearLayout {
         if(textSelectColor>0){
             mTextSelectColor = textSelectColor;
         }
-
+        if(backgroundResId >0){
+            mBackgroundId = backgroundResId;
+        }
+        if(selectBackgroundId >0){
+            mSelectBackgroundId = selectBackgroundId;
+        }
         if(texts.length>0){
             this.removeAllViews();
             for(int i = 0 ; i< texts.length ;i++){
@@ -136,7 +141,12 @@ public class ViewPagerIndicator extends LinearLayout {
         LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT , LayoutParams.MATCH_PARENT);
         lp.width = getScreenWidth()/mVisibleTableCount;
         textView.setText(s);
+        //tv应用使用时注意焦点问题导致回activity时不在离开的页面,可以设置viewpager requestFocus 解决
+        textView.setFocusable(true);
+        textView.setFocusableInTouchMode(true);
         textView.setGravity(Gravity.CENTER);
+        textView.setBackgroundResource(mBackgroundId);
+        textView.setPadding(5,5,5,5);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP ,mTextSize);
         textView.setTextColor(mTextColor);
         textView.setLayoutParams(lp);
@@ -366,6 +376,9 @@ public class ViewPagerIndicator extends LinearLayout {
             if(view instanceof Button){
                 ((Button) view).setBackgroundResource(mBackgroundId);
             }
+            if(view instanceof TextView){
+                ((TextView) view).setBackgroundResource(mBackgroundId);
+            }
         }
     }
 
@@ -377,6 +390,9 @@ public class ViewPagerIndicator extends LinearLayout {
         }
         if(view instanceof Button){
             ((Button) view).setBackgroundResource(mSelectBackgroundId);
+        }
+        if(view instanceof TextView){
+            ((TextView) view).setBackgroundResource(mSelectBackgroundId);
         }
     }
 

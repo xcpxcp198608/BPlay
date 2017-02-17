@@ -18,7 +18,7 @@ import java.io.IOException;
 public class AdImageData implements IAdImageData {
     @Override
     public void load(final OnLoadListener onLoadListener) {
-        OkMaster.get(F.url.ad_iamge)
+        OkMaster.get(F.url.ad_image)
                 .enqueue(new StringListener() {
                     @Override
                     public void onSuccess(String s) throws IOException {

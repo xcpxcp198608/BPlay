@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fl_play"
     android:background="@color/colorBlack"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -16,5 +19,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/progressBar" />
+
+    <LinearLayout
+        android:padding="5dp"
+        android:id="@+id/ll_controller"
+        android:visibility="gone"
+        android:gravity="center_vertical"
+        android:background="@color/colorTranslucent3"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:background="@drawable/blue_light_bg"
+            android:button="@drawable/favorite"
+            android:id="@+id/cb_favorite"
+            android:layout_width="48dp"
+            android:layout_height="48dp" />
+
+    </LinearLayout>
 
 </FrameLayout>

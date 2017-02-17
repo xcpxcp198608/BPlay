@@ -13,6 +13,12 @@ import com.wiatec.bplay.utils.OkHttp.OkMaster;
 import java.io.IOException;
 import java.util.List;
 
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
+
 /**
  * Created by patrick on 2017/1/13.
  */
@@ -49,12 +55,25 @@ public class ChannelData implements IChannelData{
     }
 
     @Override
-    public void showByCountry(String country, OnLoadListener onLoadListener) {
+    public void showByCountry(String country, final OnLoadListener onLoadListener) {
         try {
-            List<Channel> list = channelDao.queryByCountry(country);
-            if(list != null && list.size() >0){
-                onLoadListener.onSuccess(list ,true);
-            }
+            Observable.just(country)
+                    .subscribeOn(Schedulers.io())
+                    .map(new Func1<String, List<Channel>>() {
+                        @Override
+                        public List<Channel> call(String s) {
+                            return channelDao.queryByCountry(s);
+                        }
+                    })
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Action1<List<Channel>>() {
+                        @Override
+                        public void call(List<Channel> channels) {
+                            if(channels != null && channels.size() >0){
+                                onLoadListener.onSuccess(channels ,true);
+                            }
+                        }
+                    });
         }catch (Exception e){
             e.printStackTrace();
             onLoadListener.onFailure(e.getMessage());
@@ -62,12 +81,25 @@ public class ChannelData implements IChannelData{
     }
 
     @Override
-    public void showByStyle(String style, OnLoadListener onLoadListener) {
+    public void showByStyle(String style, final OnLoadListener onLoadListener) {
         try {
-            List<Channel> list = channelDao.queryByStyle(style);
-            if(list != null && list.size() >0){
-                onLoadListener.onSuccess(list ,true);
-            }
+            Observable.just(style)
+                    .subscribeOn(Schedulers.io())
+                    .map(new Func1<String, List<Channel>>() {
+                        @Override
+                        public List<Channel> call(String s) {
+                            return channelDao.queryByStyle(s);
+                        }
+                    })
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Action1<List<Channel>>() {
+                        @Override
+                        public void call(List<Channel> channels) {
+                            if(channels != null && channels.size() >0){
+                                onLoadListener.onSuccess(channels ,true);
+                            }
+                        }
+                    });
         }catch (Exception e){
             e.printStackTrace();
             onLoadListener.onFailure(e.getMessage());
@@ -75,12 +107,25 @@ public class ChannelData implements IChannelData{
     }
 
     @Override
-    public void showFavorite(OnLoadListener onLoadListener) {
+    public void showFavorite(final OnLoadListener onLoadListener) {
         try {
-            List<Channel> list = channelDao.queryFavorite();
-            if(list != null && list.size() >0){
-                onLoadListener.onSuccess(list ,true);
-            }
+            Observable.just("1")
+                    .subscribeOn(Schedulers.io())
+                    .map(new Func1<String, List<Channel>>() {
+                        @Override
+                        public List<Channel> call(String s) {
+                            return channelDao.queryFavorite();
+                        }
+                    })
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Action1<List<Channel>>() {
+                        @Override
+                        public void call(List<Channel> channels) {
+                            if(channels != null && channels.size() >0){
+                                onLoadListener.onSuccess(channels ,true);
+                            }
+                        }
+                    });
         }catch (Exception e){
             e.printStackTrace();
             onLoadListener.onFailure(e.getMessage());

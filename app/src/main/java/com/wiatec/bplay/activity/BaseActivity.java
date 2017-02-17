@@ -2,6 +2,7 @@ package com.wiatec.bplay.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +37,7 @@ public abstract class BaseActivity<V ,T extends BasePresenter> extends AppCompat
         }
         userName = sharedPreferences.getString("userName" , null);
         count = sharedPreferences.getInt("count",0);
+
     }
 
     protected void logout(){

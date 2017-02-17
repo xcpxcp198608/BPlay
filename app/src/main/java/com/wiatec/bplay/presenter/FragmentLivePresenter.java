@@ -17,12 +17,11 @@ import java.util.List;
 public class FragmentLivePresenter extends BasePresenter<IFragmentLive> {
     private IFragmentLive iFragmentLive;
     private IChannelTypeData iChannelTypeData;
-    private IChannelData iChannelData;
+
 
     public FragmentLivePresenter(IFragmentLive iFragmentLive) {
         this.iFragmentLive = iFragmentLive;
         iChannelTypeData = new ChannelTypeData();
-        iChannelData = new ChannelData();
     }
 
     public void loadChannelType(String token){

@@ -6,6 +6,7 @@
     android:focusableInTouchMode="true"
     android:background="@drawable/channel_type_bg"
     android:padding="10dp"
+    android:layout_margin="2dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 

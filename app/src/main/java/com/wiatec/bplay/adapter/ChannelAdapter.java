@@ -42,6 +42,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelViewHolder> {
                 .load(channel.getIcon())
                 .placeholder(R.mipmap.bplay_logo)
                 .error(R.mipmap.bplay_logo)
+                .dontAnimate()
                 .dontTransform()
                 .into(holder.ivChannelIcon);
         holder.tvChannelName.setText(channel.getName());

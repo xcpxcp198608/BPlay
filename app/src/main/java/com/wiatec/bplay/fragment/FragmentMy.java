@@ -2,15 +2,19 @@ package com.wiatec.bplay.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.wiatec.bplay.R;
+import com.wiatec.bplay.activity.AdActivity;
 import com.wiatec.bplay.activity.MainActivity;
+import com.wiatec.bplay.adapter.ChannelFavoriteAdapter;
 import com.wiatec.bplay.beans.Channel;
 import com.wiatec.bplay.databinding.FragmentMyBinding;
 import com.wiatec.bplay.presenter.FragmentMyPresenter;
@@ -26,6 +30,7 @@ public class FragmentMy extends BaseFragment<IFragmentMy , FragmentMyPresenter> 
 
     private FragmentMyBinding binding;
     private MainActivity activity;
+    private ChannelFavoriteAdapter favoriteAdapter;
 
     @Override
     protected FragmentMyPresenter createPresenter() {
@@ -53,8 +58,16 @@ public class FragmentMy extends BaseFragment<IFragmentMy , FragmentMyPresenter> 
     }
 
     @Override
-    public void loadFavoriteChannel(List<Channel> list) {
-        Logger.d(list.toString());
+    public void loadFavoriteChannel(final List<Channel> list) {
+        favoriteAdapter = new ChannelFavoriteAdapter(list);
+        binding.rvChannelFavorite.setAdapter(favoriteAdapter);
+        binding.rvChannelFavorite.setLayoutManager(new LinearLayoutManager(getContext()));
+        favoriteAdapter.setOnItemClickListener(new ChannelFavoriteAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                activity.play(list.get(position));
+            }
+        });
     }
 
     public class OnEventListener{

@@ -19,6 +19,7 @@
     <color name="colorGrayB">#bbbbbb</color>
     <color name="colorGray">#a3a3a3</color>
     <color name="colorTranslucent">#00000000</color>
+    <color name="colorTranslucent3">#33000000</color>
     <color name="colorTranslucent5">#55000000</color>
     <color name="colorTranslucentWhite1">#11ffffff</color>
     <color name="colorTranslucentWhite3">#33ffffff</color>

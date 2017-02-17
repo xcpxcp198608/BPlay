@@ -5,12 +5,14 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:background="@drawable/channel_type_bg"
+    android:layout_margin="3dp"
     android:padding="5dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/iv_country"
+        android:layout_marginLeft="5dp"
+        android:id="@+id/iv_channel_icon"
         android:scaleType="centerInside"
         android:src="@mipmap/bplay_logo"
         android:layout_width="80dp"
@@ -21,7 +23,7 @@
         android:ellipsize="marquee"
         android:marqueeRepeatLimit="marquee_forever"
         android:layout_marginLeft="20dp"
-        android:id="@+id/tv_country"
+        android:id="@+id/tv_channel_name"
         android:text="CHINA"
         android:textSize="20sp"
         android:textColor="@color/colorWhite"

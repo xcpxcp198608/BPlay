@@ -36,7 +36,7 @@ public class ChannelDao {
     }
 
     public boolean isExists(Channel channel){
-        Cursor cursor = sqLiteDatabase.query(SQLHelper.TABLE_NAME ,null , "name=? and url=?" , new String []{channel.getName() ,channel.getUrl()} , null,null,null);
+        Cursor cursor = sqLiteDatabase.query(SQLHelper.TABLE_NAME ,null , "name=? or url=?" , new String []{channel.getName() ,channel.getUrl()} , null,null,null);
         boolean flag = cursor.moveToNext();
         if(cursor != null){
             cursor.close();
@@ -78,8 +78,21 @@ public class ChannelDao {
             contentValues.put("country",channel.getCountry());
             contentValues.put("sequence",channel.getSequence());
             contentValues.put("style",channel.getStyle());
-            contentValues.put("favorite",channel.getFavorite());
             sqLiteDatabase.update(SQLHelper.TABLE_NAME,contentValues , "name=?" , new String []{channel.getName()});
+            flag = true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
+    public boolean setFavorite(Channel channel){
+        boolean flag = false;
+        try {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("favorite",channel.getFavorite());
+            sqLiteDatabase.update(SQLHelper.TABLE_NAME,contentValues , "name=? and url=?" ,
+                    new String []{channel.getName(),channel.getUrl()});
             flag = true;
         }catch (Exception e){
             e.printStackTrace();
@@ -198,6 +211,33 @@ public class ChannelDao {
             }
         }
         return list;
+    }
+
+    public Channel query(String name ,String url){
+        Cursor cursor = null;
+        Channel channel = new Channel();
+        try {
+            cursor = sqLiteDatabase.query(SQLHelper.TABLE_NAME ,null , "name=? and url=?" , new String []{name , url} , null,null,"name");
+            while(cursor.moveToNext()) {
+                channel.setId(cursor.getInt(cursor.getColumnIndex("_id")));
+                channel.setName(cursor.getString(cursor.getColumnIndex("name")));
+                channel.setUrl(cursor.getString(cursor.getColumnIndex("url")));
+                channel.setIcon(cursor.getString(cursor.getColumnIndex("icon")));
+                channel.setType(cursor.getString(cursor.getColumnIndex("type")));
+                channel.setCountry(cursor.getString(cursor.getColumnIndex("country")));
+                channel.setSequence(cursor.getInt(cursor.getColumnIndex("sequence")));
+                channel.setStyle(cursor.getString(cursor.getColumnIndex("style")));
+                channel.setFavorite(cursor.getString(cursor.getColumnIndex("favorite")));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if(cursor != null){
+                cursor.close();
+                cursor = null;
+            }
+        }
+        return channel;
     }
 
 }

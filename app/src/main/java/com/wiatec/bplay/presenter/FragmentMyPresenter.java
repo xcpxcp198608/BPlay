@@ -15,11 +15,10 @@ import java.util.List;
 public class FragmentMyPresenter extends BasePresenter<IFragmentMy> {
 
     private IFragmentMy iFragmentMy;
-    private IChannelData iChannelData;
+
 
     public FragmentMyPresenter(IFragmentMy iFragmentMy) {
         this.iFragmentMy = iFragmentMy;
-        iChannelData = new ChannelData();
     }
 
     public void loadFavoriteChannel(){
