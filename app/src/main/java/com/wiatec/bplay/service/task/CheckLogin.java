@@ -8,9 +8,12 @@ import com.google.gson.reflect.TypeToken;
 import com.wiatec.bplay.Application;
 import com.wiatec.bplay.F;
 import com.wiatec.bplay.beans.Result;
+import com.wiatec.bplay.rx_event.RepeatLogin;
+import com.wiatec.bplay.sql.ChannelDao;
 import com.wiatec.bplay.utils.Logger;
 import com.wiatec.bplay.utils.OkHttp.Listener.StringListener;
 import com.wiatec.bplay.utils.OkHttp.OkMaster;
+import com.wiatec.bplay.utils.RxBus.RxBus;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -52,13 +55,13 @@ public class CheckLogin implements Runnable {
                                             return;
                                         }
                                         Result result = new Gson().fromJson(s,new TypeToken<Result>(){}.getType());
+                                        Logger.d(result.toString());
                                         if(result.getCode() != 0){
-                                            Logger.d("login repeat");
                                             Intent intent = new Intent();
                                             intent.setAction("com.wiatec.bplay.LOGIN_REPEAT");
-                                            Application.getContext().sendBroadcast(intent);
+                                            RxBus.getDefault().post(new RepeatLogin(1));
                                         }else {
-                                            Logger.d("login normal");
+
                                         }
                                     }
 

@@ -11,6 +11,7 @@ public final class F {
         public static final String update = "http://appota.gobeyondtv.co:8080/BPlay/GetUpdate";
         public static final String register = "http://appota.gobeyondtv.co:8080/BPlay/Register";
         public static final String login = "http://appota.gobeyondtv.co:8080/BPlay/Login";
+        public static final String logout = "http://appota.gobeyondtv.co:8080/BPlay/Logout";
         public static final String check_token = "http://appota.gobeyondtv.co:8080/BPlay/CheckToken";
         public static final String check_login = "http://appota.gobeyondtv.co:8080/BPlay/CheckLogin";
         public static final String ad_image = "http://appota.gobeyondtv.co:8080/BPlay/GetAdImage";

@@ -114,6 +114,8 @@ public class MainActivity extends BaseActivity<IMainActivity , MainPresenter> im
 
     private void bindService(){
         Intent intent = new Intent(MainActivity.this , CheckLoginService.class);
+        intent.putExtra("userName" , userName);
+        intent.putExtra("count" ,count);
         bindService(intent,serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
