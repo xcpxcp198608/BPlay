@@ -169,7 +169,8 @@ public class MainActivity extends BaseActivity<IMainActivity , MainPresenter> im
     }
 
     public void logout1(){
-       logout();
+        logout();
+        logoutServer();
    }
 
     public String getToken(){

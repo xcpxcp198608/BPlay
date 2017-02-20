@@ -70,11 +70,11 @@ public class LoginActivity extends BaseActivity1<ILoginActivity , LoginPresenter
     @Override
     public void login(boolean loginSuccess , Result result) {
         if(loginSuccess){
-            String resultInfo = (String) result.getInfo();
+            String resultInfo = result.getInfo();
             String [] res = resultInfo.split("/");
             token = res[0];
             int count = Integer.parseInt(res[1]);
-            Logger.d(token + count);
+            Logger.d(token +"<-->"+ count);
             editor.putString("token" ,token);
             editor.putInt("count",count);
             editor.putString("userName" , userName);

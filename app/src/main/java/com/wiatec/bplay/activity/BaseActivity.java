@@ -76,6 +76,11 @@ public abstract class BaseActivity<V ,T extends BasePresenter> extends AppCompat
                 });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
     private void showRepeatLoginDialog(){
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.show();
@@ -101,7 +106,6 @@ public abstract class BaseActivity<V ,T extends BasePresenter> extends AppCompat
         editor.putString("token" ,"");
         editor.putInt("count",0);
         editor.commit();
-        logoutServer();
         startActivity(new Intent(this , LoginActivity.class));
         finish();
     }
