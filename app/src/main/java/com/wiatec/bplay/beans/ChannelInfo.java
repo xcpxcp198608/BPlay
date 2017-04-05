@@ -9,13 +9,15 @@ import android.os.Parcelable;
 
 public class ChannelInfo implements Parcelable {
     private int id;
+    private int sequence;
+    private String tag;
     private String name;
     private String url;
     private String icon;
     private String type;
     private String country;
-    private int sequence;
     private String style;
+    private int visible;
     private String favorite;
 
     public int getId() {
@@ -24,6 +26,22 @@ public class ChannelInfo implements Parcelable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(int sequence) {
+        this.sequence = sequence;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
     public String getName() {
@@ -66,20 +84,20 @@ public class ChannelInfo implements Parcelable {
         this.country = country;
     }
 
-    public int getSequence() {
-        return sequence;
-    }
-
-    public void setSequence(int sequence) {
-        this.sequence = sequence;
-    }
-
     public String getStyle() {
         return style;
     }
 
     public void setStyle(String style) {
         this.style = style;
+    }
+
+    public int getVisible() {
+        return visible;
+    }
+
+    public void setVisible(int visible) {
+        this.visible = visible;
     }
 
     public String getFavorite() {
@@ -94,13 +112,15 @@ public class ChannelInfo implements Parcelable {
     public String toString() {
         return "ChannelInfo{" +
                 "id=" + id +
+                ", sequence=" + sequence +
+                ", tag='" + tag + '\'' +
                 ", name='" + name + '\'' +
                 ", url='" + url + '\'' +
                 ", icon='" + icon + '\'' +
                 ", type='" + type + '\'' +
                 ", country='" + country + '\'' +
-                ", sequence=" + sequence +
                 ", style='" + style + '\'' +
+                ", visible=" + visible +
                 ", favorite='" + favorite + '\'' +
                 '}';
     }
@@ -113,13 +133,15 @@ public class ChannelInfo implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
+        dest.writeInt(this.sequence);
+        dest.writeString(this.tag);
         dest.writeString(this.name);
         dest.writeString(this.url);
         dest.writeString(this.icon);
         dest.writeString(this.type);
         dest.writeString(this.country);
-        dest.writeInt(this.sequence);
         dest.writeString(this.style);
+        dest.writeInt(this.visible);
         dest.writeString(this.favorite);
     }
 
@@ -128,13 +150,15 @@ public class ChannelInfo implements Parcelable {
 
     protected ChannelInfo(Parcel in) {
         this.id = in.readInt();
+        this.sequence = in.readInt();
+        this.tag = in.readString();
         this.name = in.readString();
         this.url = in.readString();
         this.icon = in.readString();
         this.type = in.readString();
         this.country = in.readString();
-        this.sequence = in.readInt();
         this.style = in.readString();
+        this.visible = in.readInt();
         this.favorite = in.readString();
     }
 
