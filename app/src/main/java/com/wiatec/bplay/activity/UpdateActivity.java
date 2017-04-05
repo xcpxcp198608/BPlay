@@ -12,9 +12,9 @@ import com.wiatec.bplay.R;
 import com.wiatec.bplay.beans.UpdateInfo;
 import com.wiatec.bplay.databinding.ActivityUpdateBinding;
 import com.wiatec.bplay.utils.AppUtils;
-import com.wiatec.bplay.utils.OkHttp.Download.DownloadInfo;
-import com.wiatec.bplay.utils.OkHttp.Download.DownloadListener;
-import com.wiatec.bplay.utils.OkHttp.Download.DownloadMaster;
+import com.wiatec.bplay.utils.OkHttp.Bean.DownloadInfo;
+import com.wiatec.bplay.utils.OkHttp.Listener.DownloadListener;
+import com.wiatec.bplay.utils.OkHttp.OkMaster;
 import com.wiatec.bplay.utils.OkHttp.Request.RequestMaster;
 
 /**
@@ -37,49 +37,49 @@ public class UpdateActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        RequestMaster requestMaster = DownloadMaster.with(UpdateActivity.this)
+        OkMaster.download(UpdateActivity.this)
                 .url(updateInfo.getUrl())
                 .path(path)
-                .tag("update");
-        requestMaster.download(new DownloadListener() {
-            @Override
-            public void onPending(DownloadInfo downloadInfo) {
+                .tag("update")
+                .startDownload(new DownloadListener() {
+                    @Override
+                    public void onPending(DownloadInfo downloadInfo) {
 
-            }
+                    }
 
-            @Override
-            public void onStart(DownloadInfo downloadInfo) {
-                binding.tvProgress.setText("0%");
-                binding.progressBar.setProgress(0);
-            }
+                    @Override
+                    public void onStart(DownloadInfo downloadInfo) {
+                        binding.tvProgress.setText("0%");
+                        binding.progressBar.setProgress(0);
+                    }
 
-            @Override
-            public void onPause(DownloadInfo downloadInfo) {
+                    @Override
+                    public void onPause(DownloadInfo downloadInfo) {
 
-            }
+                    }
 
-            @Override
-            public void onProgress(DownloadInfo downloadInfo) {
-                binding.tvProgress.setText(downloadInfo.getProgress()+"%");
-                binding.progressBar.setProgress(downloadInfo.getProgress());
-            }
+                    @Override
+                    public void onProgress(DownloadInfo downloadInfo) {
+                        binding.tvProgress.setText(downloadInfo.getProgress()+"%");
+                        binding.progressBar.setProgress(downloadInfo.getProgress());
+                    }
 
-            @Override
-            public void onFinished(DownloadInfo downloadInfo) {
-                binding.tvProgress.setText("100%");
-                binding.progressBar.setProgress(100);
-                AppUtils.installApk(UpdateActivity.this,path,downloadInfo.getName());
-            }
+                    @Override
+                    public void onFinished(DownloadInfo downloadInfo) {
+                        binding.tvProgress.setText("100%");
+                        binding.progressBar.setProgress(100);
+                        AppUtils.installApk(UpdateActivity.this,path,downloadInfo.getName());
+                    }
 
-            @Override
-            public void onCancel(DownloadInfo downloadInfo) {
+                    @Override
+                    public void onCancel(DownloadInfo downloadInfo) {
 
-            }
+                    }
 
-            @Override
-            public void onError(DownloadInfo downloadInfo) {
+                    @Override
+                    public void onError(DownloadInfo downloadInfo) {
 
-            }
-        });
+                    }
+                });
     }
 }

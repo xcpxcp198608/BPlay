@@ -1,15 +1,7 @@
-package com.wiatec.bplay.utils.OkHttp.Download;
+package com.wiatec.bplay.utils.OkHttp.Listener;
 
 
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-
-import java.io.IOException;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
+import com.wiatec.bplay.utils.OkHttp.Bean.DownloadInfo;
 
 /**
  * Created by patrick on 2016/12/23.

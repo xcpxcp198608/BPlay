@@ -1,6 +1,5 @@
 package com.wiatec.bplay.adapter;
 
-import android.content.pm.LabeledIntent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +8,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.wiatec.bplay.Application;
 import com.wiatec.bplay.R;
-import com.wiatec.bplay.beans.Channel;
+import com.wiatec.bplay.beans.ChannelInfo;
 
 import java.util.List;
 
@@ -19,11 +18,11 @@ import java.util.List;
 
 public class ChannelFavoriteAdapter extends RecyclerView.Adapter<ChannelFavoriteViewHolder> {
 
-    private List<Channel> list;
+    private List<ChannelInfo> list;
     private View view;
     private OnItemClickListener mOnItemClickListener;
 
-    public ChannelFavoriteAdapter(List<Channel> list) {
+    public ChannelFavoriteAdapter(List<ChannelInfo> list) {
         this.list = list;
     }
 
@@ -36,14 +35,14 @@ public class ChannelFavoriteAdapter extends RecyclerView.Adapter<ChannelFavorite
 
     @Override
     public void onBindViewHolder(ChannelFavoriteViewHolder holder, final int position) {
-        Channel channel = list.get(position);
+        ChannelInfo channelInfo = list.get(position);
         Glide.with(Application.getContext())
-                .load(channel.getIcon())
+                .load(channelInfo.getIcon())
                 .placeholder(R.mipmap.bplay_logo)
                 .error(R.mipmap.bplay_logo)
                 .dontAnimate()
                 .into(holder.ivChannelIcon);
-        holder.tvChannelName.setText(channel.getName());
+        holder.tvChannelName.setText(channelInfo.getName());
         if(mOnItemClickListener != null){
             view.setOnClickListener(new View.OnClickListener() {
                 @Override

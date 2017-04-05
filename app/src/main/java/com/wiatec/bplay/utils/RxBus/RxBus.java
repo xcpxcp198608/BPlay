@@ -1,5 +1,4 @@
 package com.wiatec.bplay.utils.RxBus;
-
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;

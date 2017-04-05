@@ -1,9 +1,11 @@
-package com.wiatec.bplay.utils.OkHttp.Download;
+package com.wiatec.bplay.utils.OkHttp.Listener;
 
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
+
+
+import com.wiatec.bplay.utils.OkHttp.Bean.DownloadInfo;
 
 import java.io.File;
 import java.io.IOException;
@@ -79,8 +81,10 @@ public class DownloadCallback implements Callback {
 
     @Override
     public void onFailure(Call call, IOException e) {
+        if(downloadInfo ==null){
+            downloadInfo = new DownloadInfo();
+        }
         downloadInfo.setMessage(e.getMessage());
-        downloadListener.onError(downloadInfo);
     }
 
     @Override

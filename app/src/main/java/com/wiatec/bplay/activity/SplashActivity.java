@@ -1,30 +1,24 @@
 package com.wiatec.bplay.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.wiatec.bplay.Application;
 import com.wiatec.bplay.R;
-import com.wiatec.bplay.beans.Channel;
+import com.wiatec.bplay.beans.ChannelInfo;
 import com.wiatec.bplay.beans.UpdateInfo;
 import com.wiatec.bplay.databinding.ActivitySplashBinding;
 import com.wiatec.bplay.presenter.SplashPresenter;
-import com.wiatec.bplay.sql.ChannelDao;
 import com.wiatec.bplay.utils.AppUtils;
-import com.wiatec.bplay.utils.Logger;
 import com.wiatec.bplay.utils.NetUtils;
-import com.wiatec.bplay.utils.SysUtils;
 
 import java.util.List;
 
@@ -73,6 +67,7 @@ public class SplashActivity extends BaseActivity<ISplashActivity , SplashPresent
             showUpdateDialog(updateInfo);
         }else{
             presenter.checkToken(token);
+//            presenter.loadChannel(token);
         }
     }
 
@@ -87,7 +82,7 @@ public class SplashActivity extends BaseActivity<ISplashActivity , SplashPresent
     }
 
     @Override
-    public void loadChannel(List<Channel> list  , boolean finished) {
+    public void loadChannel(List<ChannelInfo> list  , boolean finished) {
         if(finished){
             startActivity(new Intent(SplashActivity.this , MainActivity.class));
             finish();

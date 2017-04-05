@@ -16,7 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.wiatec.bplay.R;
-import com.wiatec.bplay.beans.Channel;
+import com.wiatec.bplay.beans.ChannelInfo;
 import com.wiatec.bplay.sql.ChannelDao;
 
 import java.io.IOException;
@@ -31,7 +31,7 @@ public class PlayActivity extends AppCompatActivity implements SurfaceHolder.Cal
     private SurfaceView surfaceView;
     private SurfaceHolder surfaceHolder;
     private ProgressBar progressBar;
-    private Channel channel;
+    private ChannelInfo channelInfo;
     private ChannelDao channelDao;
     private FrameLayout flPlay;
     private LinearLayout llController;
@@ -50,11 +50,11 @@ public class PlayActivity extends AppCompatActivity implements SurfaceHolder.Cal
         surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         surfaceHolder.addCallback(this);
 
-        channel = getIntent().getParcelableExtra("channel");
-        if(channel == null){
+        channelInfo = getIntent().getParcelableExtra("channelInfo");
+        if(channelInfo == null){
             return;
         }
-        if("true".equals(channel.getFavorite())){
+        if("true".equals(channelInfo.getFavorite())){
             cbFavorite.setChecked(true);
         }
         channelDao = ChannelDao.getInstance(this);
@@ -64,7 +64,7 @@ public class PlayActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        play(channel.getUrl());
+        play(channelInfo.getUrl());
     }
 
     @Override
@@ -147,15 +147,15 @@ public class PlayActivity extends AppCompatActivity implements SurfaceHolder.Cal
         switch (buttonView.getId()){
             case R.id.cb_favorite:
                 if(isChecked){
-                    channel.setFavorite("true");
-                    if(channelDao.setFavorite(channel)){
+                    channelInfo.setFavorite("true");
+                    if(channelDao.setFavorite(channelInfo)){
                         cbFavorite.setChecked(true);
-                        Toast.makeText(this,channel.getName()+getString(R.string.add_favorite) ,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, channelInfo.getName()+getString(R.string.add_favorite) ,Toast.LENGTH_SHORT).show();
                     }
                 }else{
-                    channel.setFavorite("false");
-                    if(channelDao.setFavorite(channel)) {
-                        Toast.makeText(this, channel.getName() + getString(R.string.remove_favorite), Toast.LENGTH_SHORT).show();
+                    channelInfo.setFavorite("false");
+                    if(channelDao.setFavorite(channelInfo)) {
+                        Toast.makeText(this, channelInfo.getName() + getString(R.string.remove_favorite), Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;

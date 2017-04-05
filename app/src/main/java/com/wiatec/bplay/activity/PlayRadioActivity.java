@@ -3,16 +3,13 @@ package com.wiatec.bplay.activity;
 import android.databinding.DataBindingUtil;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
-import com.wiatec.bplay.Application;
 import com.wiatec.bplay.R;
-import com.wiatec.bplay.beans.Channel;
+import com.wiatec.bplay.beans.ChannelInfo;
 import com.wiatec.bplay.databinding.ActivityPlayRadioBinding;
-import com.wiatec.bplay.sql.ChannelDao;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -30,15 +27,15 @@ public class PlayRadioActivity extends AppCompatActivity {
 
     private ActivityPlayRadioBinding binding;
     private MediaPlayer mediaPlayer;
-    private Channel channel;
+    private ChannelInfo channelInfo;
     private Subscription subscription;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_play_radio);
-        channel = getIntent().getParcelableExtra("channel");
-        if(channel == null){
+        channelInfo = getIntent().getParcelableExtra("channelInfo");
+        if(channelInfo == null){
             return;
         }
         if(mediaPlayer == null){
@@ -51,7 +48,7 @@ public class PlayRadioActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         try {
-            mediaPlayer.setDataSource(channel.getUrl());
+            mediaPlayer.setDataSource(channelInfo.getUrl());
             mediaPlayer.prepareAsync();
             mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override

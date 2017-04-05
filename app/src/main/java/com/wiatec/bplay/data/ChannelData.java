@@ -4,9 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.wiatec.bplay.Application;
 import com.wiatec.bplay.F;
-import com.wiatec.bplay.beans.Channel;
+import com.wiatec.bplay.beans.ChannelInfo;
 import com.wiatec.bplay.sql.ChannelDao;
-import com.wiatec.bplay.utils.Logger;
 import com.wiatec.bplay.utils.OkHttp.Listener.StringListener;
 import com.wiatec.bplay.utils.OkHttp.OkMaster;
 
@@ -38,7 +37,7 @@ public class ChannelData implements IChannelData{
                 if(s == null){
                     return;
                 }
-                List<Channel> list = new Gson().fromJson(s,new TypeToken<List<Channel>>(){}.getType());
+                List<ChannelInfo> list = new Gson().fromJson(s,new TypeToken<List<ChannelInfo>>(){}.getType());
 //                Logger.d(list.toString());
                 if(list != null && list.size()>0){
                     channelDao.multiInsert(list);
@@ -59,18 +58,18 @@ public class ChannelData implements IChannelData{
         try {
             Observable.just(country)
                     .subscribeOn(Schedulers.io())
-                    .map(new Func1<String, List<Channel>>() {
+                    .map(new Func1<String, List<ChannelInfo>>() {
                         @Override
-                        public List<Channel> call(String s) {
+                        public List<ChannelInfo> call(String s) {
                             return channelDao.queryByCountry(s);
                         }
                     })
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Action1<List<Channel>>() {
+                    .subscribe(new Action1<List<ChannelInfo>>() {
                         @Override
-                        public void call(List<Channel> channels) {
-                            if(channels != null && channels.size() >0){
-                                onLoadListener.onSuccess(channels ,true);
+                        public void call(List<ChannelInfo> channelInfos) {
+                            if(channelInfos != null && channelInfos.size() >0){
+                                onLoadListener.onSuccess(channelInfos,true);
                             }
                         }
                     });
@@ -85,18 +84,18 @@ public class ChannelData implements IChannelData{
         try {
             Observable.just(style)
                     .subscribeOn(Schedulers.io())
-                    .map(new Func1<String, List<Channel>>() {
+                    .map(new Func1<String, List<ChannelInfo>>() {
                         @Override
-                        public List<Channel> call(String s) {
+                        public List<ChannelInfo> call(String s) {
                             return channelDao.queryByStyle(s);
                         }
                     })
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Action1<List<Channel>>() {
+                    .subscribe(new Action1<List<ChannelInfo>>() {
                         @Override
-                        public void call(List<Channel> channels) {
-                            if(channels != null && channels.size() >0){
-                                onLoadListener.onSuccess(channels ,true);
+                        public void call(List<ChannelInfo> channelInfos) {
+                            if(channelInfos != null && channelInfos.size() >0){
+                                onLoadListener.onSuccess(channelInfos,true);
                             }
                         }
                     });
@@ -111,18 +110,18 @@ public class ChannelData implements IChannelData{
         try {
             Observable.just("1")
                     .subscribeOn(Schedulers.io())
-                    .map(new Func1<String, List<Channel>>() {
+                    .map(new Func1<String, List<ChannelInfo>>() {
                         @Override
-                        public List<Channel> call(String s) {
+                        public List<ChannelInfo> call(String s) {
                             return channelDao.queryFavorite();
                         }
                     })
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Action1<List<Channel>>() {
+                    .subscribe(new Action1<List<ChannelInfo>>() {
                         @Override
-                        public void call(List<Channel> channels) {
-                            if(channels != null && channels.size() >0){
-                                onLoadListener.onSuccess(channels ,true);
+                        public void call(List<ChannelInfo> channelInfos) {
+                            if(channelInfos != null && channelInfos.size() >0){
+                                onLoadListener.onSuccess(channelInfos,true);
                             }
                         }
                     });

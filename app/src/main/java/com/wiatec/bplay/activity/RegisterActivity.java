@@ -80,10 +80,11 @@ public class RegisterActivity extends BaseActivity1<IRegisterActivity ,RegisterP
         if(registerSuccess){
             editor.putString("userName" , userName);
             editor.commit();
+            Toast.makeText(Application.getContext(), result.getStatus(), Toast.LENGTH_LONG).show();
             startActivity(new Intent(RegisterActivity.this , LoginActivity.class));
             finish();
         }else{
-            Toast.makeText(Application.getContext(), getString(R.string.register_fail), Toast.LENGTH_LONG).show();
+            Toast.makeText(Application.getContext(), result.getStatus(), Toast.LENGTH_LONG).show();
         }
     }
 }

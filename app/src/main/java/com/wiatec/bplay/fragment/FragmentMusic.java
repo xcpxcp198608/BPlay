@@ -1,7 +1,6 @@
 package com.wiatec.bplay.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,13 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.wiatec.bplay.Application;
 import com.wiatec.bplay.R;
-import com.wiatec.bplay.activity.AdActivity;
 import com.wiatec.bplay.activity.MainActivity;
 import com.wiatec.bplay.adapter.ChannelAdapter;
 import com.wiatec.bplay.animator.Zoom;
-import com.wiatec.bplay.beans.Channel;
+import com.wiatec.bplay.beans.ChannelInfo;
 import com.wiatec.bplay.databinding.FragmentMusicBinding;
 import com.wiatec.bplay.presenter.FragmentMusicPresenter;
 
@@ -57,7 +54,7 @@ public class FragmentMusic extends BaseFragment<IFragmentMusic , FragmentMusicPr
     }
 
     @Override
-    public void loadChannelMusic(final List<Channel> list) {
+    public void loadChannelMusic(final List<ChannelInfo> list) {
         if(channelAdapter == null) {
             channelAdapter = new ChannelAdapter(list);
         }

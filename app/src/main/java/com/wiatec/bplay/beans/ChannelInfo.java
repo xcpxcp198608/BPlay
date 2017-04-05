@@ -7,7 +7,7 @@ import android.os.Parcelable;
  * Created by patrick on 2017/2/10.
  */
 
-public class Channel implements Parcelable {
+public class ChannelInfo implements Parcelable {
     private int id;
     private String name;
     private String url;
@@ -92,7 +92,7 @@ public class Channel implements Parcelable {
 
     @Override
     public String toString() {
-        return "Channel{" +
+        return "ChannelInfo{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", url='" + url + '\'' +
@@ -123,10 +123,10 @@ public class Channel implements Parcelable {
         dest.writeString(this.favorite);
     }
 
-    public Channel() {
+    public ChannelInfo() {
     }
 
-    protected Channel(Parcel in) {
+    protected ChannelInfo(Parcel in) {
         this.id = in.readInt();
         this.name = in.readString();
         this.url = in.readString();
@@ -138,15 +138,15 @@ public class Channel implements Parcelable {
         this.favorite = in.readString();
     }
 
-    public static final Parcelable.Creator<Channel> CREATOR = new Parcelable.Creator<Channel>() {
+    public static final Parcelable.Creator<ChannelInfo> CREATOR = new Parcelable.Creator<ChannelInfo>() {
         @Override
-        public Channel createFromParcel(Parcel source) {
-            return new Channel(source);
+        public ChannelInfo createFromParcel(Parcel source) {
+            return new ChannelInfo(source);
         }
 
         @Override
-        public Channel[] newArray(int size) {
-            return new Channel[size];
+        public ChannelInfo[] newArray(int size) {
+            return new ChannelInfo[size];
         }
     };
 }

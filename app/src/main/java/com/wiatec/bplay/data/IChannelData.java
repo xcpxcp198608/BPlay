@@ -1,7 +1,7 @@
 package com.wiatec.bplay.data;
 
 
-import com.wiatec.bplay.beans.Channel;
+import com.wiatec.bplay.beans.ChannelInfo;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public interface IChannelData {
     void showByStyle(String style , OnLoadListener onLoadListener);
     void showFavorite(OnLoadListener onLoadListener);
     interface OnLoadListener {
-        void onSuccess(List<Channel> list , boolean finished);
+        void onSuccess(List<ChannelInfo> list , boolean finished);
         void onFailure(String e);
     }
 }

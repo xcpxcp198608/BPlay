@@ -1,6 +1,6 @@
 package com.wiatec.bplay.presenter;
 
-import com.wiatec.bplay.beans.Channel;
+import com.wiatec.bplay.beans.ChannelInfo;
 import com.wiatec.bplay.data.ChannelData;
 import com.wiatec.bplay.data.IChannelData;
 import com.wiatec.bplay.fragment.IFragmentSports;
@@ -25,7 +25,7 @@ public class FragmentSportsPresenter extends BasePresenter<IFragmentSports> {
         if(iChannelData!=null){
             iChannelData.showByStyle(style, new IChannelData.OnLoadListener() {
                 @Override
-                public void onSuccess(List<Channel> list, boolean finished) {
+                public void onSuccess(List<ChannelInfo> list, boolean finished) {
                     iFragmentSports.loadChannelSports(list);
                 }
 

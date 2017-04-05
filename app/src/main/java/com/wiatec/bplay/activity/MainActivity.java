@@ -6,18 +6,15 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.databinding.DataBindingUtil;
 import android.os.IBinder;
-import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.common.collect.ForwardingList;
 import com.wiatec.bplay.R;
 import com.wiatec.bplay.adapter.FragmentAdapter;
-import com.wiatec.bplay.beans.Channel;
+import com.wiatec.bplay.beans.ChannelInfo;
 import com.wiatec.bplay.databinding.ActivityMainBinding;
 import com.wiatec.bplay.fragment.FragmentLive;
 import com.wiatec.bplay.fragment.FragmentMovies;
@@ -28,7 +25,6 @@ import com.wiatec.bplay.fragment.FragmentRadios;
 import com.wiatec.bplay.fragment.FragmentSports;
 import com.wiatec.bplay.presenter.MainPresenter;
 import com.wiatec.bplay.service.CheckLoginService;
-import com.wiatec.bplay.sql.ChannelDao;
 import com.wiatec.bplay.utils.Logger;
 
 import java.util.ArrayList;
@@ -154,9 +150,9 @@ public class MainActivity extends BaseActivity<IMainActivity , MainPresenter> im
         return super.onKeyDown(keyCode, event);
     }
 
-    public void play(Channel channel){
+    public void play(ChannelInfo channelInfo){
         Intent intent = new Intent(MainActivity.this , AdActivity.class);
-        intent.putExtra("channel" ,channel);
+        intent.putExtra("channelInfo" , channelInfo);
         startActivity(intent);
     }
 
@@ -171,6 +167,7 @@ public class MainActivity extends BaseActivity<IMainActivity , MainPresenter> im
     public void logout1(){
         logout();
         logoutServer();
+        finish();
    }
 
     public String getToken(){

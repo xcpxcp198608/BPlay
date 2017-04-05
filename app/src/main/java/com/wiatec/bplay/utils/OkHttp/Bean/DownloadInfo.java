@@ -1,4 +1,4 @@
-package com.wiatec.bplay.utils.OkHttp.Download;
+package com.wiatec.bplay.utils.OkHttp.Bean;
 
 /**
  * Created by patrick on 2016/12/23.

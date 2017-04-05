@@ -23,12 +23,14 @@ import com.wiatec.bplay.beans.Result;
 import com.wiatec.bplay.presenter.BasePresenter;
 import com.wiatec.bplay.rx_event.RepeatLogin;
 import com.wiatec.bplay.service.task.CheckLogin;
+import com.wiatec.bplay.utils.BasicAuthenticator;
 import com.wiatec.bplay.utils.Logger;
 import com.wiatec.bplay.utils.OkHttp.Listener.StringListener;
 import com.wiatec.bplay.utils.OkHttp.OkMaster;
 import com.wiatec.bplay.utils.RxBus.RxBus;
 
 import java.io.IOException;
+import java.net.Authenticator;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -95,6 +97,7 @@ public abstract class BaseActivity<V ,T extends BasePresenter> extends AppCompat
             @Override
             public void onClick(View v) {
                 logout();
+                startActivity(new Intent(Application.getContext() , LoginActivity.class));
             }
         });
         if(rxBusSubscription != null){
@@ -106,8 +109,6 @@ public abstract class BaseActivity<V ,T extends BasePresenter> extends AppCompat
         editor.putString("token" ,"");
         editor.putInt("count",0);
         editor.commit();
-        startActivity(new Intent(this , LoginActivity.class));
-        finish();
     }
 
     @Override

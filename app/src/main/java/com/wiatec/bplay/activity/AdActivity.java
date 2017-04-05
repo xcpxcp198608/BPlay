@@ -5,17 +5,14 @@ import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 
 import com.bumptech.glide.Glide;
 import com.wiatec.bplay.R;
-import com.wiatec.bplay.beans.Channel;
+import com.wiatec.bplay.beans.ChannelInfo;
 import com.wiatec.bplay.beans.ImageInfo;
 import com.wiatec.bplay.databinding.ActivityAdBinding;
 import com.wiatec.bplay.presenter.AdPresenter;
-import com.wiatec.bplay.utils.OkHttp.OkMaster;
 
 import java.util.concurrent.TimeUnit;
 
@@ -23,7 +20,6 @@ import rx.Observable;
 import rx.Observer;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -35,7 +31,7 @@ public class AdActivity extends BaseActivity<IAdActivity , AdPresenter> implemen
     private ActivityAdBinding binding;
     private int delayTime = 6;
     private Subscription subscription;
-    private Channel channel;
+    private ChannelInfo channelInfo;
     private String link;
 
     @Override
@@ -48,13 +44,13 @@ public class AdActivity extends BaseActivity<IAdActivity , AdPresenter> implemen
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this , R.layout.activity_ad);
         binding.setOnEvent(new OnEventListener());
-        channel = getIntent().getParcelableExtra("channel");
+        channelInfo = getIntent().getParcelableExtra("channelInfo");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if (channel == null) {
+        if (channelInfo == null) {
             return;
         }
         presenter.loadAdImage();
@@ -126,7 +122,7 @@ public class AdActivity extends BaseActivity<IAdActivity , AdPresenter> implemen
 
     private void goPlay(){
         Intent intent = new Intent();
-        String type = channel.getType();
+        String type = channelInfo.getType();
         if("live".equals(type)){
             intent.setClass(AdActivity.this,PlayActivity.class);
         }else if("radio".equals(type)){
@@ -134,7 +130,7 @@ public class AdActivity extends BaseActivity<IAdActivity , AdPresenter> implemen
         }else{
             intent.setClass(AdActivity.this,PlayActivity.class);
         }
-        intent.putExtra("channel" ,channel);
+        intent.putExtra("channelInfo" , channelInfo);
         startActivity(intent);
         finish();
     }

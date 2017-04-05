@@ -1,24 +1,19 @@
 package com.wiatec.bplay.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.wiatec.bplay.Application;
 import com.wiatec.bplay.R;
-import com.wiatec.bplay.activity.AdActivity;
 import com.wiatec.bplay.activity.MainActivity;
 import com.wiatec.bplay.adapter.ChannelAdapter;
-import com.wiatec.bplay.adapter.ChannelFavoriteAdapter;
 import com.wiatec.bplay.animator.Zoom;
-import com.wiatec.bplay.beans.Channel;
+import com.wiatec.bplay.beans.ChannelInfo;
 import com.wiatec.bplay.databinding.FragmentNewsBinding;
 import com.wiatec.bplay.presenter.FragmentNewsPresenter;
 
@@ -59,7 +54,7 @@ public class FragmentNews extends BaseFragment<IFragmentNews , FragmentNewsPrese
     }
 
     @Override
-    public void loadChannelNews(final List<Channel> list) {
+    public void loadChannelNews(final List<ChannelInfo> list) {
         if(channelAdapter == null) {
             channelAdapter = new ChannelAdapter(list);
         }

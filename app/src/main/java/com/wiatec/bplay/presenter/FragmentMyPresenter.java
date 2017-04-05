@@ -1,7 +1,6 @@
 package com.wiatec.bplay.presenter;
 
-import com.wiatec.bplay.beans.Channel;
-import com.wiatec.bplay.data.ChannelData;
+import com.wiatec.bplay.beans.ChannelInfo;
 import com.wiatec.bplay.data.IChannelData;
 import com.wiatec.bplay.fragment.IFragmentMy;
 import com.wiatec.bplay.utils.Logger;
@@ -25,7 +24,7 @@ public class FragmentMyPresenter extends BasePresenter<IFragmentMy> {
         if(iChannelData != null){
             iChannelData.showFavorite(new IChannelData.OnLoadListener() {
                 @Override
-                public void onSuccess(List<Channel> list, boolean finished) {
+                public void onSuccess(List<ChannelInfo> list, boolean finished) {
                     iFragmentMy.loadFavoriteChannel(list);
                 }
 

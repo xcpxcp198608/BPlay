@@ -1,11 +1,11 @@
-package com.wiatec.bplay.utils.OkHttp.Download;
+package com.wiatec.bplay.utils.OkHttp.Request;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
-import com.wiatec.bplay.utils.OkHttp.Request.Header;
-import com.wiatec.bplay.utils.OkHttp.Request.Parameters;
-import com.wiatec.bplay.utils.OkHttp.Request.RequestMaster;
+
+import com.wiatec.bplay.utils.OkHttp.Bean.DownloadInfo;
 
 import java.util.Map;
 

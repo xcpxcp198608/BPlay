@@ -1,7 +1,7 @@
 package com.wiatec.bplay.presenter;
 
 import com.wiatec.bplay.activity.ISplashActivity;
-import com.wiatec.bplay.beans.Channel;
+import com.wiatec.bplay.beans.ChannelInfo;
 import com.wiatec.bplay.beans.UpdateInfo;
 import com.wiatec.bplay.data.ChannelData;
 import com.wiatec.bplay.data.IChannelData;
@@ -66,7 +66,7 @@ public class SplashPresenter extends BasePresenter<ISplashActivity> {
         if(iChannelData != null){
             iChannelData.load(token ,new IChannelData.OnLoadListener() {
                 @Override
-                public void onSuccess(List<Channel> list , boolean finished) {
+                public void onSuccess(List<ChannelInfo> list , boolean finished) {
                     iSplashActivity.loadChannel(list ,finished);
                 }
 

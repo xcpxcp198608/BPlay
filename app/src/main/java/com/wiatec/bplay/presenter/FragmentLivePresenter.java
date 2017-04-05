@@ -1,8 +1,7 @@
 package com.wiatec.bplay.presenter;
 
-import com.wiatec.bplay.beans.Channel;
+import com.wiatec.bplay.beans.ChannelInfo;
 import com.wiatec.bplay.beans.ChannelType;
-import com.wiatec.bplay.data.ChannelData;
 import com.wiatec.bplay.data.ChannelTypeData;
 import com.wiatec.bplay.data.IChannelData;
 import com.wiatec.bplay.data.IChannelTypeData;
@@ -44,7 +43,7 @@ public class FragmentLivePresenter extends BasePresenter<IFragmentLive> {
         if(iChannelData != null){
             iChannelData.showByCountry(country, new IChannelData.OnLoadListener() {
                 @Override
-                public void onSuccess(List<Channel> list, boolean finished) {
+                public void onSuccess(List<ChannelInfo> list, boolean finished) {
                     iFragmentLive.loadChannel(list ,finished);
                 }
 

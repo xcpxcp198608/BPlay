@@ -40,7 +40,7 @@ public class CheckLogin implements Runnable {
     @Override
     public void run() {
         subscription = Observable
-                .interval(0,60000, TimeUnit.MILLISECONDS)
+                .interval(0,10000, TimeUnit.MILLISECONDS)
                 .repeat()
                 .subscribe(new Action1<Long>() {
                     @Override

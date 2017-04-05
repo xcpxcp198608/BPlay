@@ -4,13 +4,13 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
 
 import com.wiatec.bplay.R;
-import com.wiatec.bplay.beans.Channel;
+import com.wiatec.bplay.beans.ChannelInfo;
 import com.wiatec.bplay.beans.Result;
 import com.wiatec.bplay.databinding.ActivityLoginBinding;
 import com.wiatec.bplay.presenter.LoginPresenter;
@@ -82,14 +82,22 @@ public class LoginActivity extends BaseActivity1<ILoginActivity , LoginPresenter
             presenter.loadChannel(token);
         }else{
             binding.progressBar.setVisibility(View.GONE);
-            Toast.makeText(LoginActivity.this, getString(R.string.login_fail), Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, result.getStatus(), Toast.LENGTH_LONG).show();
         }
     }
 
     @Override
-    public void loadChannel(List<Channel> list, boolean finished) {
+    public void loadChannel(List<ChannelInfo> list, boolean finished) {
         binding.progressBar.setVisibility(View.GONE);
         startActivity(new Intent(LoginActivity.this ,MainActivity.class));
         finish();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(event.getKeyCode() == KeyEvent.KEYCODE_BACK){
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

@@ -1,9 +1,10 @@
 package com.wiatec.bplay.utils.OkHttp.Request;
 
+import android.util.Log;
 
-import com.wiatec.bplay.utils.OkHttp.Download.DownloadCallback;
-import com.wiatec.bplay.utils.OkHttp.Download.DownloadInfo;
-import com.wiatec.bplay.utils.OkHttp.Download.DownloadListener;
+import com.wiatec.bplay.utils.OkHttp.Bean.DownloadInfo;
+import com.wiatec.bplay.utils.OkHttp.Listener.DownloadCallback;
+import com.wiatec.bplay.utils.OkHttp.Listener.DownloadListener;
 import com.wiatec.bplay.utils.OkHttp.Listener.UploadListener;
 import com.wiatec.bplay.utils.OkHttp.OkMaster;
 
@@ -37,16 +38,17 @@ public abstract class RequestMaster {
     }
 
     public RequestMaster parames(String key , String  value){
-        if(key != null && value != null) {
-            parameters.put(key, value);
-        }
+        parameters.put(key ,value);
         return this;
     }
 
     public RequestMaster parames(String key , File value){
-        if(key != null && value != null) {
-            parameters.put(key, value);
-        }
+        parameters.put(key ,value);
+        return this;
+    }
+
+    public RequestMaster parames(String key , Object value){
+        parameters.put(key ,value);
         return this;
     }
 
@@ -56,9 +58,7 @@ public abstract class RequestMaster {
     }
 
     public RequestMaster headers(String key ,String value){
-        if(key != null && value != null) {
-            header.put(key, value);
-        }
+        header.put (key ,value);
         return this;
     }
 
@@ -70,26 +70,38 @@ public abstract class RequestMaster {
     protected abstract Request createRequest(Header header, Parameters parameters ,Object tag);
     //异步执行请求
     public void enqueue (Callback callback){
-        Request request = createRequest(header,parameters ,mTag);
-        Call call = OkMaster.okHttpClient.newCall(request);
-        call.enqueue(callback);
-        if(mTag!=null) {
-            callMap.put(mTag, call);
+        try {
+            Request request = createRequest(header, parameters, mTag);
+            Call call = OkMaster.okHttpClient.newCall(request);
+            call.enqueue(callback);
+            if (mTag != null) {
+                callMap.put(mTag, call);
+            }
+        }catch (Exception e){
+            Log.d("okhttp",e.getMessage());
         }
     }
     //异步执行下载
-    public void download (DownloadListener downloadListener){
-        Request request = createRequest(header , parameters ,mTag);
-        Call call = OkMaster.okHttpClient.newCall(request);
-        call.enqueue(new DownloadCallback(mDownloadInfo ,downloadListener));
-        if(mTag!=null) {
-            callMap.put(mTag, call);
+    public void startDownload (DownloadListener downloadListener){
+        try {
+            Request request = createRequest(header , parameters ,mTag);
+            Call call = OkMaster.okHttpClient.newCall(request);
+            call.enqueue(new DownloadCallback(mDownloadInfo ,downloadListener));
+            if(mTag!=null) {
+                callMap.put(mTag, call);
+            }
+        }catch (Exception e){
+            Log.d("okhttp",e.getMessage());
         }
     }
     public void upload(UploadListener uploadListener){
-        Request request = createRequest(header , parameters ,mTag);
-        Call call = OkMaster.okHttpClient.newCall(request);
-        call.enqueue(uploadListener);
+        try {
+            Request request = createRequest(header , parameters ,mTag);
+            Call call = OkMaster.okHttpClient.newCall(request);
+            call.enqueue(uploadListener);
+        }catch (Exception e){
+            Log.d("okhttp",e.getMessage());
+        }
     }
     //通过标签取消请求
     public void cancel (Object tag){

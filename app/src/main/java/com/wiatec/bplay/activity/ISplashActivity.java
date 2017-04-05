@@ -1,6 +1,6 @@
 package com.wiatec.bplay.activity;
 
-import com.wiatec.bplay.beans.Channel;
+import com.wiatec.bplay.beans.ChannelInfo;
 import com.wiatec.bplay.beans.UpdateInfo;
 
 import java.util.List;
@@ -12,5 +12,5 @@ import java.util.List;
 public interface ISplashActivity {
     void checkUpdate(UpdateInfo updateInfo);
     void checkToken(boolean tokenValid);
-    void loadChannel(List<Channel> list , boolean finished);
+    void loadChannel(List<ChannelInfo> list , boolean finished);
 }
