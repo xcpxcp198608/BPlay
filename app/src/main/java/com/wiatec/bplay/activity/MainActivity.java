@@ -98,7 +98,7 @@ public class MainActivity extends BaseActivity<IMainActivity , MainPresenter> im
             viewPagerCurrentItem = savedInstanceState.getInt("viewPagerCurrentItem" , 0);
         }
         binding.viewPagerIndicator.attachViewPager(binding.viewPager , viewPagerCurrentItem);
-        bindService();
+//        bindService();
     }
 
     @Override

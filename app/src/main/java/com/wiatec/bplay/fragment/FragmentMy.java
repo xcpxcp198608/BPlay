@@ -70,7 +70,7 @@ public class FragmentMy extends BaseFragment<IFragmentMy , FragmentMyPresenter> 
         public void onClick (View view){
             switch (view.getId()){
                 case R.id.bt_logout:
-                    activity.logout1();
+//                    activity.logout1();
                     break;
                 default:
                     break;
