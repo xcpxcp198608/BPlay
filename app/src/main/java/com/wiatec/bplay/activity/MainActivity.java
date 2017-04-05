@@ -25,6 +25,7 @@ import com.wiatec.bplay.fragment.FragmentRadios;
 import com.wiatec.bplay.fragment.FragmentSports;
 import com.wiatec.bplay.presenter.MainPresenter;
 import com.wiatec.bplay.service.CheckLoginService;
+import com.wiatec.bplay.utils.AppUtils;
 import com.wiatec.bplay.utils.Logger;
 
 import java.util.ArrayList;
@@ -151,9 +152,15 @@ public class MainActivity extends BaseActivity<IMainActivity , MainPresenter> im
     }
 
     public void play(ChannelInfo channelInfo){
-        Intent intent = new Intent(MainActivity.this , AdActivity.class);
-        intent.putExtra("channelInfo" , channelInfo);
-        startActivity(intent);
+        if("live".equals(channelInfo.getType())){
+            Intent intent = new Intent(MainActivity.this , AdActivity.class);
+            intent.putExtra("channelInfo" , channelInfo);
+            startActivity(intent);
+        }else if("app".equals(channelInfo.getType())){
+            AppUtils.launchApp(this , channelInfo.getUrl());
+        }else{
+
+        }
     }
 
     @Override

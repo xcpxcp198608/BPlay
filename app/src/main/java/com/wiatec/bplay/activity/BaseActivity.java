@@ -61,10 +61,10 @@ public abstract class BaseActivity<V ,T extends BasePresenter> extends AppCompat
         sharedPreferences = getSharedPreferences("private" , MODE_PRIVATE);
         editor = sharedPreferences.edit();
         token = sharedPreferences.getString("token","");
-        if(TextUtils.isEmpty(token)){
-            startActivity(new Intent(this , LoginActivity.class));
-            finish();
-        }
+//        if(TextUtils.isEmpty(token)){
+//            startActivity(new Intent(this , LoginActivity.class));
+//            finish();
+//        }
         userName = sharedPreferences.getString("userName" , null);
         count = sharedPreferences.getInt("count",0);
         rxBusSubscription = RxBus.getDefault().toObservable(RepeatLogin.class)

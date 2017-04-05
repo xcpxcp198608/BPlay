@@ -66,8 +66,8 @@ public class SplashActivity extends BaseActivity<ISplashActivity , SplashPresent
         if(isNeed){
             showUpdateDialog(updateInfo);
         }else{
-            presenter.checkToken(token);
-//            presenter.loadChannel(token);
+//            presenter.checkToken(token);
+            presenter.loadChannel(token);
         }
     }
 
