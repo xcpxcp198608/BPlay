@@ -4,13 +4,14 @@
     android:gravity="center"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:background="@drawable/channel_type_bg"
+    android:background="@drawable/bg_item_channel_type"
     android:padding="10dp"
     android:layout_margin="2dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="68dp">
 
     <ImageView
+        android:layout_marginLeft="10dp"
         android:id="@+id/iv_country"
         android:scaleType="centerInside"
         android:src="@mipmap/bplay_logo"

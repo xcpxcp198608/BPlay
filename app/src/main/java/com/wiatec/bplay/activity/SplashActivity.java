@@ -86,8 +86,10 @@ public class SplashActivity extends BaseActivity<ISplashActivity , SplashPresent
         if(finished){
             startActivity(new Intent(SplashActivity.this , MainActivity.class));
             finish();
+        }else{
+            startActivity(new Intent(SplashActivity.this , MainActivity.class));
+            finish();
         }
-
     }
 
     private void showUpdateDialog(final UpdateInfo updateInfo){

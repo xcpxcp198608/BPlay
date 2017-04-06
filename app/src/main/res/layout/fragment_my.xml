@@ -62,7 +62,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp">
                     <ImageButton
-                        android:background="@drawable/channel_bg"
+                        android:background="@drawable/bg_item_channel"
                         android:src="@mipmap/bplay_logo"
                         android:layout_weight="1"
                         android:layout_width="0dp"
@@ -70,7 +70,7 @@
 
                     <ImageButton
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/channel_bg"
+                        android:background="@drawable/bg_item_channel"
                         android:src="@mipmap/bplay_logo"
                         android:layout_weight="1"
                         android:layout_width="0dp"
@@ -86,7 +86,7 @@
                     android:layout_height="0dp">
 
                     <ImageButton
-                        android:background="@drawable/channel_bg"
+                        android:background="@drawable/bg_item_channel"
                         android:src="@mipmap/bplay_logo"
                         android:layout_weight="1"
                         android:layout_width="0dp"
@@ -94,7 +94,7 @@
 
                     <ImageButton
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/channel_bg"
+                        android:background="@drawable/bg_item_channel"
                         android:src="@mipmap/bplay_logo"
                         android:layout_weight="1"
                         android:layout_width="0dp"

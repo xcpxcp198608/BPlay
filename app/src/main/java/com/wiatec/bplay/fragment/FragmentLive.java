@@ -70,9 +70,9 @@ public class FragmentLive extends BaseFragment<IFragmentLive ,FragmentLivePresen
             public void onItemClickListener(View view, int position) {
                 for(int i=0 ; i<binding.rvChannelType.getChildCount() ; i++){
                     View v = binding.rvChannelType.getChildAt(i);
-                    v.setBackgroundResource(R.drawable.channel_type_bg);
+                    v.setBackgroundResource(R.drawable.bg_item_channel_type);
                 }
-                view.setBackgroundResource(R.drawable.channel_type_bg_focus);
+                view.setBackgroundResource(R.drawable.bg_item_channel_type_focus);
                 String country = list.get(position).getName();
                 presenter.loadChannelByCountry(country);
             }
@@ -82,9 +82,9 @@ public class FragmentLive extends BaseFragment<IFragmentLive ,FragmentLivePresen
             public void onItemSelected(View view, int position ,boolean hasFocus) {
                 for(int i=0 ; i<binding.rvChannelType.getChildCount() ; i++){
                     View v = binding.rvChannelType.getChildAt(i);
-                    v.setBackgroundResource(R.drawable.channel_type_bg);
+                    v.setBackgroundResource(R.drawable.bg_item_channel_type);
                 }
-                view.setBackgroundResource(R.drawable.channel_type_bg_focus);
+                view.setBackgroundResource(R.drawable.bg_item_channel_type_focus);
                 if(hasFocus) {
                     String country = list.get(position).getName();
                     presenter.loadChannelByCountry(country);

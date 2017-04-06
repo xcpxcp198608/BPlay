@@ -11,12 +11,17 @@
     <color name="colorRed2">#ed2094</color>
     <color name="colorGreen">#ff00FF00</color>
     <color name="colorGreen1">#07a107</color>
+    <color name="colorGreen2">#38f56e</color>
+    <color name="colorGreen3">#0d6816</color>
     <color name="colorBlue">#0000FF</color>
     <color name="colorBlue1">#7979e9</color>
     <color name="colorBlue2">#060323</color>
+    <color name="colorBlue3">#0078FF</color>
+    <color name="colorBlue4">#0D396C</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGrayB">#bbbbbb</color>
     <color name="colorGray">#a3a3a3</color>
+    <color name="colorGray1">#737373</color>
     <color name="colorTranslucent">#00000000</color>
     <color name="colorTranslucent3">#33000000</color>
     <color name="colorTranslucent5">#55000000</color>

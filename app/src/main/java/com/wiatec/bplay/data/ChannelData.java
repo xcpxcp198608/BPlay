@@ -6,6 +6,7 @@ import com.wiatec.bplay.Application;
 import com.wiatec.bplay.F;
 import com.wiatec.bplay.beans.ChannelInfo;
 import com.wiatec.bplay.sql.ChannelDao;
+import com.wiatec.bplay.utils.Logger;
 import com.wiatec.bplay.utils.OkHttp.Listener.StringListener;
 import com.wiatec.bplay.utils.OkHttp.OkMaster;
 
@@ -38,7 +39,7 @@ public class ChannelData implements IChannelData{
                     return;
                 }
                 List<ChannelInfo> list = new Gson().fromJson(s,new TypeToken<List<ChannelInfo>>(){}.getType());
-//                Logger.d(list.toString());
+                Logger.d(list.toString());
                 if(list != null && list.size()>0){
                     channelDao.multiInsert(list);
                 }

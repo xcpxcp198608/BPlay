@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/img_channel_focus"/>
+    <item>
+        <shape>
+            <gradient
+                android:angle="270"
+                android:startColor="@color/colorBlue3"
+                android:endColor="@color/colorBlue4"/>
+            <corners android:radius="11dp"/>
+        </shape>
+    </item>
+</layer-list>

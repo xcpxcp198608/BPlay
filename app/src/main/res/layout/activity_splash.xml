@@ -6,7 +6,7 @@
 
     <RelativeLayout
         android:padding="10dp"
-        android:background="@drawable/splash_bg"
+        android:background="@drawable/img_splash_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

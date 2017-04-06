@@ -16,7 +16,7 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:background="@drawable/channel_type_bg"
+                android:background="@drawable/bg_item_channel_type"
                 android:src="@mipmap/bplay_logo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />

@@ -94,7 +94,7 @@ public class MainActivity extends BaseActivity<IMainActivity , MainPresenter> im
         binding.viewPager.setCurrentItem(0);
         binding.viewPagerIndicator.setItem(7 ,0f ,0f);
         String [] titles = {getString(R.string.live) , getString(R.string.news), getString(R.string.movies) , getString(R.string.music) , getString(R.string.sports), getString(R.string.radios),getString(R.string.my)};
-        binding.viewPagerIndicator.setTextTitle(titles , R.color.colorTranslucent , R.drawable.blue_light,25 , 0xffa3a3a3 , 0xffffffff);
+        binding.viewPagerIndicator.setTextTitle(titles , R.color.colorTranslucent , R.drawable.img_blue_light,25 , 0xffa3a3a3 , 0xffffffff);
         if(savedInstanceState != null){
             viewPagerCurrentItem = savedInstanceState.getInt("viewPagerCurrentItem" , 0);
         }
@@ -158,8 +158,12 @@ public class MainActivity extends BaseActivity<IMainActivity , MainPresenter> im
             startActivity(intent);
         }else if("app".equals(channelInfo.getType())){
             AppUtils.launchApp(this , channelInfo.getUrl());
+        }else if("radio".equals(channelInfo.getType())){
+            Intent intent = new Intent(MainActivity.this , PlayRadioActivity.class);
+            intent.putExtra("channelInfo" , channelInfo);
+            startActivity(intent);
         }else{
-
+            Logger.d("");
         }
     }
 
