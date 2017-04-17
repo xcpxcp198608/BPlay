@@ -26,6 +26,7 @@
     <color name="colorTranslucent3">#33000000</color>
     <color name="colorTranslucent5">#55000000</color>
     <color name="colorTranslucentWhite1">#11ffffff</color>
+    <color name="colorTranslucentWhite15">#15ffffff</color>
     <color name="colorTranslucentWhite3">#33ffffff</color>
     <color name="colorTranslucentWhite5">#55ffffff</color>
 </resources>

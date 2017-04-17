@@ -43,4 +43,6 @@
     <string name="error_play">Play error ,please exit and try again!</string>
     <string name="update_notice">Update Notice</string>
     <string name="login_info">Account login at other place ,please login again</string>
+    <string name="app_no_install">app no installed , please go to app market download and install</string>
+    <string name="confirm_exit">Do you confirm exit?</string>
 </resources>

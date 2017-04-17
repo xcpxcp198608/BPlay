@@ -16,9 +16,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent">
 
-            <ImageButton
-                android:background="@drawable/bg_item_channel_type"
-                android:src="@mipmap/bplay_logo"
+            <Button
+                android:textColor="@android:color/white"
+                android:textSize="30dp"
+                android:background="@drawable/bg_item_ad"
+                android:text="Advertisement"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 

@@ -15,5 +15,11 @@ public final class F {
         public static final String check_token = "http://appota.gobeyondtv.co:8080/BPlay/CheckToken";
         public static final String check_login = "http://appota.gobeyondtv.co:8080/BPlay/CheckLogin";
         public static final String ad_image = "http://appota.gobeyondtv.co:8080/BPlay/GetAdImage";
+
+        public static final String WV_SETTINGS = "http://appota.gobeyondtv.co:8083/html/user_settings.html";
+    }
+
+    public static final class package_name{
+        public static final String market = "com.px.bmarket";
     }
 }

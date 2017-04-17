@@ -97,6 +97,7 @@ public class PlayActivity extends AppCompatActivity implements SurfaceHolder.Cal
                 @Override
                 public boolean onError(MediaPlayer mp, int what, int extra) {
                     mediaPlayer.reset();
+                    progressBar.setVisibility(View.GONE);
                     Toast.makeText(PlayActivity.this,getString(R.string.error_play),Toast.LENGTH_LONG).show();
                     return false;
                 }

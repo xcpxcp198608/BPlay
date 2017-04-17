@@ -1,5 +1,6 @@
 package com.wiatec.bplay.activity;
 
+import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -8,10 +9,16 @@ import android.databinding.DataBindingUtil;
 import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.wiatec.bplay.Application;
+import com.wiatec.bplay.F;
 import com.wiatec.bplay.R;
 import com.wiatec.bplay.adapter.FragmentAdapter;
 import com.wiatec.bplay.beans.ChannelInfo;
@@ -56,6 +63,11 @@ public class MainActivity extends BaseActivity<IMainActivity , MainPresenter> im
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main);
         binding.setOnEvent(new OnEventListener());
+        attachFragment();
+//        bindService();
+    }
+
+    private void attachFragment (){
         if(fragmentLive == null){
             fragmentLive = new FragmentLive();
         }
@@ -95,18 +107,13 @@ public class MainActivity extends BaseActivity<IMainActivity , MainPresenter> im
         binding.viewPagerIndicator.setItem(7 ,0f ,0f);
         String [] titles = {getString(R.string.live) , getString(R.string.news), getString(R.string.movies) , getString(R.string.music) , getString(R.string.sports), getString(R.string.radios),getString(R.string.my)};
         binding.viewPagerIndicator.setTextTitle(titles , R.color.colorTranslucent , R.drawable.img_blue_light,25 , 0xffa3a3a3 , 0xffffffff);
-        if(savedInstanceState != null){
-            viewPagerCurrentItem = savedInstanceState.getInt("viewPagerCurrentItem" , 0);
-        }
         binding.viewPagerIndicator.attachViewPager(binding.viewPager , viewPagerCurrentItem);
-//        bindService();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Logger.d("main onStart");
-        binding.viewPager.requestFocus();
+        //binding.viewPager.requestFocus();
     }
 
     private void bindService(){
@@ -141,23 +148,49 @@ public class MainActivity extends BaseActivity<IMainActivity , MainPresenter> im
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(event.getKeyCode() == KeyEvent.KEYCODE_BACK){
-           if(System.currentTimeMillis() - backTime > 2000){
-               Toast.makeText(MainActivity.this,getString(R.string.exit_notice),Toast.LENGTH_SHORT).show();
-                backTime = System.currentTimeMillis();
-           }else{
-               finish();
-           }return true;
+           showExitDialog();
+           return true;
         }
         return super.onKeyDown(keyCode, event);
     }
 
+    private void showExitDialog(){
+        final AlertDialog alertDialog = new AlertDialog.Builder(this,R.style.dialog).create();
+        alertDialog.show();
+        Window window = alertDialog.getWindow();
+        if(window == null){
+            return;
+        }
+        window.setContentView(R.layout.dialog_exit);
+        Button btConfirm = (Button) window.findViewById(R.id.bt_confirm);
+        Button btCancel = (Button) window.findViewById(R.id.bt_cancel);
+        TextView textView = (TextView) window.findViewById(R.id.tv_info);
+        btConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        btCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+    }
+
     public void play(ChannelInfo channelInfo){
         if("live".equals(channelInfo.getType())){
-            Intent intent = new Intent(MainActivity.this , AdActivity.class);
+            Intent intent = new Intent(MainActivity.this , PlayActivity.class);
             intent.putExtra("channelInfo" , channelInfo);
             startActivity(intent);
         }else if("app".equals(channelInfo.getType())){
-            AppUtils.launchApp(this , channelInfo.getUrl());
+            if(AppUtils.isInstalled(Application.getContext(), channelInfo.getUrl())){
+                AppUtils.launchApp(this, channelInfo.getUrl());
+            }else {
+                Toast.makeText(MainActivity.this,getString(R.string.app_no_install),Toast.LENGTH_SHORT).show();
+                AppUtils.launchApp(this, F.package_name.market);
+            }
         }else if("radio".equals(channelInfo.getType())){
             Intent intent = new Intent(MainActivity.this , PlayRadioActivity.class);
             intent.putExtra("channelInfo" , channelInfo);
@@ -165,14 +198,6 @@ public class MainActivity extends BaseActivity<IMainActivity , MainPresenter> im
         }else{
             Logger.d("");
         }
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        viewPagerCurrentItem = binding.viewPager.getCurrentItem();
-        Bundle bundle = new Bundle();
-        bundle.putInt("viewPagerCurrentItem",viewPagerCurrentItem);
     }
 
     public void logout1(){

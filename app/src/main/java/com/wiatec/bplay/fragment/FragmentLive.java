@@ -91,7 +91,7 @@ public class FragmentLive extends BaseFragment<IFragmentLive ,FragmentLivePresen
                 }
             }
         });
-        presenter.loadChannelByCountry("CHINA");
+        presenter.loadChannelByCountry("USA/UK");
     }
 
     @Override

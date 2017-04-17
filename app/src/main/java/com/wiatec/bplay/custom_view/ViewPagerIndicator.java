@@ -141,7 +141,6 @@ public class ViewPagerIndicator extends LinearLayout {
         LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT , LayoutParams.MATCH_PARENT);
         lp.width = getScreenWidth()/mVisibleTableCount;
         textView.setText(s);
-        //tv应用使用时注意焦点问题导致回activity时不在离开的页面,可以设置viewpager requestFocus 解决
         textView.setFocusable(true);
         textView.setFocusableInTouchMode(true);
         textView.setGravity(Gravity.CENTER);

@@ -62,15 +62,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp">
                     <ImageButton
-                        android:background="@drawable/bg_item_channel"
+                        android:id="@+id/ibt1"
+                        android:onClick="@{(view) -> onEvent.onClick(view)}"
+                        android:background="@drawable/bg_item_ad"
                         android:src="@mipmap/bplay_logo"
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="match_parent" />
 
                     <ImageButton
+                        android:id="@+id/ibt2"
+                        android:onClick="@{(view) -> onEvent.onClick(view)}"
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/bg_item_channel"
+                        android:background="@drawable/bg_item_ad"
                         android:src="@mipmap/bplay_logo"
                         android:layout_weight="1"
                         android:layout_width="0dp"
@@ -86,15 +90,19 @@
                     android:layout_height="0dp">
 
                     <ImageButton
-                        android:background="@drawable/bg_item_channel"
+                        android:id="@+id/ibt3"
+                        android:onClick="@{(view) -> onEvent.onClick(view)}"
+                        android:background="@drawable/bg_item_ad"
                         android:src="@mipmap/bplay_logo"
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="match_parent" />
 
                     <ImageButton
+                        android:id="@+id/ibt4"
+                        android:onClick="@{(view) -> onEvent.onClick(view)}"
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/bg_item_channel"
+                        android:background="@drawable/bg_item_ad"
                         android:src="@mipmap/bplay_logo"
                         android:layout_weight="1"
                         android:layout_width="0dp"

@@ -38,6 +38,7 @@ public class FragmentMusic extends BaseFragment<IFragmentMusic , FragmentMusicPr
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater , R.layout.fragment_music , container , false);
+        presenter.loadChannelMusic("MUSIC");
         return binding.getRoot();
     }
 
@@ -50,7 +51,7 @@ public class FragmentMusic extends BaseFragment<IFragmentMusic , FragmentMusicPr
     @Override
     public void onStart() {
         super.onStart();
-        presenter.loadChannelMusic("MUSIC");
+
     }
 
     @Override
