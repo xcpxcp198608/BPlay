@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.wiatec.bplay.R;
+import com.wiatec.bplay.activity.ChannelActivity;
 import com.wiatec.bplay.activity.MainActivity;
 import com.wiatec.bplay.activity.WebViewActivity;
 import com.wiatec.bplay.adapter.ChannelFavoriteAdapter;
@@ -27,7 +28,7 @@ import java.util.List;
 public class FragmentMy extends BaseFragment<IFragmentMy , FragmentMyPresenter> implements IFragmentMy {
 
     private FragmentMyBinding binding;
-    private MainActivity activity;
+    private ChannelActivity activity;
     private ChannelFavoriteAdapter favoriteAdapter;
 
     @Override
@@ -38,7 +39,7 @@ public class FragmentMy extends BaseFragment<IFragmentMy , FragmentMyPresenter> 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        activity = (MainActivity) context;
+        activity = (ChannelActivity) context;
     }
 
     @Nullable

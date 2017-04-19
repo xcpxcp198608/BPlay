@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.wiatec.bplay.R;
+import com.wiatec.bplay.activity.ChannelActivity;
 import com.wiatec.bplay.activity.MainActivity;
 import com.wiatec.bplay.adapter.ChannelAdapter;
 import com.wiatec.bplay.animator.Zoom;
@@ -27,7 +28,7 @@ public class FragmentNews extends BaseFragment<IFragmentNews , FragmentNewsPrese
 
     private FragmentNewsBinding binding;
     private ChannelAdapter channelAdapter;
-    private MainActivity activity;
+    private ChannelActivity activity;
 
     @Override
     protected FragmentNewsPresenter createPresenter() {
@@ -38,19 +39,14 @@ public class FragmentNews extends BaseFragment<IFragmentNews , FragmentNewsPrese
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_news , container ,false);
+        presenter.loadChannelNews("NEWS");
         return binding.getRoot();
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        activity = (MainActivity) context;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        presenter.loadChannelNews("NEWS");
+        activity = (ChannelActivity) context;
     }
 
     @Override

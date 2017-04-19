@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_channel_music"
+            android:id="@+id/rv_channel_favorite"
             android:layout_marginLeft="10dp"
             android:background="@color/colorTranslucentWhite1"
             android:layout_weight="3"

@@ -35,7 +35,7 @@ public class ChannelTypeAdapter extends RecyclerView.Adapter<ChannelTypeViewHold
     }
 
     @Override
-    public void onBindViewHolder(ChannelTypeViewHolder holder, final int position) {
+    public void onBindViewHolder(final ChannelTypeViewHolder holder, final int position) {
         ChannelType channelType = list.get(position);
         Glide.with(Application.getContext()).load(channelType.getIcon()).placeholder(R.mipmap.bplay_logo)
                 .error(R.mipmap.bplay_logo).into(holder.ivCountry);
@@ -44,7 +44,7 @@ public class ChannelTypeAdapter extends RecyclerView.Adapter<ChannelTypeViewHold
             @Override
             public void onClick(View v) {
                 if(mOnItemClickListener != null) {
-                    mOnItemClickListener.onItemClickListener(v, position);
+                    mOnItemClickListener.onItemClickListener(v, holder.getLayoutPosition());
                 }
             }
         });
@@ -52,7 +52,7 @@ public class ChannelTypeAdapter extends RecyclerView.Adapter<ChannelTypeViewHold
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(mOnItemSelectedListener != null) {
-                    mOnItemSelectedListener.onItemSelected(v, position ,hasFocus);
+                    mOnItemSelectedListener.onItemSelected(v, holder.getLayoutPosition() ,hasFocus);
                 }
             }
         });

@@ -36,7 +36,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(ChannelViewHolder holder, final int position) {
+    public void onBindViewHolder(final ChannelViewHolder holder, final int position) {
         ChannelInfo channelInfo = list.get(position);
         Glide.with(Application.getContext())
                 .load(channelInfo.getIcon())
@@ -50,7 +50,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelViewHolder> {
             @Override
             public void onClick(View v) {
                 if(mOnItemClickListener != null){
-                    mOnItemClickListener.onItemClick(v,position);
+                    mOnItemClickListener.onItemClick(v,holder.getLayoutPosition());
                 }
             }
         });
@@ -59,7 +59,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelViewHolder> {
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
                     if(mOnItemSelectedListener != null){
-                        mOnItemSelectedListener.onItemSelected(v,position);
+                        mOnItemSelectedListener.onItemSelected(v,holder.getLayoutPosition());
                     }
                 }
             }
@@ -68,7 +68,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelViewHolder> {
             @Override
             public boolean onLongClick(View v) {
                 if(mOnItemLongClickListener != null){
-                    mOnItemLongClickListener.onItemLongClick(v,position);
+                    mOnItemLongClickListener.onItemLongClick(v,holder.getLayoutPosition());
                 }
                 return false;
             }

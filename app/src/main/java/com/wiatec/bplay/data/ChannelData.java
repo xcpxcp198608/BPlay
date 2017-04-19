@@ -39,7 +39,7 @@ public class ChannelData implements IChannelData{
                     return;
                 }
                 List<ChannelInfo> list = new Gson().fromJson(s,new TypeToken<List<ChannelInfo>>(){}.getType());
-                Logger.d(list.toString());
+                //Logger.d(list.toString());
                 if(list != null && list.size()>0){
                     channelDao.multiInsert(list);
                 }

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.wiatec.bplay.R;
+import com.wiatec.bplay.activity.ChannelActivity;
 import com.wiatec.bplay.activity.MainActivity;
 import com.wiatec.bplay.adapter.ChannelAdapter;
 import com.wiatec.bplay.animator.Zoom;
@@ -27,7 +28,7 @@ public class FragmentMovies extends BaseFragment<IFragmentMovies , FragmentMovie
 
     private FragmentMoviesBinding binding;
     private ChannelAdapter channelAdapter;
-    private MainActivity activity;
+    private ChannelActivity activity;
 
     @Override
     protected FragmentMoviesPresenter createPresenter() {
@@ -44,7 +45,7 @@ public class FragmentMovies extends BaseFragment<IFragmentMovies , FragmentMovie
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        activity  = (MainActivity) context;
+        activity  = (ChannelActivity) context;
     }
 
     @Override

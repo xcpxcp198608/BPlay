@@ -34,7 +34,7 @@ public class ChannelFavoriteAdapter extends RecyclerView.Adapter<ChannelFavorite
     }
 
     @Override
-    public void onBindViewHolder(ChannelFavoriteViewHolder holder, final int position) {
+    public void onBindViewHolder(final ChannelFavoriteViewHolder holder, final int position) {
         ChannelInfo channelInfo = list.get(position);
         Glide.with(Application.getContext())
                 .load(channelInfo.getIcon())
@@ -47,7 +47,7 @@ public class ChannelFavoriteAdapter extends RecyclerView.Adapter<ChannelFavorite
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemClickListener.onItemClick(v,position);
+                    mOnItemClickListener.onItemClick(v,holder.getLayoutPosition());
                 }
             });
         }

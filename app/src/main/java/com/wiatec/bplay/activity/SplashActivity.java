@@ -84,10 +84,10 @@ public class SplashActivity extends BaseActivity<ISplashActivity , SplashPresent
     @Override
     public void loadChannel(List<ChannelInfo> list  , boolean finished) {
         if(finished){
-            startActivity(new Intent(SplashActivity.this , MainActivity.class));
+            startActivity(new Intent(SplashActivity.this , MainActivity1.class));
             finish();
         }else{
-            startActivity(new Intent(SplashActivity.this , MainActivity.class));
+            startActivity(new Intent(SplashActivity.this , MainActivity1.class));
             finish();
         }
     }

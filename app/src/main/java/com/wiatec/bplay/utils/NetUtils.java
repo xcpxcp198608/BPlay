@@ -21,8 +21,8 @@ public class NetUtils {
     public static boolean isConnected (Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if(networkInfo !=null && networkInfo.isAvailable()){
-            return true;
+        if(networkInfo !=null ){
+            return networkInfo.isAvailable();
         }else {
             return false;
         }

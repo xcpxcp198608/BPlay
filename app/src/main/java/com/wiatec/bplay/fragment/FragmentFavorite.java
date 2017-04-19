@@ -11,35 +11,35 @@ import android.view.ViewGroup;
 
 import com.wiatec.bplay.R;
 import com.wiatec.bplay.activity.ChannelActivity;
-import com.wiatec.bplay.activity.MainActivity;
 import com.wiatec.bplay.adapter.ChannelAdapter;
 import com.wiatec.bplay.animator.Zoom;
 import com.wiatec.bplay.beans.ChannelInfo;
-import com.wiatec.bplay.databinding.FragmentMusicBinding;
-import com.wiatec.bplay.presenter.FragmentMusicPresenter;
+import com.wiatec.bplay.databinding.FragmentFavoriteBinding;
+import com.wiatec.bplay.databinding.FragmentMoviesBinding;
+import com.wiatec.bplay.presenter.FragmentFavoritePresenter;
 
 import java.util.List;
 
 /**
- * Created by patrick on 2017/2/10.
+ * Created by patrick on 2017/4/19.
  */
 
-public class FragmentMusic extends BaseFragment<IFragmentMusic , FragmentMusicPresenter> implements IFragmentMusic {
+public class FragmentFavorite extends BaseFragment<IFragment ,FragmentFavoritePresenter> implements IFragment {
 
-    private FragmentMusicBinding binding;
+    private FragmentFavoriteBinding binding;
     private ChannelAdapter channelAdapter;
     private ChannelActivity activity;
 
     @Override
-    protected FragmentMusicPresenter createPresenter() {
-        return new FragmentMusicPresenter(this);
+    protected FragmentFavoritePresenter createPresenter() {
+        return new FragmentFavoritePresenter(this);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater , R.layout.fragment_music , container , false);
-        presenter.loadChannelMusic("MUSIC");
+        binding = DataBindingUtil.inflate(inflater , R.layout.fragment_favorite , container ,false);
+        presenter.loadFavoriteChannel();
         return binding.getRoot();
     }
 
@@ -50,12 +50,12 @@ public class FragmentMusic extends BaseFragment<IFragmentMusic , FragmentMusicPr
     }
 
     @Override
-    public void loadChannelMusic(final List<ChannelInfo> list) {
-        if(channelAdapter == null) {
+    public void loadChannel(final List<ChannelInfo> list) {
+        if(channelAdapter ==null) {
             channelAdapter = new ChannelAdapter(list);
         }
-        binding.rvChannelMusic.setAdapter(channelAdapter);
-        binding.rvChannelMusic.setLayoutManager(new GridLayoutManager(getContext(),4));
+        binding.rvChannelFavorite.setAdapter(channelAdapter);
+        binding.rvChannelFavorite.setLayoutManager(new GridLayoutManager(getContext(),4));
         channelAdapter.setOnItemClickListener(new ChannelAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {

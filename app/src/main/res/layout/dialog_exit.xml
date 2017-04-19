@@ -3,16 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:paddingTop="60dp"
-    android:paddingBottom="60dp"
-    android:paddingLeft="80dp"
-    android:paddingRight="80dp"
+    android:paddingTop="40dp"
+    android:paddingBottom="40dp"
+    android:paddingLeft="60dp"
+    android:paddingRight="60dp"
     android:background="@drawable/bg_dialog_exit"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <TextView
         android:text="@string/notice"
-        android:textSize="36sp"
+        android:textSize="32sp"
         android:gravity="center"
         android:textColor="@android:color/white"
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
     <TextView
         android:layout_marginTop="10dp"
         android:text="@string/confirm_exit"
-        android:textSize="30sp"
+        android:textSize="27sp"
         android:gravity="center"
         android:textColor="@android:color/white"
         android:layout_width="match_parent"
@@ -36,16 +36,21 @@
         <Button
             android:id="@+id/bt_confirm"
             android:textAllCaps="false"
-            android:textSize="25sp"
+            android:textSize="23sp"
             android:text="@string/confirm"
+            android:textColor="@android:color/white"
             android:layout_weight="1"
             android:layout_width="0dp"
+            android:background="@drawable/bg_button"
             android:layout_height="wrap_content" />
 
         <Button
+            android:layout_marginLeft="20dp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/bg_button"
             android:id="@+id/bt_cancel"
             android:textAllCaps="false"
-            android:textSize="25sp"
+            android:textSize="23sp"
             android:text="@string/cancel"
             android:layout_weight="1"
             android:layout_width="0dp"

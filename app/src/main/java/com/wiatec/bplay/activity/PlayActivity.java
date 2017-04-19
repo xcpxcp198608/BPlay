@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.wiatec.bplay.R;
 import com.wiatec.bplay.beans.ChannelInfo;
 import com.wiatec.bplay.sql.ChannelDao;
+import com.wiatec.bplay.utils.Logger;
 
 import java.io.IOException;
 
@@ -74,7 +75,11 @@ public class PlayActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-
+        if(mediaPlayer != null){
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 
     private void play(String url){

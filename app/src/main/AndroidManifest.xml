@@ -35,6 +35,9 @@
         <activity android:name=".activity.UpdateActivity"/>
         <activity android:name=".activity.WebViewActivity"/>
         <service android:name=".service.CheckLoginService"/>
+        <activity android:name=".activity.MainActivity1"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".activity.ChannelActivity"/>
 
     </application>
 

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.wiatec.bplay.R;
+import com.wiatec.bplay.activity.ChannelActivity;
 import com.wiatec.bplay.activity.MainActivity;
 import com.wiatec.bplay.adapter.ChannelAdapter;
 import com.wiatec.bplay.adapter.ChannelTypeAdapter;
@@ -20,6 +21,7 @@ import com.wiatec.bplay.beans.ChannelInfo;
 import com.wiatec.bplay.beans.ChannelType;
 import com.wiatec.bplay.databinding.FragmentLiveBinding;
 import com.wiatec.bplay.presenter.FragmentLivePresenter;
+import com.wiatec.bplay.utils.Logger;
 
 import java.util.List;
 
@@ -30,7 +32,7 @@ import java.util.List;
 public class FragmentLive extends BaseFragment<IFragmentLive ,FragmentLivePresenter> implements IFragmentLive {
 
     private FragmentLiveBinding binding;
-    private MainActivity activity;
+    private ChannelActivity activity;
 
     @Override
     protected FragmentLivePresenter createPresenter() {
@@ -41,14 +43,14 @@ public class FragmentLive extends BaseFragment<IFragmentLive ,FragmentLivePresen
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater ,R.layout.fragment_live , container , false);
-        presenter.loadChannelType(activity.getToken());
+        presenter.loadChannelType("");
         return binding.getRoot();
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        activity = (MainActivity) context;
+        activity = (ChannelActivity) context;
     }
 
     public class OnEventListener {
@@ -91,12 +93,13 @@ public class FragmentLive extends BaseFragment<IFragmentLive ,FragmentLivePresen
                 }
             }
         });
-        presenter.loadChannelByCountry("USA/UK");
     }
 
     @Override
     public void loadChannel(final List<ChannelInfo> list , boolean finished) {
+        Logger.d(list.toString());
         ChannelAdapter channelAdapter = new ChannelAdapter(list);
+        channelAdapter.notifyDataSetChanged();
         binding.rvChannel.setAdapter(channelAdapter);
         binding.rvChannel.setLayoutManager(new GridLayoutManager(getContext() ,5));
         channelAdapter.setOnItemClickListener(new ChannelAdapter.OnItemClickListener() {
