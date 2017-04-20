@@ -15,7 +15,7 @@ public class SQLHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_CHANNEL = "create table if not exists "+TABLE_NAME+"(_id integer primary key autoincrement" +
             ",sequence integer ,tag text , name text ,url text ,icon text,type text,country text,style text,visible integer ,favorite text)";
     private static final String DROP_TABLE_CHANNEL = "drop table if exists "+TABLE_NAME;
-    private static final int VERSION = 4;
+    private static final int VERSION = 5;
 
     public SQLHelper(Context context ) {
         super(context, DATABASE_NAME, null, VERSION);
