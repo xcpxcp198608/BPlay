@@ -97,7 +97,7 @@ public class FragmentLive extends BaseFragment<IFragmentLive ,FragmentLivePresen
 
     @Override
     public void loadChannel(final List<ChannelInfo> list , boolean finished) {
-        Logger.d(list.toString());
+//        Logger.d(list.toString());
         ChannelAdapter channelAdapter = new ChannelAdapter(list);
         channelAdapter.notifyDataSetChanged();
         binding.rvChannel.setAdapter(channelAdapter);
