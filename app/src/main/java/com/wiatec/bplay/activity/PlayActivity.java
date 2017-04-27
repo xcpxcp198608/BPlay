@@ -88,6 +88,7 @@ public class PlayActivity extends AppCompatActivity implements SurfaceHolder.Cal
         }
         mediaPlayer.reset();
         try {
+            Logger.d(url);
             mediaPlayer.setDataSource(url);
             mediaPlayer.setDisplay(surfaceHolder);
             mediaPlayer.prepareAsync();

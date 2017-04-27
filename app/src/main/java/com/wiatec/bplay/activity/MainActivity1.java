@@ -12,9 +12,11 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.wiatec.bplay.F;
 import com.wiatec.bplay.R;
 import com.wiatec.bplay.animator.Zoom;
 import com.wiatec.bplay.databinding.ActivityMain1Binding;
+import com.wiatec.bplay.utils.AppUtils;
 
 /**
  * Created by patrick on 2017/4/18.
@@ -37,6 +39,11 @@ public class MainActivity1 extends AppCompatActivity implements View.OnFocusChan
     public class OnEventListener {
         public void onClick (View view){
             switch (view.getId()){
+                case R.id.ibt_btv:
+                    if(AppUtils.isInstalled(MainActivity1.this , F.package_name.btv)){
+                        AppUtils.launchApp(MainActivity1.this , F.package_name.btv);
+                    }
+                    break;
                 case R.id.ibt_live:
                     intent.setClass(MainActivity1.this , ChannelActivity.class);
                     intent.putExtra("type","live");
@@ -111,16 +118,14 @@ public class MainActivity1 extends AppCompatActivity implements View.OnFocusChan
     private void setFocusListener(){
         binding.etSearch.setOnFocusChangeListener(this);
         binding.ibtPerson.setOnFocusChangeListener(this);
+        binding.ibtBtv.setOnFocusChangeListener(this);
         binding.ibtLive.setOnFocusChangeListener(this);
         binding.ibtNews.setOnFocusChangeListener(this);
         binding.ibtMovies.setOnFocusChangeListener(this);
         binding.ibtMusic.setOnFocusChangeListener(this);
         binding.ibtSports.setOnFocusChangeListener(this);
         binding.ibtRadios.setOnFocusChangeListener(this);
-        binding.ibt1.setOnFocusChangeListener(this);
-        binding.ibt2.setOnFocusChangeListener(this);
         binding.ibtFavorite.setOnFocusChangeListener(this);
-
     }
 
     @Override

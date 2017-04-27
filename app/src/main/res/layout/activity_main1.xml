@@ -75,6 +75,16 @@
                 android:layout_height="match_parent" />
 
             <ImageButton
+                android:id="@+id/ibt_btv"
+                android:onClick="@{(view) -> onEvent.onClick(view)}"
+                android:src="@drawable/img_btv_icon"
+                android:scaleType="centerInside"
+                android:background="@drawable/bg_item"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+
+            <ImageButton
                 android:id="@+id/ibt_live"
                 android:onClick="@{(view) -> onEvent.onClick(view)}"
                 android:src="@drawable/ic_live"
@@ -82,6 +92,31 @@
                 android:layout_weight="2"
                 android:layout_width="0dp"
                 android:layout_height="match_parent" />
+            <ImageButton
+                android:id="@+id/ibt_favorite"
+                android:onClick="@{(view) -> onEvent.onClick(view)}"
+                android:background="@drawable/bg_item"
+                android:src="@drawable/ic_favorite"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="30dp"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:clipChildren="false"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="0dp">
+
+            <android.support.v4.widget.Space
+                android:layout_width="30dp"
+                android:layout_height="match_parent" />
+
             <ImageButton
                 android:id="@+id/ibt_news"
                 android:onClick="@{(view) -> onEvent.onClick(view)}"
@@ -106,23 +141,6 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent" />
-
-            <android.support.v4.widget.Space
-                android:layout_width="30dp"
-                android:layout_height="match_parent" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:clipChildren="false"
-            android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_height="0dp">
-
-            <android.support.v4.widget.Space
-                android:layout_width="30dp"
-                android:layout_height="match_parent" />
-
             <ImageButton
                 android:id="@+id/ibt_sports"
                 android:onClick="@{(view) -> onEvent.onClick(view)}"
@@ -136,28 +154,6 @@
                 android:onClick="@{(view) -> onEvent.onClick(view)}"
                 android:src="@drawable/ic_radios"
                 android:background="@drawable/bg_item"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent" />
-            <ImageButton
-                android:id="@+id/ibt_1"
-                android:onClick="@{(view) -> onEvent.onClick(view)}"
-                android:background="@drawable/bg_item"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent" />
-            <ImageButton
-                android:id="@+id/ibt_2"
-                android:onClick="@{(view) -> onEvent.onClick(view)}"
-                android:background="@drawable/bg_item"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent" />
-            <ImageButton
-                android:id="@+id/ibt_favorite"
-                android:onClick="@{(view) -> onEvent.onClick(view)}"
-                android:background="@drawable/bg_item"
-                android:src="@drawable/ic_favorite"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent" />

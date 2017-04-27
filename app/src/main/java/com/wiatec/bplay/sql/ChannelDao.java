@@ -147,7 +147,6 @@ public class ChannelDao {
                 channelInfo.setStyle(cursor.getString(cursor.getColumnIndex("style")));
                 channelInfo.setVisible(cursor.getInt(cursor.getColumnIndex("visible")));
                 channelInfo.setFavorite(cursor.getString(cursor.getColumnIndex("favorite")));
-                Logger.d(channelInfo.toString());
                 list.add(channelInfo);
             }
         }catch (Exception e){

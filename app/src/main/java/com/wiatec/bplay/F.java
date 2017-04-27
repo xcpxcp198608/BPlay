@@ -21,5 +21,6 @@ public final class F {
 
     public static final class package_name{
         public static final String market = "com.px.bmarket";
+        public static final String btv = "org.xbmc.kodi";
     }
 }

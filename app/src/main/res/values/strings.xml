@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">BPlay</string>
-    <string name="app_name_caps">BPLAY</string>
+    <string name="app_name">Live Play</string>
+    <string name="app_name_caps">LIVE PLAY</string>
 
     <string name="notice">Notice</string>
     <string name="confirm">Confirm</string>
@@ -26,7 +26,7 @@
     <string name="register_fail">Register fail , please try again</string>
     <string name="login_fail">Login fail , please check user information and try again</string>
     <string name="network_error">Network connect error , please check </string>
-    <string name="copyright">Copyright © 2016-2017 LegacyDirect. All Rights Reserved</string>
+    <string name="copyright">All resources are from internet, for educational purpose only</string>
     <string name="live">Live</string>
     <string name="news">News</string>
     <string name="movies">Movies</string>
@@ -39,11 +39,11 @@
     <string name="favorite">Favorite</string>
     <string name="add_favorite"> add to favorite</string>
     <string name="remove_favorite"> remove from favorite</string>
-    <string name="device_notice">The device has not been support!</string>
-    <string name="exit_notice">Press back again will exit program</string>
-    <string name="error_play">Play error ,please exit and try again!</string>
+    <string name="device_notice">The device is not supported!</string>
+    <string name="exit_notice">Press back again to exit program</string>
+    <string name="error_play">Channel error, please try again later!</string>
     <string name="update_notice">Update Notice</string>
-    <string name="login_info">Account login at other place ,please login again</string>
-    <string name="app_no_install">app no installed , please go to app market download and install</string>
+    <string name="login_info">Account login on other device,please login again</string>
+    <string name="app_no_install">Selected app not installed, please go to app market to download and install</string>
     <string name="confirm_exit">Do you confirm exit?</string>
 </resources>
