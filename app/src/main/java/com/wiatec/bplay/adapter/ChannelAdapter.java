@@ -51,7 +51,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelViewHolder> {
             @Override
             public void onClick(View v) {
                 if(mOnItemClickListener != null){
-                    mOnItemClickListener.onItemClick(v,holder.getLayoutPosition());
+                    mOnItemClickListener.onItemClick(v,position);
                 }
             }
         });
@@ -60,7 +60,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelViewHolder> {
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
                     if(mOnItemSelectedListener != null){
-                        mOnItemSelectedListener.onItemSelected(v,holder.getLayoutPosition());
+                        mOnItemSelectedListener.onItemSelected(v,position);
                     }
                     Zoom.zoomIn10to11(v);
                 }else{
@@ -72,7 +72,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelViewHolder> {
             @Override
             public boolean onLongClick(View v) {
                 if(mOnItemLongClickListener != null){
-                    mOnItemLongClickListener.onItemLongClick(v,holder.getLayoutPosition());
+                    mOnItemLongClickListener.onItemLongClick(v,position);
                 }
                 return false;
             }

@@ -103,11 +103,12 @@
             <ImageButton
                 android:id="@+id/ibt_plus"
                 android:onClick="@{(view) -> onEvent.onClick(view)}"
-                android:src="@drawable/plus_128"
+                android:src="@drawable/icon_plus1"
                 android:background="@drawable/bg_item"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent" />
+
             <ImageButton
                 android:id="@+id/ibt_tv"
                 android:onClick="@{(view) -> onEvent.onClick(view)}"

@@ -1,5 +1,7 @@
 package com.wiatec.bplay;
 
+import android.os.Environment;
+
 /**
  * Created by patrick on 2017/1/13.
  */
@@ -27,4 +29,11 @@ public final class F {
         public static final String tv_house = "com.fanshi.tvvideo";
         public static final String show_box = "com.tdo.showbox";
     }
+
+    public static final class path {
+        public static final String logcat= Environment.getExternalStorageDirectory().getAbsolutePath()
+                +"/Android/data/com.wiatec.bplay/files/logcat/";
+
+    }
+
 }

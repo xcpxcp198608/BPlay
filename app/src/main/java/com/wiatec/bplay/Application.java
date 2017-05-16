@@ -2,6 +2,7 @@ package com.wiatec.bplay;
 
 import android.content.Context;
 
+import com.wiatec.bplay.exception.CrashHandler;
 import com.wiatec.bplay.utils.Logger;
 
 import java.net.Authenticator;
@@ -13,25 +14,20 @@ import java.net.Authenticator;
 public class Application extends android.app.Application {
 
     private static Context context;
+    private CrashHandler crashHandler;
 
     @Override
     public void onCreate() {
         super.onCreate();
         Logger.init("----px----");
         context = getApplicationContext();
-//        setHttpProxy();
+        crashHandler = CrashHandler.getInstance();
+        crashHandler.init(context);
     }
 
     public static Context getContext(){
          return  context;
     }
 
-    /**
-     * 设置系统的网络代理
-     */
-    private void setHttpProxy(){
-        System.setProperty("http.proxyHost","btvota.gobeyondtv.co");
-        System.setProperty("http.proxyPort","1723");
-    }
 
 }

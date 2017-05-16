@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.google.gson.Gson;
@@ -48,6 +49,7 @@ public abstract class BaseActivity<V ,T extends BasePresenter> extends AppCompat
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         presenter = createPresenter();
         presenter.attachView(this);
         rxBusSubscription = RxBus.getDefault().toObservable(CheckLoginEvent.class)
