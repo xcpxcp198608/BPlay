@@ -7,9 +7,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.wiatec.bplay.Application;
 import com.wiatec.bplay.R;
 import com.wiatec.bplay.beans.ChannelInfo;
 import com.wiatec.bplay.databinding.ActivityPlayRadioBinding;
+import com.wiatec.bplay.utils.AESUtil;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -38,6 +40,7 @@ public class PlayRadioActivity extends AppCompatActivity {
         if(channelInfo == null){
             return;
         }
+        channelInfo.setUrl(AESUtil.decrypt(channelInfo.getUrl() , AESUtil.key));
         if(mediaPlayer == null){
             mediaPlayer = new MediaPlayer();
         }

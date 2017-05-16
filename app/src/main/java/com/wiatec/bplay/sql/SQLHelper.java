@@ -11,11 +11,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class SQLHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "BPLAY";
-    public static final String TABLE_NAME = "CHANNEL";
+    public static final String TABLE_NAME = "FAVORITE";
     private static final String CREATE_TABLE_CHANNEL = "create table if not exists "+TABLE_NAME+"(_id integer primary key autoincrement" +
-            ",sequence integer ,tag text , name text ,url text ,icon text,type text,country text,style text,visible integer ,favorite text)";
+            ",channelId integer ,sequence integer ,tag text , name text ,url text ,icon text,type text,country text,style text,visible integer)";
     private static final String DROP_TABLE_CHANNEL = "drop table if exists "+TABLE_NAME;
-    private static final int VERSION = 5;
+    private static final int VERSION = 7;
 
     public SQLHelper(Context context ) {
         super(context, DATABASE_NAME, null, VERSION);

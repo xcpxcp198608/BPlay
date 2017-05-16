@@ -1,42 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.wiatec.bplay.activity.MainActivity">
-
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
             name="onEvent"
             type="com.wiatec.bplay.activity.MainActivity.OnEventListener"/>
-
     </data>
 
     <LinearLayout
+        android:clipChildren="false"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
         android:orientation="vertical"
-        android:id="@+id/activity_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:gravity="center_vertical"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_margin="10dp"
-            android:layout_height="20dp">
+            android:layout_height="90dp">
 
-            <TextView
+            <android.support.v4.widget.Space
+                android:layout_width="30dp"
+                android:layout_height="match_parent" />
+            <ImageButton
+                android:background="@color/colorTranslucent"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+            <EditText
+                android:visibility="gone"
+                android:id="@+id/et_search"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                android:hint="@string/search"
+                android:textColorHint="@color/colorGray"
+                android:layout_margin="8dp"
+                android:padding="3dp"
+                android:drawablePadding="3dp"
+                android:drawableLeft="@drawable/ic_search1"
+                android:background="@drawable/bg_edit_search"
+                android:layout_width="250dp"
+                android:layout_height="match_parent" />
+
+            <android.support.v4.widget.Space
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent" />
 
+            <TextView
+                android:id="@+id/tv_user"
+                android:gravity="center"
+                android:textSize="30sp"
+                android:textColor="@android:color/white"
+                tools:text="@string/hi"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="20dp"
+                android:layout_height="match_parent" />
+
+            <ImageButton
+                android:id="@+id/ibt_person"
+                android:background="@drawable/bg_person"
+                android:onClick="@{(view) -> onEvent.onClick(view)}"
+                android:layout_width="56dp"
+                android:layout_height="56dp" />
+            <android.support.v4.widget.Space
+                android:layout_width="30dp"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+        
+        <android.support.v4.widget.Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+        
+        <LinearLayout
+            android:clipChildren="false"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="0dp">
+
+            <android.support.v4.widget.Space
+                android:layout_width="30dp"
+                android:layout_height="match_parent" />
+
+            <ImageButton
+                android:id="@+id/ibt_btv"
+                android:onClick="@{(view) -> onEvent.onClick(view)}"
+                android:src="@drawable/img_btv_icon"
+                android:scaleType="centerInside"
+                android:background="@drawable/bg_item"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+
+            <ImageButton
+                android:id="@+id/ibt_plus"
+                android:onClick="@{(view) -> onEvent.onClick(view)}"
+                android:src="@drawable/plus_128"
+                android:background="@drawable/bg_item"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+            <ImageButton
+                android:id="@+id/ibt_tv"
+                android:onClick="@{(view) -> onEvent.onClick(view)}"
+                android:background="@drawable/bg_item"
+                android:src="@drawable/tv"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="30dp"
+                android:layout_height="match_parent" />
+
         </LinearLayout>
 
-        <com.wiatec.bplay.custom_view.ViewPagerIndicator
-            android:id="@+id/viewPagerIndicator"
+        <android.support.v4.widget.Space
             android:layout_width="match_parent"
-            android:layout_height="50dp"/>
+            android:layout_height="30dp" />
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
     </LinearLayout>
 </layout>

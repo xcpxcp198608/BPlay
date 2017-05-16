@@ -45,36 +45,4 @@ public class SplashPresenter extends BasePresenter<ISplashActivity> {
             });
         }
     }
-
-    public void checkToken (String token) {
-        if(iTokenData != null){
-            iTokenData.load(token, new ITokenData.OnLoadListener() {
-                @Override
-                public void onSuccess(boolean tokenValid) {
-                    iSplashActivity.checkToken(tokenValid);
-                }
-
-                @Override
-                public void onFailure(String e) {
-                    Logger.d(e);
-                }
-            });
-        }
-    }
-
-    public void loadChannel(String token){
-        if(iChannelData != null){
-            iChannelData.load(token ,new IChannelData.OnLoadListener() {
-                @Override
-                public void onSuccess(List<ChannelInfo> list , boolean finished) {
-                    iSplashActivity.loadChannel(list ,finished);
-                }
-
-                @Override
-                public void onFailure(String e) {
-                    Logger.d(e);
-                }
-            });
-        }
-    }
 }

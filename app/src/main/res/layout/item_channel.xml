@@ -7,6 +7,8 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:layout_margin="2dp"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     android:background="@drawable/bg_item_channel"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">

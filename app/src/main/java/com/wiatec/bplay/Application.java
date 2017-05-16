@@ -2,7 +2,6 @@ package com.wiatec.bplay;
 
 import android.content.Context;
 
-import com.wiatec.bplay.utils.BasicAuthenticator;
 import com.wiatec.bplay.utils.Logger;
 
 import java.net.Authenticator;
@@ -12,6 +11,7 @@ import java.net.Authenticator;
  */
 
 public class Application extends android.app.Application {
+
     private static Context context;
 
     @Override
@@ -32,6 +32,6 @@ public class Application extends android.app.Application {
     private void setHttpProxy(){
         System.setProperty("http.proxyHost","btvota.gobeyondtv.co");
         System.setProperty("http.proxyPort","1723");
-        Authenticator.setDefault(new BasicAuthenticator("wiatecvpn","Wil123456"));
     }
+
 }

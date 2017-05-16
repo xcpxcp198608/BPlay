@@ -41,7 +41,23 @@ public class FragmentLivePresenter extends BasePresenter<IFragmentLive> {
 
     public void loadChannelByCountry(String country){
         if(iChannelData != null){
-            iChannelData.showByCountry(country, new IChannelData.OnLoadListener() {
+            iChannelData.loadByCountry(country, new IChannelData.OnLoadListener() {
+                @Override
+                public void onSuccess(List<ChannelInfo> list, boolean finished) {
+                    iFragmentLive.loadChannel(list ,finished);
+                }
+
+                @Override
+                public void onFailure(String e) {
+
+                }
+            });
+        }
+    }
+
+    public void loadFavoriteChannel(){
+        if(iChannelData != null){
+            iChannelData.loadFavorite(new IChannelData.OnLoadListener() {
                 @Override
                 public void onSuccess(List<ChannelInfo> list, boolean finished) {
                     iFragmentLive.loadChannel(list ,finished);

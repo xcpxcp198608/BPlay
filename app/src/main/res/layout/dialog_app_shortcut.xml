@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:layout_width="600dp"
+    android:layout_height="300dp">
+
+    <ImageButton
+        android:id="@+id/ibt_tv_house"
+        android:src="@drawable/dianshijiashipin"
+        android:scaleType="centerInside"
+        android:background="@drawable/bg_app_shortcut"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
+    <android.support.v4.widget.Space
+        android:layout_width="20dp"
+        android:layout_height="match_parent" />
+
+    <ImageButton
+        android:id="@+id/ibt_show_box"
+        android:background="@drawable/bg_app_shortcut"
+        android:src="@drawable/icon_show_box"
+        android:scaleType="centerInside"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
+</LinearLayout>

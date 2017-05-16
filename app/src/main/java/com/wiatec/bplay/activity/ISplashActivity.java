@@ -11,6 +11,4 @@ import java.util.List;
 
 public interface ISplashActivity {
     void checkUpdate(UpdateInfo updateInfo);
-    void checkToken(boolean tokenValid);
-    void loadChannel(List<ChannelInfo> list , boolean finished);
 }

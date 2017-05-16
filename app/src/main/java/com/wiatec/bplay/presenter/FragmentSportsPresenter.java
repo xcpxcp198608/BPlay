@@ -23,7 +23,7 @@ public class FragmentSportsPresenter extends BasePresenter<IFragmentSports> {
 
     public void loadChannelSports(String style){
         if(iChannelData!=null){
-            iChannelData.showByStyle(style, new IChannelData.OnLoadListener() {
+            iChannelData.loadByStyle(style, new IChannelData.OnLoadListener() {
                 @Override
                 public void onSuccess(List<ChannelInfo> list, boolean finished) {
                     iFragmentSports.loadChannelSports(list);

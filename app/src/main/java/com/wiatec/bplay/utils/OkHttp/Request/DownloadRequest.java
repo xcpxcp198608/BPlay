@@ -2,7 +2,6 @@ package com.wiatec.bplay.utils.OkHttp.Request;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 
 
 import com.wiatec.bplay.utils.OkHttp.Bean.DownloadInfo;

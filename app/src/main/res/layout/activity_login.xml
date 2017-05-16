@@ -72,18 +72,5 @@
             android:visibility="gone"
             android:id="@+id/progressBar" />
 
-        <Button
-            android:layout_alignParentBottom="true"
-            android:layout_below="@id/bt_login"
-            android:id="@+id/bt_register"
-            android:text="@string/create_account"
-            android:textSize="16sp"
-            android:onClick="@{(view) -> onEvent.onClick(view)}"
-            android:textAllCaps="false"
-            android:background="@color/colorTranslucent"
-            android:textColor="@drawable/text_create"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
     </RelativeLayout>
 </layout>

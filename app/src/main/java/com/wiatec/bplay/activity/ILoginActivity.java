@@ -10,6 +10,5 @@ import java.util.List;
  */
 
 public interface ILoginActivity {
-    void login (boolean loginSuccess , Result result);
-    void loadChannel(List<ChannelInfo> list , boolean finished);
+    void login (Result result);
 }

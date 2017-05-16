@@ -20,14 +20,17 @@ import com.wiatec.bplay.fragment.FragmentMusic;
 import com.wiatec.bplay.fragment.FragmentNews;
 import com.wiatec.bplay.fragment.FragmentRadios;
 import com.wiatec.bplay.fragment.FragmentSports;
+import com.wiatec.bplay.utils.AESUtil;
 import com.wiatec.bplay.utils.AppUtils;
 import com.wiatec.bplay.utils.Logger;
+import com.wiatec.bplay.utils.SPUtils;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by patrick on 2017/4/18.
  */
-
-
 
 public class ChannelActivity extends AppCompatActivity {
 
@@ -69,21 +72,46 @@ public class ChannelActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    public void play(ChannelInfo channelInfo){
-        if("live".equals(channelInfo.getType())){
-            Intent intent = new Intent(ChannelActivity.this , PlayActivity.class);
-            intent.putExtra("channelInfo" , channelInfo);
-            startActivity(intent);
-        }else if("app".equals(channelInfo.getType())){
-            if(AppUtils.isInstalled(Application.getContext(), channelInfo.getUrl())){
-                AppUtils.launchApp(this, channelInfo.getUrl());
+    public void play(List<ChannelInfo> channelInfoList , int position){
+        String type = channelInfoList.get(position).getType();
+        String country = channelInfoList.get(position).getCountry();
+        if("live".equals(type)){
+            if("SPORTS".equals(country) || "LATINO".equals(country)) {
+                int userLevel = (int) SPUtils.get(Application.getContext(), "userLevel", 1);
+                if (userLevel > 1) {
+                    Intent intent = new Intent(ChannelActivity.this, PlayActivity.class);
+                    intent.putExtra("channelInfoList", (Serializable) channelInfoList);
+                    intent.putExtra("position", position);
+                    startActivity(intent);
+                } else {
+                    String experience = (String) SPUtils.get(Application.getContext(), "experience", "false");
+                    if ("true".equals(experience)) {
+                        Intent intent = new Intent(ChannelActivity.this, PlayActivity.class);
+                        intent.putExtra("channelInfoList", (Serializable) channelInfoList);
+                        intent.putExtra("position", position);
+                        startActivity(intent);
+                    } else {
+                        startActivity(new Intent(ChannelActivity.this, AdActivity.class));
+                    }
+                }
+            }else{
+                Intent intent = new Intent(ChannelActivity.this, PlayActivity.class);
+                intent.putExtra("channelInfoList", (Serializable) channelInfoList);
+                intent.putExtra("position", position);
+                startActivity(intent);
+            }
+        }else if("app".equals(type)){
+            String packageName = AESUtil.decrypt(channelInfoList.get(position).getUrl() , AESUtil.key);
+            if(AppUtils.isInstalled(Application.getContext(), packageName)){
+                AppUtils.launchApp(this, packageName);
             }else {
                 Toast.makeText(ChannelActivity.this,getString(R.string.app_no_install),Toast.LENGTH_SHORT).show();
                 AppUtils.launchApp(this, F.package_name.market);
             }
-        }else if("radio".equals(channelInfo.getType())){
+        }else if("radio".equals(type)){
             Intent intent = new Intent(ChannelActivity.this , PlayRadioActivity.class);
-            intent.putExtra("channelInfo" , channelInfo);
+            intent.putExtra("channelInfoList" , (Serializable) channelInfoList);
+            intent.putExtra("position" , position);
             startActivity(intent);
         }else{
             Logger.d("");

@@ -20,7 +20,7 @@ public class FragmentMoviesPresenter extends BasePresenter<IFragmentMovies> {
 
     public void loadChannelMovies(String style){
         if(iChannelData != null){
-            iChannelData.showByStyle(style, new IChannelData.OnLoadListener() {
+            iChannelData.loadByStyle(style, new IChannelData.OnLoadListener() {
                 @Override
                 public void onSuccess(List<ChannelInfo> list, boolean finished) {
                     iFragmentMovies.loadChannelMovies(list);

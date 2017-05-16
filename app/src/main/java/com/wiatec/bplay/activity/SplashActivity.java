@@ -6,12 +6,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.wiatec.bplay.Application;
 import com.wiatec.bplay.R;
 import com.wiatec.bplay.beans.ChannelInfo;
 import com.wiatec.bplay.beans.UpdateInfo;
@@ -47,48 +49,41 @@ public class SplashActivity extends BaseActivity<ISplashActivity , SplashPresent
         super.onStart();
         String model = Build.MODEL;
         if(!"BTVi3".equals(model) && !"MorphoBT E110".equals(model)){
-            Toast.makeText(SplashActivity.this,getString(R.string.device_notice),Toast.LENGTH_SHORT).show();
+            Toast.makeText(Application.getContext(),getString(R.string.device_notice),Toast.LENGTH_SHORT).show();
             return;
         }
         if(NetUtils.isConnected(SplashActivity.this)){
             presenter.checkUpdate();
         }else{
-            Toast.makeText(SplashActivity.this, getString(R.string.network_error), Toast.LENGTH_LONG).show();
+            Toast.makeText(Application.getContext(), getString(R.string.network_error), Toast.LENGTH_LONG).show();
+            startActivity(new Intent(SplashActivity.this , MainActivity.class));
+            finish();
         }
     }
 
     @Override
     public void checkUpdate(UpdateInfo updateInfo) {
         if(updateInfo == null){
-            return;
-        }
-        boolean isNeed = updateInfo.getCode() > AppUtils.getVersionCode(SplashActivity.this , getPackageName());
-        if(isNeed){
-            showUpdateDialog(updateInfo);
-        }else{
-//            presenter.checkToken(token);
-            presenter.loadChannel(token);
-        }
-    }
-
-    @Override
-    public void checkToken(boolean tokenValid) {
-        if(tokenValid){
-            presenter.loadChannel(token);
-        }else{
-            startActivity(new Intent(SplashActivity.this , LoginActivity.class));
-            finish();
-        }
-    }
-
-    @Override
-    public void loadChannel(List<ChannelInfo> list  , boolean finished) {
-        if(finished){
-            startActivity(new Intent(SplashActivity.this , MainActivity1.class));
-            finish();
-        }else{
-            startActivity(new Intent(SplashActivity.this , MainActivity1.class));
-            finish();
+            try {
+                Thread.sleep(3000);
+                startActivity(new Intent(SplashActivity.this , MainActivity.class));
+                finish();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }else {
+            boolean isNeed = updateInfo.getCode() > AppUtils.getVersionCode(SplashActivity.this, getPackageName());
+            if (isNeed) {
+                showUpdateDialog(updateInfo);
+            } else {
+                try {
+                    Thread.sleep(3000);
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    finish();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -119,5 +114,13 @@ public class SplashActivity extends BaseActivity<ISplashActivity , SplashPresent
                 finish();
             }
         });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(event.getKeyCode() == KeyEvent.KEYCODE_BACK){
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

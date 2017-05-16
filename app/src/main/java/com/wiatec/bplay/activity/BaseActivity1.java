@@ -15,16 +15,12 @@ public abstract class BaseActivity1 <V , T extends BasePresenter>  extends AppCo
 
     protected  T presenter;
     protected abstract T createPresenter();
-    protected SharedPreferences sharedPreferences ;
-    protected SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = createPresenter();
         presenter.attachView(this);
-        sharedPreferences = getSharedPreferences("private" ,MODE_PRIVATE);
-        editor = sharedPreferences.edit();
     }
 
     @Override

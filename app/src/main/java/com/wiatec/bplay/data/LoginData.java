@@ -2,11 +2,13 @@ package com.wiatec.bplay.data;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.wiatec.bplay.Application;
 import com.wiatec.bplay.F;
 import com.wiatec.bplay.beans.Result;
 import com.wiatec.bplay.utils.Logger;
 import com.wiatec.bplay.utils.OkHttp.Listener.StringListener;
 import com.wiatec.bplay.utils.OkHttp.OkMaster;
+import com.wiatec.bplay.utils.SPUtils;
 
 import java.io.IOException;
 
@@ -20,10 +22,13 @@ import okhttp3.Response;
 
 public class LoginData implements ILoginData {
     @Override
-    public void login(String userName, String password, final OnLoadListener onLoadListener) {
+    public void login(String userName, String password , final OnLoadListener onLoadListener) {
+        String mac = (String) SPUtils.get(Application.getContext() , "mac" ,""+System.currentTimeMillis());
         OkMaster.post(F.url.login)
-                .parames("username",userName)
-                .parames("password",password)
+                .parames("userInfo.userName",userName)
+                .parames("userInfo.password",password)
+                .parames("userInfo.level","10")
+                .parames("deviceInfo.mac",mac)
                 .enqueue(new StringListener() {
                     @Override
                     public void onSuccess(String s) throws IOException {
@@ -31,11 +36,10 @@ public class LoginData implements ILoginData {
                             return;
                         }
                         Result result = new Gson().fromJson(s , new TypeToken<Result>(){}.getType());
-                        boolean isSuccess = result.getCode() == 0;
-                        onLoadListener.onSuccess(isSuccess ,result);
-                        if(!isSuccess){
-                            onLoadListener.onFailure(result.getStatus());
+                        if(result == null){
+                            return;
                         }
+                        onLoadListener.onSuccess(result);
                     }
 
                     @Override
@@ -45,33 +49,4 @@ public class LoginData implements ILoginData {
                 });
     }
 
-    @Override
-    public void register(String userName, String password, String email, final OnLoadListener onLoadListener) {
-        OkMaster.post(F.url.register)
-                .parames("username",userName)
-                .parames("password",password)
-                .parames("email" ,email)
-                .enqueue(new StringListener() {
-                    @Override
-                    public void onSuccess(String s) throws IOException {
-                        if(s==null){
-                            return;
-                        }
-                        Result result = new Gson().fromJson(s , new TypeToken<Result>(){}.getType());
-                        boolean isSuccess = result.getCode() == 8;
-                        Logger.d(result.toString());
-                        Logger.d(isSuccess+"");
-                        onLoadListener.onSuccess(isSuccess ,result);
-                        if(!isSuccess){
-                            onLoadListener.onFailure(result.getStatus());
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(String e) {
-                        Logger.d(e);
-                    }
-                });
-
-    }
 }

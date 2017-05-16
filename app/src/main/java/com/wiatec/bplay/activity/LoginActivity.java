@@ -9,12 +9,14 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import com.wiatec.bplay.Application;
 import com.wiatec.bplay.R;
 import com.wiatec.bplay.beans.ChannelInfo;
 import com.wiatec.bplay.beans.Result;
 import com.wiatec.bplay.databinding.ActivityLoginBinding;
 import com.wiatec.bplay.presenter.LoginPresenter;
 import com.wiatec.bplay.utils.Logger;
+import com.wiatec.bplay.utils.SPUtils;
 
 import java.util.List;
 
@@ -26,6 +28,7 @@ public class LoginActivity extends BaseActivity1<ILoginActivity , LoginPresenter
 
     private ActivityLoginBinding binding;
     private String userName;
+    private String password;
     private String token;
 
     @Override
@@ -38,7 +41,7 @@ public class LoginActivity extends BaseActivity1<ILoginActivity , LoginPresenter
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this , R.layout.activity_login);
         binding.setOnEvent(new OnEventListener());
-        userName = sharedPreferences.getString("userName","");
+        userName = (String) SPUtils.get(Application.getContext() ,"userName" ,"");
         binding.etUsername.setText(userName);
         binding.etUsername.setSelection(userName.length());
     }
@@ -46,12 +49,9 @@ public class LoginActivity extends BaseActivity1<ILoginActivity , LoginPresenter
     public class OnEventListener{
         public void onClick(View view){
             switch (view.getId()){
-                case R.id.bt_register:
-                    startActivity(new Intent(LoginActivity.this , RegisterActivity.class));
-                    break;
                 case R.id.bt_login:
                     userName = binding.etUsername.getText().toString().trim();
-                    String password = binding.etPassword.getText().toString().trim();
+                    password = binding.etPassword.getText().toString().trim();
                     if(TextUtils.isEmpty(userName)){
                         Toast.makeText(LoginActivity.this, getString(R.string.username_empty), Toast.LENGTH_LONG).show();
                         return;
@@ -68,36 +68,18 @@ public class LoginActivity extends BaseActivity1<ILoginActivity , LoginPresenter
     }
 
     @Override
-    public void login(boolean loginSuccess , Result result) {
-        if(loginSuccess){
-            String resultInfo = result.getInfo();
-            String [] res = resultInfo.split("/");
-            token = res[0];
-            int count = Integer.parseInt(res[1]);
-            Logger.d(token +"<-->"+ count);
-            editor.putString("token" ,token);
-            editor.putInt("count",count);
-            editor.putString("userName" , userName);
-            editor.commit();
-            presenter.loadChannel(token);
+    public void login(Result result) {
+        if(result.getCode() == Result.CODE_LOGIN_SUCCESS){
+            SPUtils.put(Application.getContext() ,"userLevel" ,result.getUserLevel());
+            SPUtils.put(Application.getContext() ,"currentLoginCount",result.getLoginCount());
+            SPUtils.put(Application.getContext() ,"userName" , userName);
+            SPUtils.put(Application.getContext(),"lastName" ,result.getExtra());
+            binding.progressBar.setVisibility(View.GONE);
+            finish();
         }else{
             binding.progressBar.setVisibility(View.GONE);
-            Toast.makeText(LoginActivity.this, result.getStatus(), Toast.LENGTH_LONG).show();
         }
+        Toast.makeText(LoginActivity.this, result.getStatus(), Toast.LENGTH_LONG).show();
     }
 
-    @Override
-    public void loadChannel(List<ChannelInfo> list, boolean finished) {
-        binding.progressBar.setVisibility(View.GONE);
-        startActivity(new Intent(LoginActivity.this ,MainActivity.class));
-        finish();
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(event.getKeyCode() == KeyEvent.KEYCODE_BACK){
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
 }

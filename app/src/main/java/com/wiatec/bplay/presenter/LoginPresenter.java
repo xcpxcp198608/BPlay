@@ -26,12 +26,12 @@ public class LoginPresenter extends BasePresenter<ILoginActivity> {
         iChannelData = new ChannelData();
     }
 
-    public void login(String userName , String password){
+    public void login(String userName , String password ){
         if(iLoginData != null){
             iLoginData.login(userName, password, new ILoginData.OnLoadListener() {
                 @Override
-                public void onSuccess(boolean isSuccess , Result result) {
-                    iLoginActivity.login(isSuccess ,result);
+                public void onSuccess(Result result) {
+                    iLoginActivity.login(result);
                 }
 
                 @Override
@@ -42,19 +42,4 @@ public class LoginPresenter extends BasePresenter<ILoginActivity> {
         }
     }
 
-    public void loadChannel (String token){
-        if(iChannelData != null){
-            iChannelData.load(token, new IChannelData.OnLoadListener() {
-                @Override
-                public void onSuccess(List<ChannelInfo> list, boolean finished) {
-                    iLoginActivity.loadChannel(list ,finished);
-                }
-
-                @Override
-                public void onFailure(String e) {
-                    Logger.d(e);
-                }
-            });
-        }
-    }
 }

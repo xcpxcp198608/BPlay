@@ -7,6 +7,8 @@
     </data>
 
     <LinearLayout
+        android:clipChildren="false"
+        android:clipToPadding="false"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -21,12 +23,27 @@
             android:layout_width="0dp"
             android:layout_height="match_parent" />
 
-        <android.support.v7.widget.RecyclerView
-            android:scrollbars="none"
-            android:id="@+id/rv_channel"
+        <FrameLayout
             android:layout_weight="4"
             android:layout_width="0dp"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:scrollbars="none"
+                android:id="@+id/rv_channel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/tv_load_error"
+                android:text="@string/data_loading"
+                android:textSize="50sp"
+                android:textColor="@android:color/white"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
+
 
     </LinearLayout>
 </layout>

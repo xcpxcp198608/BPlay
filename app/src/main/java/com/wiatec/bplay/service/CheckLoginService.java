@@ -21,9 +21,7 @@ public class CheckLoginService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        String userName = intent.getStringExtra("userName");
-        int count = intent.getIntExtra("count" , 0 );
-        checkLogin = new CheckLogin(userName , count);
+        checkLogin = new CheckLogin();
         new Thread(checkLogin).start();
         return myBinder;
     }
@@ -31,9 +29,7 @@ public class CheckLoginService extends Service {
     @Override
     public boolean onUnbind(Intent intent) {
         if(checkLogin != null){
-            if(checkLogin.subscription != null){
-                checkLogin.subscription.unsubscribe();
-            }
+
         }
         return super.onUnbind(intent);
     }

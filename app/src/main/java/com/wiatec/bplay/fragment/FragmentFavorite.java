@@ -59,7 +59,7 @@ public class FragmentFavorite extends BaseFragment<IFragment ,FragmentFavoritePr
         channelAdapter.setOnItemClickListener(new ChannelAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                activity.play(list.get(position));
+                activity.play(list , position);
             }
         });
         channelAdapter.setOnItemSelectedListener(new ChannelAdapter.OnItemSelectedListener() {

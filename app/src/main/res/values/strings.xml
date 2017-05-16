@@ -46,4 +46,7 @@
     <string name="login_info">Account login on other device,please login again</string>
     <string name="app_no_install">Selected app not installed, please go to app market to download and install</string>
     <string name="confirm_exit">Do you confirm exit?</string>
+    <string name="data_loading">data loading :)</string>
+    <string name="data_load_error">data load error :(</string>
+    <string name="hi">Hi</string>
 </resources>

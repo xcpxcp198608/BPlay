@@ -17,10 +17,12 @@ import android.widget.Toast;
 
 import com.wiatec.bplay.R;
 import com.wiatec.bplay.beans.ChannelInfo;
-import com.wiatec.bplay.sql.ChannelDao;
+import com.wiatec.bplay.sql.FavoriteDao;
+import com.wiatec.bplay.utils.AESUtil;
 import com.wiatec.bplay.utils.Logger;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by patrick on 2017/1/13.
@@ -33,10 +35,12 @@ public class PlayActivity extends AppCompatActivity implements SurfaceHolder.Cal
     private SurfaceHolder surfaceHolder;
     private ProgressBar progressBar;
     private ChannelInfo channelInfo;
-    private ChannelDao channelDao;
+    private FavoriteDao favoriteDao;
     private FrameLayout flPlay;
     private LinearLayout llController;
     private CheckBox cbFavorite;
+    private List<ChannelInfo> channelInfoList;
+    private int position;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,21 +55,24 @@ public class PlayActivity extends AppCompatActivity implements SurfaceHolder.Cal
         surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         surfaceHolder.addCallback(this);
 
-        channelInfo = getIntent().getParcelableExtra("channelInfo");
+        channelInfoList = (List<ChannelInfo>) getIntent().getSerializableExtra("channelInfoList");
+        position = getIntent().getIntExtra("position" , 0);
+        channelInfo = channelInfoList.get(position);
         if(channelInfo == null){
             return;
         }
-        if("true".equals(channelInfo.getFavorite())){
+        Logger.d(channelInfo.toString());
+        favoriteDao = FavoriteDao.getInstance(this);
+        if(favoriteDao.isExists(channelInfo)){
             cbFavorite.setChecked(true);
         }
-        channelDao = ChannelDao.getInstance(this);
         flPlay.setOnClickListener(this);
         cbFavorite.setOnCheckedChangeListener(this);
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        play(channelInfo.getUrl());
+        play(AESUtil.decrypt(channelInfo.getUrl() , AESUtil.key));
     }
 
     @Override
@@ -83,18 +90,19 @@ public class PlayActivity extends AppCompatActivity implements SurfaceHolder.Cal
     }
 
     private void play(String url){
+        progressBar.setVisibility(View.VISIBLE);
         if(mediaPlayer == null){
             mediaPlayer = new MediaPlayer();
         }
         mediaPlayer.reset();
         try {
-            Logger.d(url);
             mediaPlayer.setDataSource(url);
             mediaPlayer.setDisplay(surfaceHolder);
             mediaPlayer.prepareAsync();
             mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
+                    Toast.makeText(PlayActivity.this,"now play "+channelInfo.getName() ,Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.GONE);
                     mediaPlayer.start();
                 }
@@ -154,14 +162,12 @@ public class PlayActivity extends AppCompatActivity implements SurfaceHolder.Cal
         switch (buttonView.getId()){
             case R.id.cb_favorite:
                 if(isChecked){
-                    channelInfo.setFavorite("true");
-                    if(channelDao.setFavorite(channelInfo)){
+                    if(favoriteDao.insert(channelInfo)){
                         cbFavorite.setChecked(true);
                         Toast.makeText(this, channelInfo.getName()+getString(R.string.add_favorite) ,Toast.LENGTH_SHORT).show();
                     }
                 }else{
-                    channelInfo.setFavorite("false");
-                    if(channelDao.setFavorite(channelInfo)) {
+                    if(favoriteDao.deleteByTag(channelInfo)) {
                         Toast.makeText(this, channelInfo.getName() + getString(R.string.remove_favorite), Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -177,11 +183,24 @@ public class PlayActivity extends AppCompatActivity implements SurfaceHolder.Cal
             if(llController.getVisibility() == View.VISIBLE){
                 llController.setVisibility(View.GONE);
                 return true;
-            }else{
-                return super.onKeyDown(keyCode , event);
             }
-        }else {
-            return super.onKeyDown(keyCode, event);
         }
+        if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_LEFT){
+            position -- ;
+            if(position <= 0){
+                position = channelInfoList.size();
+            }
+            channelInfo = channelInfoList.get(position);
+            play(AESUtil.decrypt(channelInfo.getUrl() , AESUtil.key));
+        }
+        if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT){
+            position ++ ;
+            if(position >= channelInfoList.size()){
+                position = 0;
+            }
+            channelInfo = channelInfoList.get(position);
+            play(AESUtil.decrypt(channelInfo.getUrl() , AESUtil.key));
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

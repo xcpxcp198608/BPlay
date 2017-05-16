@@ -26,16 +26,13 @@
 
         <activity android:name=".activity.LoginActivity"
             android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".activity.RegisterActivity"/>
-        <activity android:name=".activity.MainActivity"
-            android:launchMode="singleInstance"/>
         <activity android:name=".activity.AdActivity"/>
         <activity android:name=".activity.PlayActivity"/>
         <activity android:name=".activity.PlayRadioActivity"/>
         <activity android:name=".activity.UpdateActivity"/>
         <activity android:name=".activity.WebViewActivity"/>
         <service android:name=".service.CheckLoginService"/>
-        <activity android:name=".activity.MainActivity1"
+        <activity android:name=".activity.MainActivity"
             android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".activity.ChannelActivity"/>
 

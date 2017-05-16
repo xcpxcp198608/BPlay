@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import com.wiatec.bplay.R;
 import com.wiatec.bplay.activity.ChannelActivity;
-import com.wiatec.bplay.activity.MainActivity;
 import com.wiatec.bplay.adapter.ChannelAdapter;
 import com.wiatec.bplay.animator.Zoom;
 import com.wiatec.bplay.beans.ChannelInfo;
@@ -64,7 +63,7 @@ public class FragmentMovies extends BaseFragment<IFragmentMovies , FragmentMovie
         channelAdapter.setOnItemClickListener(new ChannelAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                activity.play(list.get(position));
+                activity.play(list,position);
             }
         });
         channelAdapter.setOnItemSelectedListener(new ChannelAdapter.OnItemSelectedListener() {

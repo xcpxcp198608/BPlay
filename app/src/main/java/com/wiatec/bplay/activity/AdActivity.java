@@ -44,33 +44,12 @@ public class AdActivity extends BaseActivity<IAdActivity , AdPresenter> implemen
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this , R.layout.activity_ad);
         binding.setOnEvent(new OnEventListener());
-        channelInfo = getIntent().getParcelableExtra("channelInfo");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if (channelInfo == null) {
-            return;
-        }
         presenter.loadAdImage();
-        delay();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if(subscription != null){
-            subscription.unsubscribe();
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if(subscription != null){
-            subscription.unsubscribe();
-        }
     }
 
     @Override
@@ -103,12 +82,12 @@ public class AdActivity extends BaseActivity<IAdActivity , AdPresenter> implemen
                 .subscribe(new Observer<Long>() {
                     @Override
                     public void onCompleted() {
-                        goPlay();
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        goPlay();
+
                     }
 
                     @Override
@@ -120,20 +99,6 @@ public class AdActivity extends BaseActivity<IAdActivity , AdPresenter> implemen
                 });
     }
 
-    private void goPlay(){
-        Intent intent = new Intent();
-        String type = channelInfo.getType();
-        if("live".equals(type)){
-            intent.setClass(AdActivity.this,PlayActivity.class);
-        }else if("radio".equals(type)){
-            intent.setClass(AdActivity.this,PlayRadioActivity.class);
-        }else{
-            intent.setClass(AdActivity.this,PlayActivity.class);
-        }
-        intent.putExtra("channelInfo" , channelInfo);
-        startActivity(intent);
-        finish();
-    }
 
     public class OnEventListener{
         public void onClick(View view){
@@ -142,7 +107,7 @@ public class AdActivity extends BaseActivity<IAdActivity , AdPresenter> implemen
                     showLink(link);
                     break;
                 case R.id.bt_pass:
-                    goPlay();
+
                     break;
                 default:
                     break;

@@ -10,10 +10,10 @@ import java.util.List;
  */
 
 public interface IChannelData {
-    void load(String token , OnLoadListener onLoadListener);
-    void showByCountry(String country , OnLoadListener onLoadListener);
-    void showByStyle(String style , OnLoadListener onLoadListener);
-    void showFavorite(OnLoadListener onLoadListener);
+    void load(OnLoadListener onLoadListener);
+    void loadByCountry(String country , OnLoadListener onLoadListener);
+    void loadByStyle(String style , OnLoadListener onLoadListener);
+    void loadFavorite(OnLoadListener onLoadListener);
     interface OnLoadListener {
         void onSuccess(List<ChannelInfo> list , boolean finished);
         void onFailure(String e);

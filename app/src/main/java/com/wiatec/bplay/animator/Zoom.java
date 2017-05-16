@@ -36,4 +36,22 @@ public class Zoom {
         animatorSet.play(animator).with(animator1);
         animatorSet.start();
     }
+
+    public static void zoomIn10to13(View view){
+        ObjectAnimator animator = ObjectAnimator.ofFloat(view,"scaleX" ,1.0f ,1.3f);
+        ObjectAnimator animator1 = ObjectAnimator.ofFloat(view,"scaleY" ,1.0f ,1.3f);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.setDuration(150);
+        animatorSet.play(animator).with(animator1);
+        animatorSet.start();
+    }
+
+    public static void zoomIn13to10(View view){
+        ObjectAnimator animator = ObjectAnimator.ofFloat(view,"scaleX" ,1.3f ,1.0f);
+        ObjectAnimator animator1 = ObjectAnimator.ofFloat(view,"scaleY" ,1.3f ,1.0f);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.setDuration(150);
+        animatorSet.play(animator).with(animator1);
+        animatorSet.start();
+    }
 }

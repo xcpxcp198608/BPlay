@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.wiatec.bplay.Application;
 import com.wiatec.bplay.R;
+import com.wiatec.bplay.animator.Zoom;
 import com.wiatec.bplay.beans.ChannelInfo;
 
 import java.util.List;
@@ -61,6 +62,9 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelViewHolder> {
                     if(mOnItemSelectedListener != null){
                         mOnItemSelectedListener.onItemSelected(v,holder.getLayoutPosition());
                     }
+                    Zoom.zoomIn10to11(v);
+                }else{
+                    Zoom.zoomIn11to10(v);
                 }
             }
         });

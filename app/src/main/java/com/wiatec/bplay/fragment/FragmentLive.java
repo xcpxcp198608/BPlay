@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 
 import com.wiatec.bplay.R;
 import com.wiatec.bplay.activity.ChannelActivity;
-import com.wiatec.bplay.activity.MainActivity;
 import com.wiatec.bplay.adapter.ChannelAdapter;
 import com.wiatec.bplay.adapter.ChannelTypeAdapter;
 import com.wiatec.bplay.animator.Zoom;
@@ -23,6 +22,7 @@ import com.wiatec.bplay.databinding.FragmentLiveBinding;
 import com.wiatec.bplay.presenter.FragmentLivePresenter;
 import com.wiatec.bplay.utils.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,6 +33,8 @@ public class FragmentLive extends BaseFragment<IFragmentLive ,FragmentLivePresen
 
     private FragmentLiveBinding binding;
     private ChannelActivity activity;
+    private ChannelAdapter channelAdapter;
+    private List<ChannelInfo> channelInfoList;
 
     @Override
     protected FragmentLivePresenter createPresenter() {
@@ -76,7 +78,16 @@ public class FragmentLive extends BaseFragment<IFragmentLive ,FragmentLivePresen
                 }
                 view.setBackgroundResource(R.drawable.bg_item_channel_type_focus);
                 String country = list.get(position).getName();
-                presenter.loadChannelByCountry(country);
+                Logger.d(country);
+                binding.rvChannel.setVisibility(View.GONE);
+                binding.tvLoadError.setVisibility(View.VISIBLE);
+                binding.tvLoadError.setText(getString(R.string.data_loading));
+                int flag = list.get(position).getFlag();
+                if(flag == 1){
+                    presenter.loadFavoriteChannel();
+                }else {
+                    presenter.loadChannelByCountry(country);
+                }
             }
         });
         channelTypeAdapter.setOnItemSelectedListener(new ChannelTypeAdapter.OnItemSelectedListener() {
@@ -89,7 +100,15 @@ public class FragmentLive extends BaseFragment<IFragmentLive ,FragmentLivePresen
                 view.setBackgroundResource(R.drawable.bg_item_channel_type_focus);
                 if(hasFocus) {
                     String country = list.get(position).getName();
-                    presenter.loadChannelByCountry(country);
+                    binding.rvChannel.setVisibility(View.GONE);
+                    binding.tvLoadError.setVisibility(View.VISIBLE);
+                    binding.tvLoadError.setText(getString(R.string.data_loading));
+                    int flag = list.get(position).getFlag();
+                    if(flag == 1){
+                        presenter.loadFavoriteChannel();
+                    }else {
+                        presenter.loadChannelByCountry(country);
+                    }
                 }
             }
         });
@@ -97,24 +116,37 @@ public class FragmentLive extends BaseFragment<IFragmentLive ,FragmentLivePresen
 
     @Override
     public void loadChannel(final List<ChannelInfo> list , boolean finished) {
-        ChannelAdapter channelAdapter = new ChannelAdapter(list);
-        channelAdapter.notifyDataSetChanged();
-        binding.rvChannel.setAdapter(channelAdapter);
-        binding.rvChannel.setLayoutManager(new GridLayoutManager(getContext() ,5));
-        channelAdapter.setOnItemClickListener(new ChannelAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Logger.d(position+"");
-                Logger.d(list.get(position).toString());
-                activity.play(list.get(position));
+        if(list == null || list.size() <= 0){
+            binding.rvChannel.setVisibility(View.GONE);
+            binding.tvLoadError.setVisibility(View.VISIBLE);
+            binding.tvLoadError.setText(getString(R.string.data_load_error));
+        }else {
+            binding.rvChannel.setVisibility(View.VISIBLE);
+            binding.tvLoadError.setVisibility(View.GONE);
+            if(channelInfoList == null){
+                channelInfoList = new ArrayList<>();
             }
-        });
-        channelAdapter.setOnItemSelectedListener(new ChannelAdapter.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(View view, int position) {
-                Zoom.zoomIn09to10(view);
-            }
-        });
+//            channelInfoList.clear();
+//            channelInfoList.addAll(list);
+//            Logger.d(channelInfoList.toString());
+
+            channelAdapter = new ChannelAdapter(list);
+
+            binding.rvChannel.setAdapter(channelAdapter);
+            binding.rvChannel.setLayoutManager(new GridLayoutManager(getContext(), 5));
+            channelAdapter.setOnItemClickListener(new ChannelAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    activity.play(list,position);
+                }
+            });
+            channelAdapter.setOnItemSelectedListener(new ChannelAdapter.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(View view, int position) {
+
+                }
+            });
+        }
     }
 
 

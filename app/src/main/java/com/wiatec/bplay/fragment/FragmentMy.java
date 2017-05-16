@@ -1,7 +1,6 @@
 package com.wiatec.bplay.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,8 +11,6 @@ import android.view.ViewGroup;
 
 import com.wiatec.bplay.R;
 import com.wiatec.bplay.activity.ChannelActivity;
-import com.wiatec.bplay.activity.MainActivity;
-import com.wiatec.bplay.activity.WebViewActivity;
 import com.wiatec.bplay.adapter.ChannelFavoriteAdapter;
 import com.wiatec.bplay.beans.ChannelInfo;
 import com.wiatec.bplay.databinding.FragmentMyBinding;
@@ -64,7 +61,7 @@ public class FragmentMy extends BaseFragment<IFragmentMy , FragmentMyPresenter> 
         favoriteAdapter.setOnItemClickListener(new ChannelFavoriteAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                activity.play(list.get(position));
+                activity.play(list , position);
             }
         });
     }

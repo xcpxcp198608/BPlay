@@ -265,6 +265,9 @@ public class AppUtils {
      * @param packageName apk的包名
      */
     public static void launchApp (Context context ,String packageName){
+        if(!isInstalled(context , packageName)){
+            return;
+        }
         Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
         if(intent!= null){
             context.startActivity(intent);

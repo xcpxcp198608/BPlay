@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.wiatec.bplay.beans.ChannelInfo;
 import com.wiatec.bplay.utils.Logger;
@@ -16,18 +15,18 @@ import java.util.List;
  * Created by patrick on 2017/2/10.
  */
 
-public class ChannelDao {
+public class FavoriteDao {
     private SQLiteDatabase sqLiteDatabase;
-    private ChannelDao(Context context){
+    private FavoriteDao(Context context){
         sqLiteDatabase = new SQLHelper(context).getWritableDatabase();
     }
 
-    private volatile static ChannelDao instance;
-    public static ChannelDao getInstance(Context context){
+    private volatile static FavoriteDao instance;
+    public static FavoriteDao getInstance(Context context){
         if(instance == null){
-            synchronized (ChannelDao.class){
+            synchronized (FavoriteDao.class){
                 if(instance ==null){
-                    instance = new ChannelDao(context);
+                    instance = new FavoriteDao(context);
                 }
             }
         }
@@ -50,6 +49,7 @@ public class ChannelDao {
         try {
             ContentValues contentValues = new ContentValues();
             contentValues.put("_id", channelInfo.getId());
+            contentValues.put("channelId", channelInfo.getChannelId());
             contentValues.put("sequence", channelInfo.getSequence());
             contentValues.put("tag", channelInfo.getTag());
             contentValues.put("name", channelInfo.getName());
@@ -72,6 +72,7 @@ public class ChannelDao {
         try {
             ContentValues contentValues = new ContentValues();
             contentValues.put("_id", channelInfo.getId());
+            contentValues.put("channelId", channelInfo.getChannelId());
             contentValues.put("sequence", channelInfo.getSequence());
             contentValues.put("tag", channelInfo.getTag());
             contentValues.put("name", channelInfo.getName());
@@ -81,20 +82,6 @@ public class ChannelDao {
             contentValues.put("country", channelInfo.getCountry());
             contentValues.put("style", channelInfo.getStyle());
             contentValues.put("visible", channelInfo.getVisible());
-            sqLiteDatabase.update(SQLHelper.TABLE_NAME,contentValues , "tag=?" ,
-                    new String []{channelInfo.getTag()});
-            flag = true;
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return flag;
-    }
-
-    public boolean setFavorite(ChannelInfo channelInfo){
-        boolean flag = false;
-        try {
-            ContentValues contentValues = new ContentValues();
-            contentValues.put("favorite", channelInfo.getFavorite());
             sqLiteDatabase.update(SQLHelper.TABLE_NAME,contentValues , "tag=?" ,
                     new String []{channelInfo.getTag()});
             flag = true;
@@ -129,46 +116,26 @@ public class ChannelDao {
         return flag;
     }
 
-    public List<ChannelInfo> queryByCountry(String country){
-        Cursor cursor = null;
-        List<ChannelInfo> list = new ArrayList<>();
+    public boolean deleteByTag(ChannelInfo channelInfo){
+        boolean flag = false;
         try {
-            cursor = sqLiteDatabase.query(SQLHelper.TABLE_NAME ,null , "country=? and visible=?" , new String []{country,"1"} , null,null,"name");
-            while(cursor.moveToNext()){
-                ChannelInfo channelInfo = new ChannelInfo();
-                channelInfo.setId(cursor.getInt(cursor.getColumnIndex("_id")));
-                channelInfo.setSequence(cursor.getInt(cursor.getColumnIndex("sequence")));
-                channelInfo.setTag(cursor.getString(cursor.getColumnIndex("tag")));
-                channelInfo.setName(cursor.getString(cursor.getColumnIndex("name")));
-                channelInfo.setUrl(cursor.getString(cursor.getColumnIndex("url")));
-                channelInfo.setIcon(cursor.getString(cursor.getColumnIndex("icon")));
-                channelInfo.setType(cursor.getString(cursor.getColumnIndex("type")));
-                channelInfo.setCountry(cursor.getString(cursor.getColumnIndex("country")));
-                channelInfo.setStyle(cursor.getString(cursor.getColumnIndex("style")));
-                channelInfo.setVisible(cursor.getInt(cursor.getColumnIndex("visible")));
-                channelInfo.setFavorite(cursor.getString(cursor.getColumnIndex("favorite")));
-                list.add(channelInfo);
-            }
+            sqLiteDatabase.delete(SQLHelper.TABLE_NAME ,"tag=?" , new String[]{channelInfo.getTag()});
+            flag = true;
         }catch (Exception e){
             e.printStackTrace();
-            Logger.d(e.getMessage());
-        }finally {
-            if(cursor != null){
-                cursor.close();
-                cursor = null;
-            }
         }
-        return list;
+        return flag;
     }
 
-    public List<ChannelInfo> queryByStyle(String style){
+    public List<ChannelInfo> queryAll(){
         Cursor cursor = null;
-        List<ChannelInfo> list  = new ArrayList<>();
+        List<ChannelInfo> channelInfoList = new ArrayList<>();
         try {
-            cursor = sqLiteDatabase.query(SQLHelper.TABLE_NAME ,null , "style=? and visible=?" , new String []{style , "1"} , null,null,"name");
+            cursor = sqLiteDatabase.query(SQLHelper.TABLE_NAME ,null , "_id>?" , new String []{"0"} , null,null,"name");
             while(cursor.moveToNext()){
                 ChannelInfo channelInfo = new ChannelInfo();
                 channelInfo.setId(cursor.getInt(cursor.getColumnIndex("_id")));
+                channelInfo.setChannelId(cursor.getInt(cursor.getColumnIndex("channelId")));
                 channelInfo.setSequence(cursor.getInt(cursor.getColumnIndex("sequence")));
                 channelInfo.setTag(cursor.getString(cursor.getColumnIndex("tag")));
                 channelInfo.setName(cursor.getString(cursor.getColumnIndex("name")));
@@ -178,8 +145,7 @@ public class ChannelDao {
                 channelInfo.setCountry(cursor.getString(cursor.getColumnIndex("country")));
                 channelInfo.setStyle(cursor.getString(cursor.getColumnIndex("style")));
                 channelInfo.setVisible(cursor.getInt(cursor.getColumnIndex("visible")));
-                channelInfo.setFavorite(cursor.getString(cursor.getColumnIndex("favorite")));
-                list.add(channelInfo);
+                channelInfoList.add(channelInfo);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -189,38 +155,7 @@ public class ChannelDao {
                 cursor = null;
             }
         }
-        return list;
-    }
-
-    public List<ChannelInfo> queryFavorite(){
-        Cursor cursor = null;
-        List<ChannelInfo> list  = new ArrayList<>();
-        try {
-            cursor = sqLiteDatabase.query(SQLHelper.TABLE_NAME ,null , "favorite=? and visible=?" , new String []{"true" , "1"} , null,null,"name");
-            while(cursor.moveToNext()){
-                ChannelInfo channelInfo = new ChannelInfo();
-                channelInfo.setId(cursor.getInt(cursor.getColumnIndex("_id")));
-                channelInfo.setSequence(cursor.getInt(cursor.getColumnIndex("sequence")));
-                channelInfo.setTag(cursor.getString(cursor.getColumnIndex("tag")));
-                channelInfo.setName(cursor.getString(cursor.getColumnIndex("name")));
-                channelInfo.setUrl(cursor.getString(cursor.getColumnIndex("url")));
-                channelInfo.setIcon(cursor.getString(cursor.getColumnIndex("icon")));
-                channelInfo.setType(cursor.getString(cursor.getColumnIndex("type")));
-                channelInfo.setCountry(cursor.getString(cursor.getColumnIndex("country")));
-                channelInfo.setStyle(cursor.getString(cursor.getColumnIndex("style")));
-                channelInfo.setVisible(cursor.getInt(cursor.getColumnIndex("visible")));
-                channelInfo.setFavorite(cursor.getString(cursor.getColumnIndex("favorite")));
-                list.add(channelInfo);
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            if(cursor != null){
-                cursor.close();
-                cursor = null;
-            }
-        }
-        return list;
+        return channelInfoList;
     }
 
 }

@@ -20,7 +20,7 @@ public class FragmentMusicPresenter extends BasePresenter<IFragmentMusic> {
 
     public void loadChannelMusic(String style){
         if(iChannelData!=null){
-            iChannelData.showByStyle(style, new IChannelData.OnLoadListener() {
+            iChannelData.loadByStyle(style, new IChannelData.OnLoadListener() {
                 @Override
                 public void onSuccess(List<ChannelInfo> list, boolean finished) {
                     iFragmentMusic.loadChannelMusic(list);

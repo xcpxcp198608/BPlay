@@ -31,14 +31,13 @@ public class UpdateData implements IUpdateData {
                     return;
                 }
                 UpdateInfo updateInfo = new Gson().fromJson(s , new TypeToken<UpdateInfo>(){}.getType());
-                if(updateInfo != null){
-                    onLoadListener.onSuccess(updateInfo);
-                }
+                onLoadListener.onSuccess(updateInfo);
             }
 
             @Override
             public void onFailure(String e) {
                 Logger.d(e);
+                onLoadListener.onSuccess(null);
             }
         });
 

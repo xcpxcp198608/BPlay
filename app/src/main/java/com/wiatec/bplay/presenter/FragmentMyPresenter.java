@@ -22,7 +22,7 @@ public class FragmentMyPresenter extends BasePresenter<IFragmentMy> {
 
     public void loadFavoriteChannel(){
         if(iChannelData != null){
-            iChannelData.showFavorite(new IChannelData.OnLoadListener() {
+            iChannelData.loadFavorite(new IChannelData.OnLoadListener() {
                 @Override
                 public void onSuccess(List<ChannelInfo> list, boolean finished) {
                     iFragmentMy.loadFavoriteChannel(list);

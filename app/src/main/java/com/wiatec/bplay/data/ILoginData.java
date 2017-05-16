@@ -8,9 +8,8 @@ import com.wiatec.bplay.beans.Result;
 
 public interface ILoginData {
     void login(String userName ,String password ,OnLoadListener onLoadListener);
-    void register(String userName ,String password ,String email,OnLoadListener onLoadListener);
     interface OnLoadListener{
-        void onSuccess(boolean isSuccess , Result result);
+        void onSuccess(Result result);
         void onFailure(String e);
     }
 }

@@ -3,12 +3,15 @@ package com.wiatec.bplay.beans;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Arrays;
+
 /**
  * Created by patrick on 2017/2/10.
  */
 
 public class ChannelInfo implements Parcelable {
     private int id;
+    private int channelId;
     private int sequence;
     private String tag;
     private String name;
@@ -18,7 +21,6 @@ public class ChannelInfo implements Parcelable {
     private String country;
     private String style;
     private int visible;
-    private String favorite;
 
     public int getId() {
         return id;
@@ -26,6 +28,14 @@ public class ChannelInfo implements Parcelable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getChannelId() {
+        return channelId;
+    }
+
+    public void setChannelId(int channelId) {
+        this.channelId = channelId;
     }
 
     public int getSequence() {
@@ -100,18 +110,11 @@ public class ChannelInfo implements Parcelable {
         this.visible = visible;
     }
 
-    public String getFavorite() {
-        return favorite;
-    }
-
-    public void setFavorite(String favorite) {
-        this.favorite = favorite;
-    }
-
     @Override
     public String toString() {
         return "ChannelInfo{" +
                 "id=" + id +
+                ", channelId=" + channelId +
                 ", sequence=" + sequence +
                 ", tag='" + tag + '\'' +
                 ", name='" + name + '\'' +
@@ -121,7 +124,6 @@ public class ChannelInfo implements Parcelable {
                 ", country='" + country + '\'' +
                 ", style='" + style + '\'' +
                 ", visible=" + visible +
-                ", favorite='" + favorite + '\'' +
                 '}';
     }
 
@@ -133,6 +135,7 @@ public class ChannelInfo implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
+        dest.writeInt(this.channelId);
         dest.writeInt(this.sequence);
         dest.writeString(this.tag);
         dest.writeString(this.name);
@@ -142,7 +145,6 @@ public class ChannelInfo implements Parcelable {
         dest.writeString(this.country);
         dest.writeString(this.style);
         dest.writeInt(this.visible);
-        dest.writeString(this.favorite);
     }
 
     public ChannelInfo() {
@@ -150,6 +152,7 @@ public class ChannelInfo implements Parcelable {
 
     protected ChannelInfo(Parcel in) {
         this.id = in.readInt();
+        this.channelId = in.readInt();
         this.sequence = in.readInt();
         this.tag = in.readString();
         this.name = in.readString();
@@ -159,7 +162,6 @@ public class ChannelInfo implements Parcelable {
         this.country = in.readString();
         this.style = in.readString();
         this.visible = in.readInt();
-        this.favorite = in.readString();
     }
 
     public static final Parcelable.Creator<ChannelInfo> CREATOR = new Parcelable.Creator<ChannelInfo>() {

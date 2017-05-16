@@ -1,18 +1,16 @@
 package com.wiatec.bplay.activity;
 
+import android.content.ComponentName;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Build;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -21,16 +19,15 @@ import com.wiatec.bplay.F;
 import com.wiatec.bplay.R;
 import com.wiatec.bplay.beans.Result;
 import com.wiatec.bplay.presenter.BasePresenter;
-import com.wiatec.bplay.rx_event.RepeatLogin;
-import com.wiatec.bplay.service.task.CheckLogin;
-import com.wiatec.bplay.utils.BasicAuthenticator;
+import com.wiatec.bplay.rx_event.CheckLoginEvent;
+import com.wiatec.bplay.service.CheckLoginService;
 import com.wiatec.bplay.utils.Logger;
-import com.wiatec.bplay.utils.OkHttp.Listener.StringListener;
 import com.wiatec.bplay.utils.OkHttp.OkMaster;
 import com.wiatec.bplay.utils.RxBus.RxBus;
+import com.wiatec.bplay.utils.SPUtils;
+import com.wiatec.bplay.utils.SysUtils;
 
 import java.io.IOException;
-import java.net.Authenticator;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -44,11 +41,7 @@ import rx.functions.Action1;
 
 public abstract class BaseActivity<V ,T extends BasePresenter> extends AppCompatActivity {
     protected T presenter;
-    protected String token;
     protected String userName;
-    protected int count;
-    protected SharedPreferences sharedPreferences ;
-    protected SharedPreferences.Editor editor;
     private Subscription rxBusSubscription;
 
     public abstract T createPresenter();
@@ -57,31 +50,36 @@ public abstract class BaseActivity<V ,T extends BasePresenter> extends AppCompat
         super.onCreate(savedInstanceState);
         presenter = createPresenter();
         presenter.attachView(this);
-
-        sharedPreferences = getSharedPreferences("private" , MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-        token = sharedPreferences.getString("token","");
-//        if(TextUtils.isEmpty(token)){
-//            startActivity(new Intent(this , LoginActivity.class));
-//            finish();
-//        }
-        userName = sharedPreferences.getString("userName" , null);
-        count = sharedPreferences.getInt("count",0);
-        rxBusSubscription = RxBus.getDefault().toObservable(RepeatLogin.class)
-                .subscribe(new Action1<RepeatLogin>() {
+        rxBusSubscription = RxBus.getDefault().toObservable(CheckLoginEvent.class)
+                .subscribe(new Action1<CheckLoginEvent>() {
                     @Override
-                    public void call(RepeatLogin repeatLogin) {
-                        if(repeatLogin.getCode() == 1) {
+                    public void call(CheckLoginEvent checkLoginEvent) {
+                        if(checkLoginEvent.getCode() == 1) {
                             showRepeatLoginDialog();
                         }
                     }
                 });
+        String mac = SysUtils.getWifiMac1(this);
+        SPUtils.put(this , "mac" , mac);
+        bindService(new Intent(this , CheckLoginService.class) , serviceConnection ,BIND_AUTO_CREATE);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
     }
+
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
 
     private void showRepeatLoginDialog(){
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
@@ -105,10 +103,11 @@ public abstract class BaseActivity<V ,T extends BasePresenter> extends AppCompat
         }
     }
 
+
+
     protected void logout(){
-        editor.putString("token" ,"");
-        editor.putInt("count",0);
-        editor.commit();
+        SPUtils.put(Application.getContext() ,"token" ,"");
+        SPUtils.put(Application.getContext() ,"count" ,0);
     }
 
     @Override
@@ -118,6 +117,7 @@ public abstract class BaseActivity<V ,T extends BasePresenter> extends AppCompat
         if(rxBusSubscription != null){
             rxBusSubscription.unsubscribe();
         }
+        unbindService(serviceConnection);
     }
 
     protected void logoutServer(){
