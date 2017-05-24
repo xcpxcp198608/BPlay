@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
+import okhttp3.Call;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -56,7 +57,7 @@ public class ChannelData implements IChannelData{
 
     @Override
     public void loadByCountry(String country, final OnLoadListener onLoadListener) {
-        OkMaster.post(F.url.channel_country).parames("country" , country)
+        Call call = OkMaster.post(F.url.channel_country).parames("country" , country)
                 .enqueue(new StringListener() {
                     @Override
                     public void onSuccess(String s) throws IOException {

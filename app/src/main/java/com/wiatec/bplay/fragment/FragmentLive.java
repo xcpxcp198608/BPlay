@@ -21,6 +21,7 @@ import com.wiatec.bplay.beans.ChannelType;
 import com.wiatec.bplay.databinding.FragmentLiveBinding;
 import com.wiatec.bplay.presenter.FragmentLivePresenter;
 import com.wiatec.bplay.utils.Logger;
+import com.wiatec.bplay.utils.SPUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,6 +89,7 @@ public class FragmentLive extends BaseFragment<IFragmentLive ,FragmentLivePresen
                 }else {
                     presenter.loadChannelByCountry(country);
                 }
+                SPUtils.put(getContext() , "country" , country);
             }
         });
         channelTypeAdapter.setOnItemSelectedListener(new ChannelTypeAdapter.OnItemSelectedListener() {
@@ -109,6 +111,7 @@ public class FragmentLive extends BaseFragment<IFragmentLive ,FragmentLivePresen
                     }else {
                         presenter.loadChannelByCountry(country);
                     }
+                    SPUtils.put(getContext() , "country" , country);
                 }
             }
         });
@@ -121,33 +124,33 @@ public class FragmentLive extends BaseFragment<IFragmentLive ,FragmentLivePresen
             binding.tvLoadError.setVisibility(View.VISIBLE);
             binding.tvLoadError.setText(getString(R.string.data_load_error));
         }else {
-            binding.rvChannel.setVisibility(View.VISIBLE);
-            binding.tvLoadError.setVisibility(View.GONE);
-            if(channelInfoList == null){
-                channelInfoList = new ArrayList<>();
+            String country = (String) SPUtils.get(getContext() , "country" , "");
+            if(list.get(0).getCountry().equals(country)) {
+                binding.rvChannel.setVisibility(View.VISIBLE);
+                binding.tvLoadError.setVisibility(View.GONE);
+                if (channelInfoList == null) {
+                    channelInfoList = new ArrayList<>();
+                }
+                channelAdapter = new ChannelAdapter(list);
+                binding.rvChannel.setAdapter(channelAdapter);
+                binding.rvChannel.setLayoutManager(new GridLayoutManager(getContext(), 5));
+                channelAdapter.setOnItemClickListener(new ChannelAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        activity.play(list, position);
+                    }
+                });
+                channelAdapter.setOnItemSelectedListener(new ChannelAdapter.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(View view, int position) {
+
+                    }
+                });
             }
-//            channelInfoList.clear();
-//            channelInfoList.addAll(list);
-//            Logger.d(channelInfoList.toString());
-
-            channelAdapter = new ChannelAdapter(list);
-
-            binding.rvChannel.setAdapter(channelAdapter);
-            binding.rvChannel.setLayoutManager(new GridLayoutManager(getContext(), 5));
-            channelAdapter.setOnItemClickListener(new ChannelAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-                    activity.play(list,position);
-                }
-            });
-            channelAdapter.setOnItemSelectedListener(new ChannelAdapter.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(View view, int position) {
-
-                }
-            });
         }
     }
+
+
 
 
 }

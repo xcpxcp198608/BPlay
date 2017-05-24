@@ -28,6 +28,7 @@ public class FragmentLivePresenter extends BasePresenter<IFragmentLive> {
             iChannelTypeData.load(token, new IChannelTypeData.OnLoadListener() {
                 @Override
                 public void onSuccess(List<ChannelType> list) {
+                    if (iFragmentLive == null) return;
                     iFragmentLive.loadChannelType(list);
                 }
 
@@ -44,6 +45,7 @@ public class FragmentLivePresenter extends BasePresenter<IFragmentLive> {
             iChannelData.loadByCountry(country, new IChannelData.OnLoadListener() {
                 @Override
                 public void onSuccess(List<ChannelInfo> list, boolean finished) {
+                    if (iFragmentLive == null) return;
                     iFragmentLive.loadChannel(list ,finished);
                 }
 
@@ -60,6 +62,7 @@ public class FragmentLivePresenter extends BasePresenter<IFragmentLive> {
             iChannelData.loadFavorite(new IChannelData.OnLoadListener() {
                 @Override
                 public void onSuccess(List<ChannelInfo> list, boolean finished) {
+                    if (iFragmentLive == null) return;
                     iFragmentLive.loadChannel(list ,finished);
                 }
 

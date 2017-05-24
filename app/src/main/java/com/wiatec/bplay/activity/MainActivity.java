@@ -59,7 +59,8 @@ public class MainActivity extends AppCompatActivity implements View.OnFocusChang
                     startActivity(intent);
                     break;
                 case R.id.ibt_tv:
-                    showAppShortcutDialog();
+                    intent.setClass(MainActivity.this , MovieActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.ibt_person:
                     intent.setClass(MainActivity.this , LoginActivity.class);
@@ -138,18 +139,10 @@ public class MainActivity extends AppCompatActivity implements View.OnFocusChang
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
-        if(v.getId() == R.id.ibt_tv_house || v.getId() == R.id.ibt_show_box){
-            if(hasFocus){
-                Zoom.zoomIn10to13(v);
-            }else{
-                Zoom.zoomIn13to10(v);
-            }
-        }else {
-            if (hasFocus) {
-                Zoom.zoomIn10to11(v);
-            } else {
-                Zoom.zoomIn11to10(v);
-            }
+        if(hasFocus){
+            Zoom.zoomIn10to13(v);
+        }else{
+            Zoom.zoomIn13to10(v);
         }
     }
 }

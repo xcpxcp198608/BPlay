@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.wiatec.bplay.R;
 import com.wiatec.bplay.beans.UpdateInfo;
@@ -29,6 +30,7 @@ public class UpdateActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         binding = DataBindingUtil.setContentView(this ,R.layout.activity_update);
         updateInfo = getIntent().getParcelableExtra("updateInfo");
         path = getExternalFilesDir("update").getAbsolutePath();

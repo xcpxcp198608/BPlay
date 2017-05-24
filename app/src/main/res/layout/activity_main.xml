@@ -69,6 +69,7 @@
                 android:onClick="@{(view) -> onEvent.onClick(view)}"
                 android:layout_width="56dp"
                 android:layout_height="56dp" />
+
             <android.support.v4.widget.Space
                 android:layout_width="30dp"
                 android:layout_height="match_parent" />
@@ -93,9 +94,9 @@
             <ImageButton
                 android:id="@+id/ibt_btv"
                 android:onClick="@{(view) -> onEvent.onClick(view)}"
-                android:src="@drawable/img_btv_icon"
+                android:src="@drawable/ic_btv"
                 android:scaleType="centerInside"
-                android:background="@drawable/bg_item"
+                android:background="@android:color/transparent"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent" />
@@ -103,8 +104,8 @@
             <ImageButton
                 android:id="@+id/ibt_plus"
                 android:onClick="@{(view) -> onEvent.onClick(view)}"
-                android:src="@drawable/icon_plus1"
-                android:background="@drawable/bg_item"
+                android:src="@drawable/ic_plus1"
+                android:background="@android:color/transparent"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent" />
@@ -112,8 +113,8 @@
             <ImageButton
                 android:id="@+id/ibt_tv"
                 android:onClick="@{(view) -> onEvent.onClick(view)}"
-                android:background="@drawable/bg_item"
-                android:src="@drawable/tv"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_movie"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent" />

@@ -9,7 +9,7 @@
 
     <ImageButton
         android:id="@+id/ibt_tv_house"
-        android:src="@drawable/dianshijiashipin"
+        android:src="@drawable/ic_china_tv"
         android:scaleType="centerInside"
         android:background="@drawable/bg_app_shortcut"
         android:layout_width="100dp"
@@ -22,7 +22,7 @@
     <ImageButton
         android:id="@+id/ibt_show_box"
         android:background="@drawable/bg_app_shortcut"
-        android:src="@drawable/icon_show_box"
+        android:src="@drawable/ic_usa_tv"
         android:scaleType="centerInside"
         android:layout_width="100dp"
         android:layout_height="100dp" />

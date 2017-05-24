@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
@@ -46,6 +47,7 @@ public class PlayActivity extends AppCompatActivity implements SurfaceHolder.Cal
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         surfaceView = (SurfaceView) findViewById(R.id.surface_view);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         flPlay = (FrameLayout) findViewById(R.id.fl_play);
@@ -102,7 +104,7 @@ public class PlayActivity extends AppCompatActivity implements SurfaceHolder.Cal
             mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
-                    Toast.makeText(PlayActivity.this,"now play "+channelInfo.getName() ,Toast.LENGTH_LONG).show();
+                    Toast.makeText(PlayActivity.this,getString(R.string.playing)+" "+channelInfo.getName() ,Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.GONE);
                     mediaPlayer.start();
                 }
@@ -164,11 +166,11 @@ public class PlayActivity extends AppCompatActivity implements SurfaceHolder.Cal
                 if(isChecked){
                     if(favoriteDao.insert(channelInfo)){
                         cbFavorite.setChecked(true);
-                        Toast.makeText(this, channelInfo.getName()+getString(R.string.add_favorite) ,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, channelInfo.getName()+ " " +getString(R.string.add_favorite) ,Toast.LENGTH_SHORT).show();
                     }
                 }else{
                     if(favoriteDao.deleteByTag(channelInfo)) {
-                        Toast.makeText(this, channelInfo.getName() + getString(R.string.remove_favorite), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, channelInfo.getName()+ " " + getString(R.string.remove_favorite), Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;

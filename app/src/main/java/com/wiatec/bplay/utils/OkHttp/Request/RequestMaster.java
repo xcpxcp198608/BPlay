@@ -69,7 +69,7 @@ public abstract class RequestMaster {
 
     protected abstract Request createRequest(Header header, Parameters parameters ,Object tag);
     //异步执行请求
-    public void enqueue (Callback callback){
+    public Call enqueue (Callback callback){
         try {
             Request request = createRequest(header, parameters, mTag);
             Call call = OkMaster.okHttpClient.newCall(request);
@@ -77,9 +77,11 @@ public abstract class RequestMaster {
             if (mTag != null) {
                 callMap.put(mTag, call);
             }
+            return call;
         }catch (Exception e){
             Log.d("okhttp",e.getMessage());
         }
+        return null;
     }
     //异步执行下载
     public void startDownload (DownloadListener downloadListener){

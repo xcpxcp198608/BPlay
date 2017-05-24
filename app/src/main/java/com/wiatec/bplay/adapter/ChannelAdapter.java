@@ -44,14 +44,14 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelViewHolder> {
                 .placeholder(R.mipmap.bplay_logo)
                 .error(R.mipmap.bplay_logo)
                 .dontAnimate()
-                .dontTransform()
                 .into(holder.ivChannelIcon);
         holder.tvChannelName.setText(channelInfo.getName());
+        final int lPosition = holder.getAdapterPosition();
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(mOnItemClickListener != null){
-                    mOnItemClickListener.onItemClick(v,position);
+                    mOnItemClickListener.onItemClick(v,lPosition);
                 }
             }
         });
@@ -60,7 +60,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelViewHolder> {
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
                     if(mOnItemSelectedListener != null){
-                        mOnItemSelectedListener.onItemSelected(v,position);
+                        mOnItemSelectedListener.onItemSelected(v,lPosition);
                     }
                     Zoom.zoomIn10to11(v);
                 }else{
@@ -72,7 +72,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelViewHolder> {
             @Override
             public boolean onLongClick(View v) {
                 if(mOnItemLongClickListener != null){
-                    mOnItemLongClickListener.onItemLongClick(v,position);
+                    mOnItemLongClickListener.onItemLongClick(v,lPosition);
                 }
                 return false;
             }
@@ -82,6 +82,11 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelViewHolder> {
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 
     public interface OnItemClickListener{

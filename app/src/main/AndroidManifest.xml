@@ -35,6 +35,7 @@
         <activity android:name=".activity.MainActivity"
             android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".activity.ChannelActivity"/>
+        <activity android:name=".activity.MovieActivity"/>
 
     </application>
 
