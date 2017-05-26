@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.wiatec.bplay.Application;
 import com.wiatec.bplay.R;
 import com.wiatec.bplay.activity.ChannelActivity;
 import com.wiatec.bplay.adapter.ChannelAdapter;
@@ -120,7 +121,7 @@ public class FragmentLive extends BaseFragment<IFragmentLive ,FragmentLivePresen
 
     @Override
     public void loadChannel(final List<ChannelInfo> list , boolean finished) {
-        String country = (String) SPUtils.get(getContext() , "country" , "");
+        String country = (String) SPUtils.get(Application.getContext() , "country" , "");
         if(list == null || list.size() <= 0){
             binding.rvChannel.setVisibility(View.GONE);
             binding.tvLoadError.setVisibility(View.VISIBLE);

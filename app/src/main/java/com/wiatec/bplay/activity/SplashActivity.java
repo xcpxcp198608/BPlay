@@ -21,6 +21,7 @@ import com.wiatec.bplay.custom_view.EmotToast;
 import com.wiatec.bplay.databinding.ActivitySplashBinding;
 import com.wiatec.bplay.presenter.SplashPresenter;
 import com.wiatec.bplay.utils.AppUtils;
+import com.wiatec.bplay.utils.Logger;
 import com.wiatec.bplay.utils.NetUtils;
 
 import java.util.List;
@@ -73,6 +74,7 @@ public class SplashActivity extends BaseActivity<ISplashActivity , SplashPresent
                 e.printStackTrace();
             }
         }else {
+            Logger.d(updateInfo);
             boolean isNeed = updateInfo.getCode() > AppUtils.getVersionCode(SplashActivity.this, getPackageName());
             if (isNeed) {
                 showUpdateDialog(updateInfo);

@@ -33,11 +33,10 @@
         <CheckBox
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:background="@drawable/blue_light_bg"
             android:button="@drawable/bg_favorite"
             android:id="@+id/cb_favorite"
-            android:layout_width="48dp"
-            android:layout_height="48dp" />
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
 
     </LinearLayout>
 

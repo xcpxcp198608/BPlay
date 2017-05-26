@@ -214,9 +214,10 @@ public class PlayActivity extends AppCompatActivity implements SurfaceHolder.Cal
         }
         if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_LEFT){
             position -- ;
-            if(position <= 0){
-                position = channelInfoList.size();
+            if(position < 0){
+                position = channelInfoList.size()-1;
             }
+            Logger.d(position);
             channelInfo = channelInfoList.get(position);
             play(AESUtil.decrypt(channelInfo.getUrl() , AESUtil.key));
         }
@@ -225,6 +226,7 @@ public class PlayActivity extends AppCompatActivity implements SurfaceHolder.Cal
             if(position >= channelInfoList.size()){
                 position = 0;
             }
+            Logger.d(position);
             channelInfo = channelInfoList.get(position);
             play(AESUtil.decrypt(channelInfo.getUrl() , AESUtil.key));
         }
