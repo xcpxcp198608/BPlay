@@ -73,13 +73,13 @@ public class FragmentLive extends BaseFragment<IFragmentLive ,FragmentLivePresen
         channelTypeAdapter.setOnItemClickListener(new ChannelTypeAdapter.OnItemClickListener() {
             @Override
             public void onItemClickListener(View view, int position) {
-                for(int i=0 ; i<binding.rvChannelType.getChildCount() ; i++){
+                int channelTypeCount = binding.rvChannelType.getChildCount();
+                for(int i=0 ; i < channelTypeCount ; i++){
                     View v = binding.rvChannelType.getChildAt(i);
                     v.setBackgroundResource(R.drawable.bg_item_channel_type);
                 }
                 view.setBackgroundResource(R.drawable.bg_item_channel_type_focus);
                 String country = list.get(position).getName();
-                Logger.d(country);
                 binding.rvChannel.setVisibility(View.GONE);
                 binding.tvLoadError.setVisibility(View.VISIBLE);
                 binding.tvLoadError.setText(getString(R.string.data_loading));
@@ -95,7 +95,8 @@ public class FragmentLive extends BaseFragment<IFragmentLive ,FragmentLivePresen
         channelTypeAdapter.setOnItemSelectedListener(new ChannelTypeAdapter.OnItemSelectedListener() {
             @Override
             public void onItemSelected(View view, int position ,boolean hasFocus) {
-                for(int i=0 ; i<binding.rvChannelType.getChildCount() ; i++){
+                int channelTypeCount = binding.rvChannelType.getChildCount();
+                for(int i=0 ; i < channelTypeCount ; i++){
                     View v = binding.rvChannelType.getChildAt(i);
                     v.setBackgroundResource(R.drawable.bg_item_channel_type);
                 }
@@ -150,34 +151,37 @@ public class FragmentLive extends BaseFragment<IFragmentLive ,FragmentLivePresen
 
                     }
                 });
-            }else{
-                if("FAVORITE".equals(country)){
-                    binding.rvChannel.setVisibility(View.VISIBLE);
-                    binding.tvLoadError.setVisibility(View.GONE);
-                    if (channelInfoList == null) {
-                        channelInfoList = new ArrayList<>();
-                    }
-                    channelAdapter = new ChannelAdapter(list);
-                    binding.rvChannel.setAdapter(channelAdapter);
-                    binding.rvChannel.setLayoutManager(new GridLayoutManager(getContext(), 5));
-                    channelAdapter.setOnItemClickListener(new ChannelAdapter.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(View view, int position) {
-                            activity.play(list, position);
-                        }
-                    });
-                    channelAdapter.setOnItemSelectedListener(new ChannelAdapter.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(View view, int position) {
-
-                        }
-                    });
-                }
             }
         }
     }
 
+    @Override
+    public void loadFavoriteChannel(final List<ChannelInfo> list, boolean finished) {
+        if(list == null || list.size() <= 0){
+            binding.rvChannel.setVisibility(View.GONE);
+            binding.tvLoadError.setVisibility(View.VISIBLE);
+            binding.tvLoadError.setText(getString(R.string.favorite_empty));
+        }else {
+            binding.rvChannel.setVisibility(View.VISIBLE);
+            binding.tvLoadError.setVisibility(View.GONE);
+            if (channelInfoList == null) {
+                channelInfoList = new ArrayList<>();
+            }
+            channelAdapter = new ChannelAdapter(list);
+            binding.rvChannel.setAdapter(channelAdapter);
+            binding.rvChannel.setLayoutManager(new GridLayoutManager(getContext(), 5));
+            channelAdapter.setOnItemClickListener(new ChannelAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    activity.play(list, position);
+                }
+            });
+            channelAdapter.setOnItemSelectedListener(new ChannelAdapter.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(View view, int position) {
 
-
-
+                }
+            });
+        }
+    }
 }

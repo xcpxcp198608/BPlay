@@ -63,7 +63,7 @@ public class FragmentLivePresenter extends BasePresenter<IFragmentLive> {
                 @Override
                 public void onSuccess(List<ChannelInfo> list, boolean finished) {
                     if (iFragmentLive == null) return;
-                    iFragmentLive.loadChannel(list ,finished);
+                    iFragmentLive.loadFavoriteChannel(list ,finished);
                 }
 
                 @Override

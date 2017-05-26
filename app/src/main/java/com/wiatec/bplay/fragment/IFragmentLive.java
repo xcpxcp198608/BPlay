@@ -12,4 +12,5 @@ import java.util.List;
 public interface IFragmentLive {
     void loadChannelType(List<ChannelType> list);
     void loadChannel(List<ChannelInfo> list , boolean finished);
+    void loadFavoriteChannel(List<ChannelInfo> list , boolean finished);
 }
