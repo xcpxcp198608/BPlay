@@ -48,6 +48,8 @@
     <string name="confirm_exit">Do you confirm exit?</string>
     <string name="data_loading">data loading :)</string>
     <string name="data_load_error">data load error :(</string>
+    <string name="favorite_empty">favorite is empty</string>
     <string name="hi">Hi</string>
     <string name="playing">Now playing</string>
+    <string name="notice1">Please go to app market to download and install</string>
 </resources>

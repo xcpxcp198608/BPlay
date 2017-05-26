@@ -119,12 +119,16 @@ public class FragmentLive extends BaseFragment<IFragmentLive ,FragmentLivePresen
 
     @Override
     public void loadChannel(final List<ChannelInfo> list , boolean finished) {
+        String country = (String) SPUtils.get(getContext() , "country" , "");
         if(list == null || list.size() <= 0){
             binding.rvChannel.setVisibility(View.GONE);
             binding.tvLoadError.setVisibility(View.VISIBLE);
-            binding.tvLoadError.setText(getString(R.string.data_load_error));
+            if("FAVORITE".equals(country)){
+                binding.tvLoadError.setText(getString(R.string.favorite_empty));
+            }else {
+                binding.tvLoadError.setText(getString(R.string.data_load_error));
+            }
         }else {
-            String country = (String) SPUtils.get(getContext() , "country" , "");
             if(list.get(0).getCountry().equals(country)) {
                 binding.rvChannel.setVisibility(View.VISIBLE);
                 binding.tvLoadError.setVisibility(View.GONE);
@@ -146,6 +150,29 @@ public class FragmentLive extends BaseFragment<IFragmentLive ,FragmentLivePresen
 
                     }
                 });
+            }else{
+                if("FAVORITE".equals(country)){
+                    binding.rvChannel.setVisibility(View.VISIBLE);
+                    binding.tvLoadError.setVisibility(View.GONE);
+                    if (channelInfoList == null) {
+                        channelInfoList = new ArrayList<>();
+                    }
+                    channelAdapter = new ChannelAdapter(list);
+                    binding.rvChannel.setAdapter(channelAdapter);
+                    binding.rvChannel.setLayoutManager(new GridLayoutManager(getContext(), 5));
+                    channelAdapter.setOnItemClickListener(new ChannelAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, int position) {
+                            activity.play(list, position);
+                        }
+                    });
+                    channelAdapter.setOnItemSelectedListener(new ChannelAdapter.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(View view, int position) {
+
+                        }
+                    });
+                }
             }
         }
     }

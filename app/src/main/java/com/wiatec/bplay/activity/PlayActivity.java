@@ -18,9 +18,11 @@ import android.widget.Toast;
 
 import com.wiatec.bplay.R;
 import com.wiatec.bplay.beans.ChannelInfo;
+import com.wiatec.bplay.custom_view.EmotToast;
 import com.wiatec.bplay.sql.FavoriteDao;
 import com.wiatec.bplay.utils.AESUtil;
 import com.wiatec.bplay.utils.Logger;
+import com.wiatec.bplay.utils.MediaPlayerErrorUtil;
 
 import java.io.IOException;
 import java.util.List;
@@ -63,7 +65,6 @@ public class PlayActivity extends AppCompatActivity implements SurfaceHolder.Cal
         if(channelInfo == null){
             return;
         }
-        Logger.d(channelInfo.toString());
         favoriteDao = FavoriteDao.getInstance(this);
         if(favoriteDao.isExists(channelInfo)){
             cbFavorite.setChecked(true);
@@ -104,9 +105,15 @@ public class PlayActivity extends AppCompatActivity implements SurfaceHolder.Cal
             mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
-                    Toast.makeText(PlayActivity.this,getString(R.string.playing)+" "+channelInfo.getName() ,Toast.LENGTH_LONG).show();
+                    EmotToast.show(PlayActivity.this, getString(R.string.playing)+" "+channelInfo.getName() ,EmotToast.EMOT_SMILE);
                     progressBar.setVisibility(View.GONE);
                     mediaPlayer.start();
+                }
+            });
+            mediaPlayer.setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
+                @Override
+                public void onBufferingUpdate(MediaPlayer mp, int percent) {
+                    Logger.d("buffering:"+percent);
                 }
             });
             mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
@@ -114,8 +121,26 @@ public class PlayActivity extends AppCompatActivity implements SurfaceHolder.Cal
                 public boolean onError(MediaPlayer mp, int what, int extra) {
                     mediaPlayer.reset();
                     progressBar.setVisibility(View.GONE);
-                    Toast.makeText(PlayActivity.this,getString(R.string.error_play),Toast.LENGTH_LONG).show();
+                    Logger.d(what + "<--->" + extra);
+                    EmotToast.show(PlayActivity.this, MediaPlayerErrorUtil.getError(what), EmotToast.EMOT_SAD);
+                    if(mediaPlayer != null){
+                        mediaPlayer.stop();
+                        mediaPlayer.release();
+                        mediaPlayer = null;
+                    }
+                    finish();
                     return false;
+                }
+            });
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    if(mediaPlayer != null){
+                        mediaPlayer.stop();
+                        mediaPlayer.release();
+                        mediaPlayer = null;
+                    }
+                    finish();
                 }
             });
         } catch (IOException e) {
@@ -166,11 +191,11 @@ public class PlayActivity extends AppCompatActivity implements SurfaceHolder.Cal
                 if(isChecked){
                     if(favoriteDao.insert(channelInfo)){
                         cbFavorite.setChecked(true);
-                        Toast.makeText(this, channelInfo.getName()+ " " +getString(R.string.add_favorite) ,Toast.LENGTH_SHORT).show();
+                        EmotToast.show(PlayActivity.this, channelInfo.getName()+ " " +getString(R.string.add_favorite) ,EmotToast.EMOT_SMILE);
                     }
                 }else{
                     if(favoriteDao.deleteByTag(channelInfo)) {
-                        Toast.makeText(this, channelInfo.getName()+ " " + getString(R.string.remove_favorite), Toast.LENGTH_SHORT).show();
+                        EmotToast.show(PlayActivity.this, channelInfo.getName()+ " " + getString(R.string.remove_favorite), EmotToast.EMOT_SAD);
                     }
                 }
                 break;

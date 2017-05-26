@@ -25,7 +25,7 @@ public class Logger {
     }
 
 
-    public static void v (String message){
+    public static void v (Object message){
         if(LEVEL <= V){
             StackTraceElement stackTraceElement = Thread.currentThread().getStackTrace()[3];
             Log.v(tag1 ,  "----->"+message+ "          "+getInfo(stackTraceElement));
@@ -33,28 +33,28 @@ public class Logger {
 
     }
 
-    public static void d (String message){
+    public static void d (Object message){
         if(LEVEL <= D){
             StackTraceElement stackTraceElement = Thread.currentThread().getStackTrace()[3];
             Log.d(tag1 ,  "----->"+message+ "          "+getInfo(stackTraceElement));
         }
     }
 
-    public static void i (String message){
+    public static void i (Object message){
         if(LEVEL <= I){
             StackTraceElement stackTraceElement = Thread.currentThread().getStackTrace()[3];
             Log.i(tag1 ,  "----->"+message+ "          "+getInfo(stackTraceElement));
         }
     }
 
-    public static void w (String message){
+    public static void w (Object message){
         if(LEVEL <= W){
             StackTraceElement stackTraceElement = Thread.currentThread().getStackTrace()[3];
             Log.w(tag1 ,  "----->"+message+ "          "+getInfo(stackTraceElement));
         }
     }
 
-    public static void e (String message){
+    public static void e (Object message){
         if(LEVEL <= E){
             StackTraceElement stackTraceElement = Thread.currentThread().getStackTrace()[3];
             Log.e(tag1 ,  "----->"+message+ "          "+getInfo(stackTraceElement));

@@ -13,6 +13,7 @@ import com.wiatec.bplay.Application;
 import com.wiatec.bplay.F;
 import com.wiatec.bplay.R;
 import com.wiatec.bplay.beans.ChannelInfo;
+import com.wiatec.bplay.custom_view.EmotToast;
 import com.wiatec.bplay.databinding.ActivityChannelBinding;
 import com.wiatec.bplay.fragment.FragmentFavorite;
 import com.wiatec.bplay.fragment.FragmentLive;
@@ -107,7 +108,7 @@ public class ChannelActivity extends AppCompatActivity {
             if(AppUtils.isInstalled(Application.getContext(), packageName)){
                 AppUtils.launchApp(this, packageName);
             }else {
-                Toast.makeText(ChannelActivity.this,getString(R.string.app_no_install),Toast.LENGTH_SHORT).show();
+                EmotToast.show(ChannelActivity.this,getString(R.string.app_no_install), EmotToast.EMOT_SMILE);
                 AppUtils.launchApp(this, F.package_name.market);
             }
         }else if("radio".equals(type)){

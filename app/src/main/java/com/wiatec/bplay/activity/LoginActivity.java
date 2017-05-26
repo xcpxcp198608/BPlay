@@ -13,6 +13,7 @@ import com.wiatec.bplay.Application;
 import com.wiatec.bplay.R;
 import com.wiatec.bplay.beans.ChannelInfo;
 import com.wiatec.bplay.beans.Result;
+import com.wiatec.bplay.custom_view.EmotToast;
 import com.wiatec.bplay.databinding.ActivityLoginBinding;
 import com.wiatec.bplay.presenter.LoginPresenter;
 import com.wiatec.bplay.utils.Logger;
@@ -53,11 +54,11 @@ public class LoginActivity extends BaseActivity1<ILoginActivity , LoginPresenter
                     userName = binding.etUsername.getText().toString().trim();
                     password = binding.etPassword.getText().toString().trim();
                     if(TextUtils.isEmpty(userName)){
-                        Toast.makeText(LoginActivity.this, getString(R.string.username_empty), Toast.LENGTH_LONG).show();
+                        EmotToast.show(LoginActivity.this, getString(R.string.username_empty), EmotToast.EMOT_SAD);
                         return;
                     }
                     if(TextUtils.isEmpty(password)){
-                        Toast.makeText(LoginActivity.this, getString(R.string.password_empty), Toast.LENGTH_LONG).show();
+                        EmotToast.show(LoginActivity.this, getString(R.string.password_empty), EmotToast.EMOT_SAD);
                         return;
                     }
                     binding.progressBar.setVisibility(View.VISIBLE);
@@ -75,11 +76,12 @@ public class LoginActivity extends BaseActivity1<ILoginActivity , LoginPresenter
             SPUtils.put(Application.getContext() ,"userName" , userName);
             SPUtils.put(Application.getContext(),"lastName" ,result.getExtra());
             binding.progressBar.setVisibility(View.GONE);
+            EmotToast.show(LoginActivity.this, result.getStatus(), EmotToast.EMOT_SMILE);
             finish();
         }else{
             binding.progressBar.setVisibility(View.GONE);
+            EmotToast.show(LoginActivity.this, result.getStatus(), EmotToast.EMOT_SAD);
         }
-        Toast.makeText(LoginActivity.this, result.getStatus(), Toast.LENGTH_LONG).show();
     }
 
 }
