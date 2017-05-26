@@ -57,7 +57,7 @@ public class ChannelData implements IChannelData{
 
     @Override
     public void loadByCountry(String country, final OnLoadListener onLoadListener) {
-        Call call = OkMaster.post(F.url.channel_country).parames("country" , country)
+        OkMaster.post(F.url.channel_country).parames("country" , country)
                 .enqueue(new StringListener() {
                     @Override
                     public void onSuccess(String s) throws IOException {
