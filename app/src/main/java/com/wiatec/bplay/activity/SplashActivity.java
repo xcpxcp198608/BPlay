@@ -18,6 +18,7 @@ import com.wiatec.bplay.R;
 import com.wiatec.bplay.beans.ChannelInfo;
 import com.wiatec.bplay.beans.UpdateInfo;
 import com.wiatec.bplay.custom_view.EmotToast;
+import com.wiatec.bplay.data.UserContentResolver;
 import com.wiatec.bplay.databinding.ActivitySplashBinding;
 import com.wiatec.bplay.presenter.SplashPresenter;
 import com.wiatec.bplay.utils.AppUtils;
@@ -49,6 +50,9 @@ public class SplashActivity extends BaseActivity<ISplashActivity , SplashPresent
     @Override
     protected void onStart() {
         super.onStart();
+        Logger.d(UserContentResolver.get("userName"));
+        Logger.d(UserContentResolver.get("lastName"));
+        Logger.d(UserContentResolver.get("userLevel"));
         String model = Build.MODEL;
         if(!"BTVi3".equals(model) && !"MorphoBT E110".equals(model)){
             EmotToast.show(Application.getContext(),getString(R.string.device_notice), EmotToast.EMOT_SAD);
