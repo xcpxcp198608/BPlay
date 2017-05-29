@@ -25,8 +25,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.LoginActivity"
-            android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".activity.AdActivity"/>
         <activity android:name=".activity.PlayActivity"/>
         <activity android:name=".activity.PlayRadioActivity"/>

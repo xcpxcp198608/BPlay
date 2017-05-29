@@ -50,9 +50,6 @@ public class SplashActivity extends BaseActivity<ISplashActivity , SplashPresent
     @Override
     protected void onStart() {
         super.onStart();
-        Logger.d(UserContentResolver.get("userName"));
-        Logger.d(UserContentResolver.get("lastName"));
-        Logger.d(UserContentResolver.get("userLevel"));
         String model = Build.MODEL;
         if(!"BTVi3".equals(model) && !"MorphoBT E110".equals(model)){
             EmotToast.show(Application.getContext(),getString(R.string.device_notice), EmotToast.EMOT_SAD);

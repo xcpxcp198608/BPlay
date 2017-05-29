@@ -16,6 +16,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:visibility="gone"
             android:gravity="center_vertical"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
@@ -94,7 +95,7 @@
             <ImageButton
                 android:id="@+id/ibt_btv"
                 android:onClick="@{(view) -> onEvent.onClick(view)}"
-                android:src="@drawable/ic_btv"
+                android:src="@drawable/ic_btv3"
                 android:scaleType="centerInside"
                 android:background="@android:color/transparent"
                 android:layout_weight="1"
@@ -104,7 +105,7 @@
             <ImageButton
                 android:id="@+id/ibt_plus"
                 android:onClick="@{(view) -> onEvent.onClick(view)}"
-                android:src="@drawable/ic_plus"
+                android:src="@drawable/ic_plus3"
                 android:background="@android:color/transparent"
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -114,7 +115,7 @@
                 android:id="@+id/ibt_tv"
                 android:onClick="@{(view) -> onEvent.onClick(view)}"
                 android:background="@android:color/transparent"
-                android:src="@drawable/ic_movie"
+                android:src="@drawable/ic_movie3"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent" />

@@ -63,7 +63,7 @@ public abstract class BaseActivity<V ,T extends BasePresenter> extends AppCompat
                 });
         String mac = SysUtils.getWifiMac1(this);
         SPUtils.put(this , "mac" , mac);
-        bindService(new Intent(this , CheckLoginService.class) , serviceConnection ,BIND_AUTO_CREATE);
+//        bindService(new Intent(this , CheckLoginService.class) , serviceConnection ,BIND_AUTO_CREATE);
     }
 
     @Override
@@ -97,7 +97,6 @@ public abstract class BaseActivity<V ,T extends BasePresenter> extends AppCompat
             @Override
             public void onClick(View v) {
                 logout();
-                startActivity(new Intent(Application.getContext() , LoginActivity.class));
             }
         });
         if(rxBusSubscription != null){
@@ -119,7 +118,7 @@ public abstract class BaseActivity<V ,T extends BasePresenter> extends AppCompat
         if(rxBusSubscription != null){
             rxBusSubscription.unsubscribe();
         }
-        unbindService(serviceConnection);
+//        unbindService(serviceConnection);
     }
 
     protected void logoutServer(){

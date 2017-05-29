@@ -30,10 +30,6 @@ import rx.schedulers.Schedulers;
 public class AdActivity extends BaseActivity<IAdActivity , AdPresenter> implements IAdActivity{
 
     private ActivityAdBinding binding;
-    private int delayTime = 6;
-    private Subscription subscription;
-    private ChannelInfo channelInfo;
-    private String link;
 
     @Override
     public AdPresenter createPresenter() {
@@ -62,58 +58,11 @@ public class AdActivity extends BaseActivity<IAdActivity , AdPresenter> implemen
                 .error(R.mipmap.bplay_logo)
                 .dontAnimate()
                 .into(binding.ivAd);
-        link = imageInfo.getLink();
     }
-
-    private void showLink(String link){
-        if(link == null){
-            return;
-        }
-        try {
-            startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse(link)));
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    private void delay(){
-        subscription = Observable.interval(0,1000, TimeUnit.MILLISECONDS)
-                .take(delayTime)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Long>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(Long aLong) {
-                        int time = (int) (delayTime-1-aLong);
-                        binding.llDelay.setVisibility(View.VISIBLE);
-                        binding.tvDelayTime.setText(time + "s");
-                    }
-                });
-    }
-
 
     public class OnEventListener{
         public void onClick(View view){
-            switch (view.getId()){
-                case R.id.bt_detail:
-                    showLink(link);
-                    break;
-                case R.id.bt_pass:
 
-                    break;
-                default:
-                    break;
-            }
         }
     }
 

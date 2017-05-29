@@ -63,8 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnFocusChang
                     startActivity(intent);
                     break;
                 case R.id.ibt_person:
-                    intent.setClass(MainActivity.this , LoginActivity.class);
-                    startActivity(intent);
+
                     break;
             }
         }
@@ -101,32 +100,6 @@ public class MainActivity extends AppCompatActivity implements View.OnFocusChang
                 alertDialog.dismiss();
             }
         });
-    }
-
-    private void showAppShortcutDialog(){
-        AlertDialog alertDialog = new AlertDialog.Builder(this,R.style.dialog).create();
-        alertDialog.show();
-        Window window = alertDialog.getWindow();
-        if(window == null){
-            return;
-        }
-        window.setContentView(R.layout.dialog_app_shortcut);
-        ImageButton ibtTVHouse = (ImageButton) window.findViewById(R.id.ibt_tv_house);
-        ImageButton ibtShowBox = (ImageButton) window.findViewById(R.id.ibt_show_box);
-        ibtTVHouse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AppUtils.launchApp(MainActivity.this , F.package_name.tv_house);
-            }
-        });
-        ibtShowBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AppUtils.launchApp(MainActivity.this , F.package_name.show_box);
-            }
-        });
-        ibtTVHouse.setOnFocusChangeListener(this);
-        ibtShowBox.setOnFocusChangeListener(this);
     }
 
     private void setFocusListener(){

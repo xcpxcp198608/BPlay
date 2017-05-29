@@ -14,6 +14,7 @@ import com.wiatec.bplay.F;
 import com.wiatec.bplay.R;
 import com.wiatec.bplay.beans.ChannelInfo;
 import com.wiatec.bplay.custom_view.EmotToast;
+import com.wiatec.bplay.data.UserContentResolver;
 import com.wiatec.bplay.databinding.ActivityChannelBinding;
 import com.wiatec.bplay.fragment.FragmentFavorite;
 import com.wiatec.bplay.fragment.FragmentLive;
@@ -80,14 +81,20 @@ public class ChannelActivity extends AppCompatActivity {
         String country = channelInfoList.get(position).getCountry();
         if("live".equals(type)){
             if("SPORTS".equals(country) || "LATINO".equals(country)) {
-                int userLevel = (int) SPUtils.get(Application.getContext(), "userLevel", 1);
+                String level = UserContentResolver.get("userLevel");
+                int userLevel;
+                try {
+                    userLevel = Integer.parseInt(level);
+                }catch (Exception e){
+                    userLevel = 1;
+                }
                 if (userLevel > 1) {
                     Intent intent = new Intent(ChannelActivity.this, PlayActivity.class);
                     intent.putExtra("channelInfoList", (Serializable) channelInfoList);
                     intent.putExtra("position", position);
                     startActivity(intent);
                 } else {
-                    String experience = (String) SPUtils.get(Application.getContext(), "experience", "false");
+                    String experience = UserContentResolver.get("experience");
                     if ("true".equals(experience)) {
                         Intent intent = new Intent(ChannelActivity.this, PlayActivity.class);
                         intent.putExtra("channelInfoList", (Serializable) channelInfoList);
