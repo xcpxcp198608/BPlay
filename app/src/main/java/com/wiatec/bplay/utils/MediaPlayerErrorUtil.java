@@ -13,19 +13,19 @@ public class MediaPlayerErrorUtil {
         if(what > 0 ) {
             switch (what) {
                 case MediaPlayer.MEDIA_ERROR_IO:
-                    return "network related operation errors";
+                    return "Channel error code 001, please check back later";
                 case MediaPlayer.MEDIA_ERROR_SERVER_DIED:
-                    return "Media server died";
+                    return "Channel error code 002, please check back later";
                 case MediaPlayer.MEDIA_ERROR_TIMED_OUT:
-                    return "Some operation takes too long to complete";
+                    return "Channel time out, please check back later";
                 case MediaPlayer.MEDIA_ERROR_MALFORMED:
-                    return "Bitstream is not conforming to the related coding standard";
+                    return "Channel error code 003, please check back later";
                 case MediaPlayer.MEDIA_ERROR_UNKNOWN:
-                    return "Unspecified media player error";
+                    return "Channel error code 004, please check back later";
                 case MediaPlayer.MEDIA_ERROR_UNSUPPORTED:
-                    return "does not support the feature";
+                    return "Channel error code 005, please check back later";
                 default:
-                    return "Unspecified media player error";
+                    return "Channel error code 006, please check back later";
             }
         }else{
             return "";

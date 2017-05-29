@@ -113,8 +113,34 @@ public class MainActivity extends AppCompatActivity implements View.OnFocusChang
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
         if(hasFocus){
+            switch (v.getId()){
+                case R.id.ibt_btv:
+                    binding.ibtBtv.setImageResource(R.drawable.ic_btv);
+                    break;
+                case R.id.ibt_plus:
+                    binding.ibtPlus.setImageResource(R.drawable.ic_plus1);
+                    break;
+                case R.id.ibt_tv:
+                    binding.ibtTv.setImageResource(R.drawable.ic_movie);
+                    break;
+                default:
+                    break;
+            }
             Zoom.zoomIn10to13(v);
         }else{
+            switch (v.getId()){
+                case R.id.ibt_btv:
+                    binding.ibtBtv.setImageResource(R.drawable.ic_btv3);
+                    break;
+                case R.id.ibt_plus:
+                    binding.ibtPlus.setImageResource(R.drawable.ic_plus3);
+                    break;
+                case R.id.ibt_tv:
+                    binding.ibtTv.setImageResource(R.drawable.ic_movie3);
+                    break;
+                default:
+                    break;
+            }
             Zoom.zoomIn13to10(v);
         }
     }

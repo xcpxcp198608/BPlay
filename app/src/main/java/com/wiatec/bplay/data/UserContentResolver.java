@@ -17,9 +17,13 @@ public class UserContentResolver {
     private static final String AUTH = "content://com.wiatec.btv_launcher.provide.UserContentProvider/user/";
 
     public static String get(String key){
-        String u = AUTH + key;
-        Logger.d(u);
-        Uri uri = Uri.parse(u);
-        return contentResolver.getType(uri);
+        Uri uri = Uri.parse(AUTH + key);
+        String result = "";
+        try {
+            result = contentResolver.getType(uri);
+        }catch (Exception e){
+            return result;
+        }
+        return result;
     }
 }
