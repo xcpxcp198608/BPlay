@@ -8,7 +8,7 @@
     </data>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="@drawable/bg_bkeymo"
+    android:background="@drawable/bg_movie"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -34,8 +34,8 @@
             android:scaleType="centerInside"
             android:onClick="@{(view) -> onEvent.onClick(view)}"
             android:background="@drawable/bg_app_shortcut"
-            android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_width="150dp"
+            android:layout_height="150dp" />
 
         <android.support.v4.widget.Space
             android:layout_width="20dp"
@@ -47,8 +47,8 @@
             android:background="@drawable/bg_app_shortcut"
             android:src="@drawable/ic_usa_tv"
             android:scaleType="centerInside"
-            android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_width="150dp"
+            android:layout_height="150dp" />
 
     </LinearLayout>
 

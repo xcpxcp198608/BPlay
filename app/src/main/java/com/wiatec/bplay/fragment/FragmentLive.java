@@ -36,7 +36,8 @@ public class FragmentLive extends BaseFragment<IFragmentLive ,FragmentLivePresen
     private FragmentLiveBinding binding;
     private ChannelActivity activity;
     private ChannelAdapter channelAdapter;
-    private List<ChannelInfo> channelInfoList;
+    private List<ChannelInfo> channelInfoList = new ArrayList<>();
+    private short isLock;
 
     @Override
     protected FragmentLivePresenter createPresenter() {
@@ -48,6 +49,10 @@ public class FragmentLive extends BaseFragment<IFragmentLive ,FragmentLivePresen
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater ,R.layout.fragment_live , container , false);
         presenter.loadChannelType("");
+        binding.rvChannelType.setNextFocusRightId(R.id.rv_channel);
+        binding.rvChannel.setNextFocusDownId(R.id.ibt_focus);
+        binding.ibtFocus.setNextFocusDownId(R.id.rv_channel);
+        binding.ibtFocus.setNextFocusUpId(R.id.rv_channel);
         return binding.getRoot();
     }
 
@@ -81,6 +86,7 @@ public class FragmentLive extends BaseFragment<IFragmentLive ,FragmentLivePresen
                 }
                 view.setBackgroundResource(R.drawable.bg_item_channel_type_focus);
                 if(hasFocus) {
+                    isLock = list.get(position).getIsLock();
                     String country = list.get(position).getName();
                     binding.rvChannel.setVisibility(View.GONE);
                     binding.tvLoadError.setVisibility(View.VISIBLE);
@@ -112,13 +118,18 @@ public class FragmentLive extends BaseFragment<IFragmentLive ,FragmentLivePresen
             if(list.get(0).getCountry().equals(country)) {
                 binding.rvChannel.setVisibility(View.VISIBLE);
                 binding.tvLoadError.setVisibility(View.GONE);
-                channelAdapter = new ChannelAdapter(list);
-                binding.rvChannel.setAdapter(channelAdapter);
+                channelInfoList.clear();
+                channelInfoList.addAll(list);
+                if(channelAdapter == null){
+                    channelAdapter = new ChannelAdapter(channelInfoList);
+                    binding.rvChannel.setAdapter(channelAdapter);
+                }
+                channelAdapter.notifyDataSetChanged();
                 binding.rvChannel.setLayoutManager(new GridLayoutManager(getContext(), 5));
                 channelAdapter.setOnItemClickListener(new ChannelAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        activity.play(list, position);
+                        activity.play(list, position, isLock);
                     }
                 });
             }
@@ -134,13 +145,18 @@ public class FragmentLive extends BaseFragment<IFragmentLive ,FragmentLivePresen
         }else {
             binding.rvChannel.setVisibility(View.VISIBLE);
             binding.tvLoadError.setVisibility(View.GONE);
-            channelAdapter = new ChannelAdapter(list);
-            binding.rvChannel.setAdapter(channelAdapter);
+            channelInfoList.clear();
+            channelInfoList.addAll(list);
+            if(channelAdapter == null){
+                channelAdapter = new ChannelAdapter(channelInfoList);
+                binding.rvChannel.setAdapter(channelAdapter);
+            }
+            channelAdapter.notifyDataSetChanged();
             binding.rvChannel.setLayoutManager(new GridLayoutManager(getContext(), 5));
             channelAdapter.setOnItemClickListener(new ChannelAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
-                    activity.play(list, position);
+                    activity.play(list, position, isLock);
                 }
             });
         }

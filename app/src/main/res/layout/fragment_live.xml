@@ -23,11 +23,17 @@
             android:layout_width="0dp"
             android:layout_height="match_parent" />
 
-        <FrameLayout
-            android:padding="5dp"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_weight="4"
             android:layout_width="0dp"
             android:layout_height="match_parent">
+
+        <FrameLayout
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
 
             <android.support.v7.widget.RecyclerView
                 android:scrollbars="none"
@@ -46,6 +52,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </FrameLayout>
+
+        <ImageButton
+            android:id="@+id/ibt_focus"
+            android:layout_width="match_parent"
+            android:background="@android:color/transparent"
+            android:layout_height="1dp" />
+
+        </LinearLayout>
 
 
     </LinearLayout>

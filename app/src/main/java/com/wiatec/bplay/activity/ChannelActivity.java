@@ -76,11 +76,10 @@ public class ChannelActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    public void play(List<ChannelInfo> channelInfoList , int position){
+    public void play(List<ChannelInfo> channelInfoList , int position, short isLock){
         String type = channelInfoList.get(position).getType();
-        String country = channelInfoList.get(position).getCountry();
         if("live".equals(type)){
-            if("SPORTS".equals(country) || "LATINO".equals(country)) {
+            if(isLock == 1) {
                 String level = UserContentResolver.get("userLevel");
                 int userLevel;
                 try {

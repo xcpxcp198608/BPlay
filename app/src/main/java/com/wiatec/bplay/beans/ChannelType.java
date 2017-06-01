@@ -9,6 +9,7 @@ public class ChannelType {
     private String name;
     private String icon;
     private int flag;
+    private short isLock;
 
     public int getId() {
         return id;
@@ -42,6 +43,14 @@ public class ChannelType {
         this.flag = flag;
     }
 
+    public short getIsLock() {
+        return isLock;
+    }
+
+    public void setIsLock(short isLock) {
+        this.isLock = isLock;
+    }
+
     @Override
     public String toString() {
         return "ChannelType{" +
@@ -49,6 +58,7 @@ public class ChannelType {
                 ", name='" + name + '\'' +
                 ", icon='" + icon + '\'' +
                 ", flag=" + flag +
+                ", isLock=" + isLock +
                 '}';
     }
 }

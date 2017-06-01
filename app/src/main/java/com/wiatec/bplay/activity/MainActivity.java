@@ -38,15 +38,6 @@ public class MainActivity extends AppCompatActivity implements View.OnFocusChang
         setFocusListener();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        String lastName = (String) SPUtils.get(MainActivity.this , "lastName" , "");
-        if(!TextUtils.isEmpty(lastName)){
-            binding.tvUser.setText(getString(R.string.hi) + " " +lastName);
-        }
-    }
-
     public class OnEventListener {
         public void onClick (View view){
             switch (view.getId()){
@@ -61,9 +52,6 @@ public class MainActivity extends AppCompatActivity implements View.OnFocusChang
                 case R.id.ibt_tv:
                     intent.setClass(MainActivity.this , MovieActivity.class);
                     startActivity(intent);
-                    break;
-                case R.id.ibt_person:
-
                     break;
             }
         }
@@ -103,8 +91,6 @@ public class MainActivity extends AppCompatActivity implements View.OnFocusChang
     }
 
     private void setFocusListener(){
-        binding.etSearch.setOnFocusChangeListener(this);
-        binding.ibtPerson.setOnFocusChangeListener(this);
         binding.ibtBtv.setOnFocusChangeListener(this);
         binding.ibtPlus.setOnFocusChangeListener(this);
         binding.ibtTv.setOnFocusChangeListener(this);
@@ -115,13 +101,13 @@ public class MainActivity extends AppCompatActivity implements View.OnFocusChang
         if(hasFocus){
             switch (v.getId()){
                 case R.id.ibt_btv:
-                    binding.ibtBtv.setImageResource(R.drawable.ic_btv);
+                    binding.ibtBtv.setImageResource(R.drawable.ic_btv_focus);
                     break;
                 case R.id.ibt_plus:
-                    binding.ibtPlus.setImageResource(R.drawable.ic_plus1);
+                    binding.ibtPlus.setImageResource(R.drawable.ic_plus_focus);
                     break;
                 case R.id.ibt_tv:
-                    binding.ibtTv.setImageResource(R.drawable.ic_movie);
+                    binding.ibtTv.setImageResource(R.drawable.ic_movie_focus);
                     break;
                 default:
                     break;
@@ -130,13 +116,13 @@ public class MainActivity extends AppCompatActivity implements View.OnFocusChang
         }else{
             switch (v.getId()){
                 case R.id.ibt_btv:
-                    binding.ibtBtv.setImageResource(R.drawable.ic_btv3);
+                    binding.ibtBtv.setImageResource(R.drawable.ic_btv_normal);
                     break;
                 case R.id.ibt_plus:
-                    binding.ibtPlus.setImageResource(R.drawable.ic_plus3);
+                    binding.ibtPlus.setImageResource(R.drawable.ic_plus_normal);
                     break;
                 case R.id.ibt_tv:
-                    binding.ibtTv.setImageResource(R.drawable.ic_movie3);
+                    binding.ibtTv.setImageResource(R.drawable.ic_movie_normal);
                     break;
                 default:
                     break;

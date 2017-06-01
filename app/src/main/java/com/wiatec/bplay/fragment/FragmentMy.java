@@ -61,7 +61,7 @@ public class FragmentMy extends BaseFragment<IFragmentMy , FragmentMyPresenter> 
         favoriteAdapter.setOnItemClickListener(new ChannelFavoriteAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                activity.play(list , position);
+                activity.play(list , position, (short)0);
             }
         });
     }

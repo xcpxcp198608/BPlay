@@ -7,8 +7,8 @@ android {
         applicationId "com.wiatec.bplay"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 102
-        versionName "v1.0.2"
+        versionCode 100
+        versionName "v1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
