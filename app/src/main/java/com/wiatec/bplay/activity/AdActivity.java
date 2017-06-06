@@ -54,8 +54,8 @@ public class AdActivity extends BaseActivity<IAdActivity , AdPresenter> implemen
     public void loadAd(ImageInfo imageInfo) {
         Glide.with(AdActivity.this)
                 .load(imageInfo.getUrl())
-                .placeholder(R.mipmap.bplay_logo)
-                .error(R.mipmap.bplay_logo)
+                .placeholder(R.drawable.ad_bksound)
+                .error(R.drawable.ad_bksound)
                 .dontAnimate()
                 .into(binding.ivAd);
     }
