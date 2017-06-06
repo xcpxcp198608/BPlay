@@ -12,13 +12,25 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import com.wiatec.bplay.Application;
 import com.wiatec.bplay.F;
 import com.wiatec.bplay.R;
 import com.wiatec.bplay.animator.Zoom;
 import com.wiatec.bplay.databinding.ActivityMainBinding;
 import com.wiatec.bplay.utils.AppUtils;
+import com.wiatec.bplay.utils.Logger;
 import com.wiatec.bplay.utils.SPUtils;
+
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
+import rx.Observable;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by patrick on 2017/4/18.
@@ -28,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnFocusChang
 
     private ActivityMainBinding binding ;
     private Intent intent;
+    private Subscription keyEventSubscription;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,12 +71,29 @@ public class MainActivity extends AppCompatActivity implements View.OnFocusChang
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        keyEventMonitor();
+    }
+
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyEventSubscription != null){
+            keyEventSubscription.unsubscribe();
+        }
+//        Toast.makeText(MainActivity.this , "cancel monitor" ,Toast.LENGTH_LONG).show();
         if(event.getKeyCode() == KeyEvent.KEYCODE_BACK){
             showExitDialog();
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        keyEventMonitor();
+//        Toast.makeText(MainActivity.this , "enter dream after 5 minutes " ,Toast.LENGTH_LONG).show();
+        return super.onKeyUp(keyCode, event);
     }
 
     private void showExitDialog(){
@@ -128,6 +158,34 @@ public class MainActivity extends AppCompatActivity implements View.OnFocusChang
                     break;
             }
             Zoom.zoomIn13to10(v);
+        }
+    }
+
+    private void keyEventMonitor(){
+        keyEventSubscription = Observable.timer(180 , TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<Long>() {
+                    @Override
+                    public void call(Long aLong) {
+                        startActivity(new Intent(MainActivity.this , DreamActivity.class));
+                    }
+                });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(keyEventSubscription != null){
+            keyEventSubscription.unsubscribe();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(keyEventSubscription != null){
+            keyEventSubscription.unsubscribe();
         }
     }
 }
