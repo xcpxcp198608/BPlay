@@ -21,7 +21,7 @@ import com.wiatec.bplay.utils.AppUtils;
  * create time : 1:46 PM
  */
 
-public class MovieActivity extends AppCompatActivity implements View.OnFocusChangeListener {
+public class MovieActivity extends BaseActivity2 implements View.OnFocusChangeListener {
 
     private ActivityMovieBinding binding;
 
@@ -33,6 +33,7 @@ public class MovieActivity extends AppCompatActivity implements View.OnFocusChan
         binding.setOnEvent(new OnEventListener());
         binding.ibtTvHouse.setOnFocusChangeListener(this);
         binding.ibtShowBox.setOnFocusChangeListener(this);
+        binding.ibtTtv.setOnFocusChangeListener(this);
     }
 
     public class OnEventListener{
@@ -52,6 +53,14 @@ public class MovieActivity extends AppCompatActivity implements View.OnFocusChan
                         AppUtils.launchApp(MovieActivity.this, F.package_name.show_box);
                     }else{
                         Toast.makeText(Application.getContext() , getString(R.string.notice1)+" Show Box" , Toast.LENGTH_LONG).show();
+                        AppUtils.launchApp(MovieActivity.this, F.package_name.market);
+                    }
+                    finish();
+                case R.id.ibt_ttv:
+                    if(AppUtils.isInstalled(MovieActivity.this , F.package_name.terrarium_tv)) {
+                        AppUtils.launchApp(MovieActivity.this, F.package_name.terrarium_tv);
+                    }else{
+                        Toast.makeText(Application.getContext() , getString(R.string.notice1) , Toast.LENGTH_LONG).show();
                         AppUtils.launchApp(MovieActivity.this, F.package_name.market);
                     }
                     finish();

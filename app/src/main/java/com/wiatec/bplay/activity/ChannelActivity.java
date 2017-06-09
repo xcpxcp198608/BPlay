@@ -35,7 +35,7 @@ import java.util.List;
  * Created by patrick on 2017/4/18.
  */
 
-public class ChannelActivity extends AppCompatActivity {
+public class ChannelActivity extends BaseActivity2 {
 
     private ActivityChannelBinding binding;
     private String type;

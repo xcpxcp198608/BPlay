@@ -51,7 +51,7 @@ public class SplashActivity extends BaseActivity<ISplashActivity , SplashPresent
     protected void onStart() {
         super.onStart();
         String model = Build.MODEL;
-        if(!"BTVi3".equals(model) && !"MorphoBT E110".equals(model)){
+        if(!"BTVi3".equals(model) && !"MorphoBT E110".equals(model) && !"BTV3".equals(model)){
             EmotToast.show(Application.getContext(),getString(R.string.device_notice), EmotToast.EMOT_SAD);
             return;
         }

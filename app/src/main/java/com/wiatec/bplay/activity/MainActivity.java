@@ -36,11 +36,11 @@ import rx.schedulers.Schedulers;
  * Created by patrick on 2017/4/18.
  */
 
-public class MainActivity extends AppCompatActivity implements View.OnFocusChangeListener {
+public class MainActivity extends BaseActivity2 implements View.OnFocusChangeListener {
 
     private ActivityMainBinding binding ;
     private Intent intent;
-    private Subscription keyEventSubscription;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,27 +73,16 @@ public class MainActivity extends AppCompatActivity implements View.OnFocusChang
     @Override
     protected void onResume() {
         super.onResume();
-        keyEventMonitor();
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyEventSubscription != null){
-            keyEventSubscription.unsubscribe();
-        }
 //        Toast.makeText(MainActivity.this , "cancel monitor" ,Toast.LENGTH_LONG).show();
         if(event.getKeyCode() == KeyEvent.KEYCODE_BACK){
             showExitDialog();
             return true;
         }
         return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        keyEventMonitor();
-//        Toast.makeText(MainActivity.this , "enter dream after 5 minutes " ,Toast.LENGTH_LONG).show();
-        return super.onKeyUp(keyCode, event);
     }
 
     private void showExitDialog(){
@@ -161,31 +150,18 @@ public class MainActivity extends AppCompatActivity implements View.OnFocusChang
         }
     }
 
-    private void keyEventMonitor(){
-        keyEventSubscription = Observable.timer(180 , TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<Long>() {
-                    @Override
-                    public void call(Long aLong) {
-                        startActivity(new Intent(MainActivity.this , DreamActivity.class));
-                    }
-                });
-    }
-
     @Override
     protected void onPause() {
         super.onPause();
-        if(keyEventSubscription != null){
-            keyEventSubscription.unsubscribe();
-        }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if(keyEventSubscription != null){
-            keyEventSubscription.unsubscribe();
-        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

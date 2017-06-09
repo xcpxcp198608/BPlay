@@ -28,12 +28,12 @@ public final class F {
         public static final String btv = "org.xbmc.kodi";
         public static final String tv_house = "com.fanshi.tvvideo";
         public static final String show_box = "com.tdo.showbox";
+        public static final String terrarium_tv = "com.nitroxenon.terrarium";
     }
 
     public static final class path {
         public static final String logcat= Environment.getExternalStorageDirectory().getAbsolutePath()
                 +"/Android/data/com.wiatec.bplay/files/logcat/";
-
     }
 
 }
