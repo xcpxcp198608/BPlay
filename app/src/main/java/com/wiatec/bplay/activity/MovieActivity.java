@@ -3,7 +3,6 @@ package com.wiatec.bplay.activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -13,7 +12,6 @@ import com.wiatec.bplay.F;
 import com.wiatec.bplay.R;
 import com.wiatec.bplay.animator.Zoom;
 import com.wiatec.bplay.databinding.ActivityMovieBinding;
-import com.wiatec.bplay.presenter.BasePresenter;
 import com.wiatec.bplay.utils.AppUtils;
 
 /**
@@ -34,6 +32,7 @@ public class MovieActivity extends BaseActivity2 implements View.OnFocusChangeLi
         binding.ibtTvHouse.setOnFocusChangeListener(this);
         binding.ibtShowBox.setOnFocusChangeListener(this);
         binding.ibtTtv.setOnFocusChangeListener(this);
+        binding.ibtPopcom.setOnFocusChangeListener(this);
     }
 
     public class OnEventListener{
@@ -46,24 +45,30 @@ public class MovieActivity extends BaseActivity2 implements View.OnFocusChangeLi
                         Toast.makeText(Application.getContext() , getString(R.string.notice1)+" TV House" , Toast.LENGTH_LONG).show();
                         AppUtils.launchApp(MovieActivity.this, F.package_name.market);
                     }
-                    finish();
                     break;
                 case R.id.ibt_show_box:
-                    if(AppUtils.isInstalled(MovieActivity.this , F.package_name.show_box)) {
-                        AppUtils.launchApp(MovieActivity.this, F.package_name.show_box);
+                    if(AppUtils.isInstalled(MovieActivity.this , F.package_name.terrarium_tv)) {
+                        AppUtils.launchApp(MovieActivity.this, F.package_name.terrarium_tv);
                     }else{
                         Toast.makeText(Application.getContext() , getString(R.string.notice1)+" Show Box" , Toast.LENGTH_LONG).show();
                         AppUtils.launchApp(MovieActivity.this, F.package_name.market);
                     }
-                    finish();
+                    break;
                 case R.id.ibt_ttv:
-                    if(AppUtils.isInstalled(MovieActivity.this , F.package_name.terrarium_tv)) {
-                        AppUtils.launchApp(MovieActivity.this, F.package_name.terrarium_tv);
+                    if(AppUtils.isInstalled(MovieActivity.this , F.package_name.popcom)) {
+                        AppUtils.launchApp(MovieActivity.this, F.package_name.popcom);
                     }else{
                         Toast.makeText(Application.getContext() , getString(R.string.notice1) , Toast.LENGTH_LONG).show();
                         AppUtils.launchApp(MovieActivity.this, F.package_name.market);
                     }
-                    finish();
+                    break;
+                case R.id.ibt_popcom:
+                    if(AppUtils.isInstalled(MovieActivity.this , F.package_name.show_box)) {
+                        AppUtils.launchApp(MovieActivity.this, F.package_name.show_box);
+                    }else{
+                        Toast.makeText(Application.getContext() , getString(R.string.notice1) , Toast.LENGTH_LONG).show();
+                        AppUtils.launchApp(MovieActivity.this, F.package_name.market);
+                    }
                     break;
             }
         }
