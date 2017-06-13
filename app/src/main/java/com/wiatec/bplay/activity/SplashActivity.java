@@ -11,21 +11,16 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.wiatec.bplay.Application;
 import com.wiatec.bplay.R;
-import com.wiatec.bplay.beans.ChannelInfo;
 import com.wiatec.bplay.beans.UpdateInfo;
-import com.wiatec.bplay.custom_view.EmotToast;
-import com.wiatec.bplay.data.UserContentResolver;
+import com.wiatec.bplay.custom_view.EmojiToast;
 import com.wiatec.bplay.databinding.ActivitySplashBinding;
 import com.wiatec.bplay.presenter.SplashPresenter;
 import com.wiatec.bplay.utils.AppUtils;
 import com.wiatec.bplay.utils.Logger;
 import com.wiatec.bplay.utils.NetUtils;
-
-import java.util.List;
 
 /**
  * Created by patrick on 2017/1/13.
@@ -52,13 +47,13 @@ public class SplashActivity extends BaseActivity<ISplashActivity , SplashPresent
         super.onStart();
         String model = Build.MODEL;
         if(!"BTVi3".equals(model) && !"MorphoBT E110".equals(model) && !"BTV3".equals(model)){
-            EmotToast.show(Application.getContext(),getString(R.string.device_notice), EmotToast.EMOT_SAD);
+            EmojiToast.show(Application.getContext(),getString(R.string.device_notice), EmojiToast.EMOJI_SAD);
             return;
         }
         if(NetUtils.isConnected(SplashActivity.this)){
             presenter.checkUpdate();
         }else{
-            EmotToast.show(Application.getContext(), getString(R.string.network_error), EmotToast.EMOT_SAD);
+            EmojiToast.show(Application.getContext(), getString(R.string.network_error), EmojiToast.EMOJI_SAD);
             startActivity(new Intent(SplashActivity.this , MainActivity.class));
             finish();
         }

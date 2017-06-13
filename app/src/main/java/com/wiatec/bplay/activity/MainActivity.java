@@ -77,12 +77,16 @@ public class MainActivity extends BaseActivity2 implements View.OnFocusChangeLis
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        Toast.makeText(MainActivity.this , "cancel monitor" ,Toast.LENGTH_LONG).show();
         if(event.getKeyCode() == KeyEvent.KEYCODE_BACK){
             showExitDialog();
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        return super.onKeyUp(keyCode, event);
     }
 
     private void showExitDialog(){
@@ -120,7 +124,7 @@ public class MainActivity extends BaseActivity2 implements View.OnFocusChangeLis
         if(hasFocus){
             switch (v.getId()){
                 case R.id.ibt_btv:
-                    binding.ibtBtv.setImageResource(R.drawable.ic_btv_focus);
+                    binding.ibtBtv.setImageResource(R.drawable.ic_btv_focus1);
                     break;
                 case R.id.ibt_plus:
                     binding.ibtPlus.setImageResource(R.drawable.ic_plus_focus);
@@ -135,7 +139,7 @@ public class MainActivity extends BaseActivity2 implements View.OnFocusChangeLis
         }else{
             switch (v.getId()){
                 case R.id.ibt_btv:
-                    binding.ibtBtv.setImageResource(R.drawable.ic_btv_normal);
+                    binding.ibtBtv.setImageResource(R.drawable.ic_btv_normal1);
                     break;
                 case R.id.ibt_plus:
                     binding.ibtPlus.setImageResource(R.drawable.ic_plus_normal);

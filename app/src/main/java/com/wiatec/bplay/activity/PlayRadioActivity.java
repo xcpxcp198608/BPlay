@@ -6,12 +6,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
-import android.widget.Toast;
 
-import com.wiatec.bplay.Application;
 import com.wiatec.bplay.R;
 import com.wiatec.bplay.beans.ChannelInfo;
-import com.wiatec.bplay.custom_view.EmotToast;
+import com.wiatec.bplay.custom_view.EmojiToast;
 import com.wiatec.bplay.databinding.ActivityPlayRadioBinding;
 import com.wiatec.bplay.utils.AESUtil;
 
@@ -67,7 +65,7 @@ public class PlayRadioActivity extends AppCompatActivity {
                 @Override
                 public boolean onError(MediaPlayer mp, int what, int extra) {
                     mediaPlayer.reset();
-                    EmotToast.show(PlayRadioActivity.this,getString(R.string.error_play), EmotToast.EMOT_SAD);
+                    EmojiToast.show(PlayRadioActivity.this,getString(R.string.error_play), EmojiToast.EMOJI_SAD);
                     return false;
                 }
             });

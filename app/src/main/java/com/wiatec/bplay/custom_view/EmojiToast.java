@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,18 +15,18 @@ import com.wiatec.bplay.R;
  * create time : 11:08 AM
  */
 
-public class EmotToast {
+public class EmojiToast {
 
     private static TextView textView;
-    public static final int EMOT_SAD = 1;
-    public static final int EMOT_SMILE = 2;
+    public static final int EMOJI_SAD = 1;
+    public static final int EMOJI_SMILE = 2;
 
     public static void show(Context context , String message ,int emot){
         View toastView = LayoutInflater.from(context).inflate(R.layout.toast , null);
         textView = (TextView) toastView.findViewById(R.id.tvToast);
         textView.setText(message);
         Drawable drawable = null;
-        if(emot == EMOT_SAD){
+        if(emot == EMOJI_SAD){
             drawable = context.getResources().getDrawable(R.drawable.ic_sad_face);
         }else{
             drawable = context.getResources().getDrawable(R.drawable.ic_smile_face);

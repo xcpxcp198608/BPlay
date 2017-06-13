@@ -3,6 +3,7 @@ package com.wiatec.bplay.activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -83,4 +84,18 @@ public class MovieActivity extends BaseActivity2 implements View.OnFocusChangeLi
         }
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        return super.onKeyUp(keyCode, event);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 }

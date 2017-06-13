@@ -14,11 +14,10 @@ import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.wiatec.bplay.R;
 import com.wiatec.bplay.beans.ChannelInfo;
-import com.wiatec.bplay.custom_view.EmotToast;
+import com.wiatec.bplay.custom_view.EmojiToast;
 import com.wiatec.bplay.sql.FavoriteDao;
 import com.wiatec.bplay.utils.AESUtil;
 import com.wiatec.bplay.utils.Logger;
@@ -92,7 +91,8 @@ public class PlayActivity extends AppCompatActivity implements SurfaceHolder.Cal
         }
     }
 
-    private void play(String url){
+    private void play(final String url){
+        Logger.d(url);
         progressBar.setVisibility(View.VISIBLE);
         if(mediaPlayer == null){
             mediaPlayer = new MediaPlayer();
@@ -105,42 +105,45 @@ public class PlayActivity extends AppCompatActivity implements SurfaceHolder.Cal
             mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
-                    EmotToast.show(PlayActivity.this, getString(R.string.playing)+" "+channelInfo.getName() ,EmotToast.EMOT_SMILE);
-                    progressBar.setVisibility(View.GONE);
+//                    EmojiToast.show(PlayActivity.this, getString(R.string.playing)+" "+channelInfo.getName() , EmojiToast.EMOJI_SMILE);
                     mediaPlayer.start();
+                    progressBar.setVisibility(View.GONE);
                 }
             });
-            mediaPlayer.setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
+            mediaPlayer.setOnInfoListener(new MediaPlayer.OnInfoListener() {
                 @Override
-                public void onBufferingUpdate(MediaPlayer mp, int percent) {
-                    Logger.d("buffering:"+percent);
+                public boolean onInfo(MediaPlayer mp, int what, int extra) {
+//                    Logger.d("onInfo-->" + what + "<--->" + extra);
+                    if(what == MediaPlayer.MEDIA_INFO_BUFFERING_START){
+                        progressBar.setVisibility(View.VISIBLE);
+                    }
+                    if(what == MediaPlayer.MEDIA_INFO_BUFFERING_END){
+                        progressBar.setVisibility(View.GONE);
+                    }
+                    return false;
                 }
             });
             mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
                 @Override
                 public boolean onError(MediaPlayer mp, int what, int extra) {
                     mediaPlayer.reset();
-                    progressBar.setVisibility(View.GONE);
-                    Logger.d(what + "<--->" + extra);
-                    EmotToast.show(PlayActivity.this, MediaPlayerErrorUtil.getError(what), EmotToast.EMOT_SAD);
-                    if(mediaPlayer != null){
-                        mediaPlayer.stop();
-                        mediaPlayer.release();
-                        mediaPlayer = null;
-                    }
-                    finish();
-                    return false;
+                    progressBar.setVisibility(View.VISIBLE);
+//                    Logger.d(what + "<--->" + extra);
+//                    EmojiToast.show(PlayActivity.this, MediaPlayerErrorUtil.getError(what), EmojiToast.EMOJI_SAD);
+                    play(AESUtil.decrypt(channelInfo.getUrl() , AESUtil.key));
+                    return true;
                 }
             });
             mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
+                    Logger.d("onComplete");
                     if(mediaPlayer != null){
                         mediaPlayer.stop();
                         mediaPlayer.release();
                         mediaPlayer = null;
                     }
-                    finish();
+                    play(AESUtil.decrypt(channelInfo.getUrl() , AESUtil.key));
                 }
             });
         } catch (IOException e) {
@@ -151,6 +154,16 @@ public class PlayActivity extends AppCompatActivity implements SurfaceHolder.Cal
     @Override
     protected void onPause() {
         super.onPause();
+        if(mediaPlayer != null){
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
         if(mediaPlayer != null){
             mediaPlayer.stop();
             mediaPlayer.release();
@@ -191,11 +204,11 @@ public class PlayActivity extends AppCompatActivity implements SurfaceHolder.Cal
                 if(isChecked){
                     if(favoriteDao.insert(channelInfo)){
                         cbFavorite.setChecked(true);
-                        EmotToast.show(PlayActivity.this, channelInfo.getName()+ " " +getString(R.string.add_favorite) ,EmotToast.EMOT_SMILE);
+                        EmojiToast.show(PlayActivity.this, channelInfo.getName()+ " " +getString(R.string.add_favorite) , EmojiToast.EMOJI_SMILE);
                     }
                 }else{
                     if(favoriteDao.deleteByTag(channelInfo)) {
-                        EmotToast.show(PlayActivity.this, channelInfo.getName()+ " " + getString(R.string.remove_favorite), EmotToast.EMOT_SAD);
+                        EmojiToast.show(PlayActivity.this, channelInfo.getName()+ " " + getString(R.string.remove_favorite), EmojiToast.EMOJI_SAD);
                     }
                 }
                 break;

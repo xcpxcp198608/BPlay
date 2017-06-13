@@ -23,7 +23,7 @@
         <ImageButton
             android:id="@+id/ibt_btv"
             android:onClick="@{(view) -> onEvent.onClick(view)}"
-            android:src="@drawable/ic_btv_normal"
+            android:src="@drawable/ic_btv_normal1"
             android:background="@android:color/transparent"
             android:layout_weight="1"
             android:layout_width="0dp"

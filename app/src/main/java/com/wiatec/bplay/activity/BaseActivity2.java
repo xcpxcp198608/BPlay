@@ -1,8 +1,13 @@
 package com.wiatec.bplay.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.wiatec.bplay.data.UserContentResolver;
 import com.wiatec.bplay.utils.Logger;
@@ -26,13 +31,19 @@ public class BaseActivity2 extends AppCompatActivity{
     protected Subscription keyEventSubscription;
 
     @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         keyEventMonitor();
     }
 
     private void keyEventMonitor(){
-//        Logger.d("start monitor");
+        Logger.d("start monitor");
         String level = UserContentResolver.get("userLevel");
         int userLevel;
         try {

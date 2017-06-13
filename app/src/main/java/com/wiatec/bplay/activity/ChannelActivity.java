@@ -5,15 +5,14 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.wiatec.bplay.Application;
 import com.wiatec.bplay.F;
 import com.wiatec.bplay.R;
 import com.wiatec.bplay.beans.ChannelInfo;
-import com.wiatec.bplay.custom_view.EmotToast;
+import com.wiatec.bplay.custom_view.EmojiToast;
 import com.wiatec.bplay.data.UserContentResolver;
 import com.wiatec.bplay.databinding.ActivityChannelBinding;
 import com.wiatec.bplay.fragment.FragmentFavorite;
@@ -26,7 +25,6 @@ import com.wiatec.bplay.fragment.FragmentSports;
 import com.wiatec.bplay.utils.AESUtil;
 import com.wiatec.bplay.utils.AppUtils;
 import com.wiatec.bplay.utils.Logger;
-import com.wiatec.bplay.utils.SPUtils;
 
 import java.io.Serializable;
 import java.util.List;
@@ -114,7 +112,7 @@ public class ChannelActivity extends BaseActivity2 {
             if(AppUtils.isInstalled(Application.getContext(), packageName)){
                 AppUtils.launchApp(this, packageName);
             }else {
-                EmotToast.show(ChannelActivity.this,getString(R.string.app_no_install), EmotToast.EMOT_SMILE);
+                EmojiToast.show(ChannelActivity.this,getString(R.string.app_no_install), EmojiToast.EMOJI_SMILE);
                 AppUtils.launchApp(this, F.package_name.market);
             }
         }else if("radio".equals(type)){
@@ -127,4 +125,23 @@ public class ChannelActivity extends BaseActivity2 {
         }
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        return super.onKeyUp(keyCode, event);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
 }
