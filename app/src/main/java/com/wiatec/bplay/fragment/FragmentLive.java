@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,7 @@ public class FragmentLive extends BaseFragment<IFragmentLive ,FragmentLivePresen
     private ChannelAdapter channelAdapter;
     private List<ChannelInfo> channelInfoList = new ArrayList<>();
     private short isLock;
+    private int mPosition;
 
     @Override
     protected FragmentLivePresenter createPresenter() {
@@ -132,6 +134,13 @@ public class FragmentLive extends BaseFragment<IFragmentLive ,FragmentLivePresen
                         activity.play(list, position, isLock);
                     }
                 });
+                channelAdapter.setOnItemSelectedListener(new ChannelAdapter.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(View view, int position) {
+                        channelInfoList = list;
+                        mPosition = position;
+                    }
+                });
             }
         }
     }
@@ -161,4 +170,11 @@ public class FragmentLive extends BaseFragment<IFragmentLive ,FragmentLivePresen
             });
         }
     }
+
+    public void onKeyDown(int keyCode, KeyEvent event){
+        if(event.getKeyCode() == KeyEvent.KEYCODE_MEDIA_PLAY){
+            activity.play(channelInfoList , mPosition , isLock);
+        }
+    }
+
 }

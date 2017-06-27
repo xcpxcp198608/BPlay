@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="onEvenet"
+            type="com.wiatec.bplay.activity.ChannelActivity1.OnEventListener"/>
+    </data>
+
+    <LinearLayout
+        android:padding="30dp"
+        android:background="@drawable/bg_main1"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:scrollbars="none"
+            android:overScrollMode="never"
+            android:padding="2dp"
+            android:layout_marginTop="15dp"
+            android:id="@+id/rv_channel_type"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:padding="5dp"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <android.support.v7.widget.RecyclerView
+                    android:scrollbars="none"
+                    android:id="@+id/rv_channel"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/tv_load_error"
+                    android:text="@string/data_loading"
+                    android:textSize="50sp"
+                    android:textColor="@android:color/white"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </FrameLayout>
+
+            <ImageButton
+                android:id="@+id/ibt_focus"
+                android:layout_width="match_parent"
+                android:background="@android:color/transparent"
+                android:layout_height="1dp" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</layout>

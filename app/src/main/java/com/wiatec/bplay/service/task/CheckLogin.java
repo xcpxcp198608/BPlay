@@ -80,6 +80,5 @@ public class CheckLogin implements Runnable {
                         Logger.d(e);
                     }
                 });
-
     }
 }

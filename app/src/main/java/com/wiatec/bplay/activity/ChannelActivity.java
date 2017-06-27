@@ -37,6 +37,7 @@ public class ChannelActivity extends BaseActivity2 {
 
     private ActivityChannelBinding binding;
     private String type;
+    private FragmentLive fragmentLive;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class ChannelActivity extends BaseActivity2 {
     private void setFragment(String type) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if ("live".equals(type)) {
-            FragmentLive fragmentLive = new FragmentLive();
+            fragmentLive = new FragmentLive();
             fragmentTransaction.add(R.id.fl_channel, fragmentLive);
         }else if("news".equals(type)){
             FragmentNews fragmentNews = new FragmentNews();
@@ -127,6 +128,9 @@ public class ChannelActivity extends BaseActivity2 {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(fragmentLive != null && "live".equals(type)){
+            fragmentLive.onKeyDown(keyCode, event);
+        }
         return super.onKeyDown(keyCode, event);
     }
 

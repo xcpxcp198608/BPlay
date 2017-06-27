@@ -20,7 +20,6 @@ import java.util.List;
 public class ChannelAdapter extends RecyclerView.Adapter<ChannelViewHolder> {
 
     private List<ChannelInfo> list;
-    private View view= null;
     private OnItemClickListener mOnItemClickListener;
     private OnItemSelectedListener mOnItemSelectedListener;
     private OnItemLongClickListener mOnItemLongClickListener;
@@ -31,7 +30,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelViewHolder> {
 
     @Override
     public ChannelViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_channel ,parent ,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_channel ,parent ,false);
         ChannelViewHolder channelViewHolder = new ChannelViewHolder(view);
         return channelViewHolder;
     }
@@ -47,7 +46,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelViewHolder> {
                 .into(holder.ivChannelIcon);
         holder.tvChannelName.setText(channelInfo.getName());
         final int lPosition = holder.getAdapterPosition();
-        view.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(mOnItemClickListener != null){
@@ -55,20 +54,22 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelViewHolder> {
                 }
             }
         });
-        view.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        holder.itemView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
                     if(mOnItemSelectedListener != null){
                         mOnItemSelectedListener.onItemSelected(v,lPosition);
                     }
+                    holder.tvChannelName.setSelected(true);
                     Zoom.zoomIn10to11(v);
                 }else{
+                    holder.tvChannelName.setSelected(false);
                     Zoom.zoomIn11to10(v);
                 }
             }
         });
-        view.setOnLongClickListener(new View.OnLongClickListener() {
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 if(mOnItemLongClickListener != null){

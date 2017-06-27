@@ -36,6 +36,7 @@
         <activity android:name=".activity.ChannelActivity"/>
         <activity android:name=".activity.MovieActivity"/>
         <activity android:name=".activity.DreamActivity"/>
+        <activity android:name=".activity.ChannelActivity1"/>
 
     </application>
 

@@ -58,8 +58,8 @@ public class MainActivity extends BaseActivity2 implements View.OnFocusChangeLis
                     AppUtils.launchApp(MainActivity.this , F.package_name.btv);
                     break;
                 case R.id.ibt_plus:
-                    intent.setClass(MainActivity.this , ChannelActivity.class);
-                    intent.putExtra("type","live");
+                    intent.setClass(MainActivity.this , ChannelActivity1.class);
+//                    intent.putExtra("type","live");
                     startActivity(intent);
                     break;
                 case R.id.ibt_tv:

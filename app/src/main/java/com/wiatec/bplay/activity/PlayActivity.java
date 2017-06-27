@@ -225,7 +225,7 @@ public class PlayActivity extends AppCompatActivity implements SurfaceHolder.Cal
                 return true;
             }
         }
-        if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_LEFT){
+        if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_LEFT || event.getKeyCode() == KeyEvent.KEYCODE_MEDIA_PREVIOUS){
             position -- ;
             if(position < 0){
                 position = channelInfoList.size()-1;
@@ -234,7 +234,7 @@ public class PlayActivity extends AppCompatActivity implements SurfaceHolder.Cal
             channelInfo = channelInfoList.get(position);
             play(AESUtil.decrypt(channelInfo.getUrl() , AESUtil.key));
         }
-        if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT){
+        if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT || event.getKeyCode() == KeyEvent.KEYCODE_MEDIA_NEXT){
             position ++ ;
             if(position >= channelInfoList.size()){
                 position = 0;
