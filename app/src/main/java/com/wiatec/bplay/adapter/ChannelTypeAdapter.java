@@ -54,6 +54,11 @@ public class ChannelTypeAdapter extends RecyclerView.Adapter<ChannelTypeViewHold
                 if(mOnItemSelectedListener != null) {
                     mOnItemSelectedListener.onItemSelected(v, holder.getLayoutPosition() ,hasFocus);
                 }
+                if(hasFocus){
+                    holder.tvCountry.setSelected(true);
+                }else{
+                    holder.tvCountry.setSelected(false);
+                }
             }
         });
     }
