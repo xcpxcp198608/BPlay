@@ -159,54 +159,59 @@ public class ChannelActivity1 extends BaseActivity1<IChannelActivity1 , Channel1
     }
 
     public void play(List<ChannelInfo> channelInfoList , int position, short isLock){
-        String type = channelInfoList.get(position).getType();
-        if("live".equals(type)){
-            if(isLock == 1) {
-                String level = UserContentResolver.get("userLevel");
-                int userLevel;
-                try {
-                    userLevel = Integer.parseInt(level);
-                }catch (Exception e){
-                    userLevel = 1;
-                }
-                if (userLevel > 1) {
-                    Intent intent = new Intent(ChannelActivity1.this, PlayActivity.class);
-                    intent.putExtra("channelInfoList", (Serializable) channelInfoList);
-                    intent.putExtra("position", position);
-                    startActivity(intent);
-                } else {
-                    String experience = UserContentResolver.get("experience");
-                    if ("true".equals(experience)) {
-                        Intent intent = new Intent(ChannelActivity1.this, PlayActivity.class);
-                        intent.putExtra("channelInfoList", (Serializable) channelInfoList);
-                        intent.putExtra("position", position);
-                        startActivity(intent);
-                    } else {
-                        startActivity(new Intent(ChannelActivity1.this, AdActivity.class));
-                    }
-                }
-            }else{
-                Intent intent = new Intent(ChannelActivity1.this, PlayActivity.class);
-                intent.putExtra("channelInfoList", (Serializable) channelInfoList);
-                intent.putExtra("position", position);
-                startActivity(intent);
-            }
-        }else if("app".equals(type)){
-            String packageName = AESUtil.decrypt(channelInfoList.get(position).getUrl() , AESUtil.key);
-            if(AppUtils.isInstalled(Application.getContext(), packageName)){
-                AppUtils.launchApp(this, packageName);
-            }else {
-                EmojiToast.show(ChannelActivity1.this,getString(R.string.app_no_install), EmojiToast.EMOJI_SMILE);
-                AppUtils.launchApp(this, F.package_name.market);
-            }
-        }else if("radio".equals(type)){
-            Intent intent = new Intent(ChannelActivity1.this , PlayRadioActivity.class);
-            intent.putExtra("channelInfoList" , (Serializable) channelInfoList);
-            intent.putExtra("position" , position);
-            startActivity(intent);
-        }else{
-            Logger.d("");
-        }
+        Intent intent = new Intent(ChannelActivity1.this, PlayActivity2.class);
+        intent.putExtra("channelInfoList", (Serializable) channelInfoList);
+        intent.putExtra("position", position);
+        intent.putExtra("isLock", isLock);
+        startActivity(intent);
+//        String type = channelInfoList.get(position).getType();
+//        if("live".equals(type)){
+//            if(isLock == 1) {
+//                String level = UserContentResolver.get("userLevel");
+//                int userLevel;
+//                try {
+//                    userLevel = Integer.parseInt(level);
+//                }catch (Exception e){
+//                    userLevel = 1;
+//                }
+//                if (userLevel > 1) {
+//                    Intent intent = new Intent(ChannelActivity1.this, PlayActivity.class);
+//                    intent.putExtra("channelInfoList", (Serializable) channelInfoList);
+//                    intent.putExtra("position", position);
+//                    startActivity(intent);
+//                } else {
+//                    String experience = UserContentResolver.get("experience");
+//                    if ("true".equals(experience)) {
+//                        Intent intent = new Intent(ChannelActivity1.this, PlayActivity.class);
+//                        intent.putExtra("channelInfoList", (Serializable) channelInfoList);
+//                        intent.putExtra("position", position);
+//                        startActivity(intent);
+//                    } else {
+//                        startActivity(new Intent(ChannelActivity1.this, AdActivity.class));
+//                    }
+//                }
+//            }else{
+//                Intent intent = new Intent(ChannelActivity1.this, PlayActivity.class);
+//                intent.putExtra("channelInfoList", (Serializable) channelInfoList);
+//                intent.putExtra("position", position);
+//                startActivity(intent);
+//            }
+//        }else if("app".equals(type)){
+//            String packageName = AESUtil.decrypt(channelInfoList.get(position).getUrl() , AESUtil.key);
+//            if(AppUtils.isInstalled(Application.getContext(), packageName)){
+//                AppUtils.launchApp(this, packageName);
+//            }else {
+//                EmojiToast.show(ChannelActivity1.this,getString(R.string.app_no_install), EmojiToast.EMOJI_SMILE);
+//                AppUtils.launchApp(this, F.package_name.market);
+//            }
+//        }else if("radio".equals(type)){
+//            Intent intent = new Intent(ChannelActivity1.this , PlayRadioActivity.class);
+//            intent.putExtra("channelInfoList" , (Serializable) channelInfoList);
+//            intent.putExtra("position" , position);
+//            startActivity(intent);
+//        }else{
+//            Logger.d("");
+//        }
     }
 
     @Override
