@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Live Play</string>
+    <string name="app_name">z-lp</string>
     <string name="app_name_caps">LIVE PLAY</string>
 
     <string name="notice">Notice</string>
@@ -53,4 +53,7 @@
     <string name="playing">Now playing</string>
     <string name="notice1">Please go to app market to download and install</string>
     <string name="back">Press back exit</string>
+    <string name="skip_ad">ACTIVE LD MEMBER, SKIP ADS </string>
+    <string name="skip_ad1">JOIN LD GOLD TO SKIP ALL ADS </string>
+    <string name="skip">SKIP</string>
 </resources>

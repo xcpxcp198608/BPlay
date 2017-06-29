@@ -54,7 +54,7 @@ public class SplashActivity extends BaseActivity<ISplashActivity , SplashPresent
             presenter.checkUpdate();
         }else{
             EmojiToast.show(Application.getContext(), getString(R.string.network_error), EmojiToast.EMOJI_SAD);
-            startActivity(new Intent(SplashActivity.this , MainActivity.class));
+            startActivity(new Intent(SplashActivity.this , PlayAdActivity.class));
             finish();
         }
     }
@@ -64,7 +64,7 @@ public class SplashActivity extends BaseActivity<ISplashActivity , SplashPresent
         if(updateInfo == null){
             try {
                 Thread.sleep(3000);
-                startActivity(new Intent(SplashActivity.this , MainActivity.class));
+                startActivity(new Intent(SplashActivity.this , PlayAdActivity.class));
                 finish();
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -77,7 +77,7 @@ public class SplashActivity extends BaseActivity<ISplashActivity , SplashPresent
             } else {
                 try {
                     Thread.sleep(3000);
-                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    startActivity(new Intent(SplashActivity.this, PlayAdActivity.class));
                     finish();
                 } catch (InterruptedException e) {
                     e.printStackTrace();

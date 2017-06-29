@@ -35,6 +35,8 @@ public final class F {
     public static final class path {
         public static final String logcat= Environment.getExternalStorageDirectory().getAbsolutePath()
                 +"/Android/data/com.wiatec.bplay/files/logcat/";
+        public static final String ad_video = Environment.getExternalStorageDirectory().getAbsolutePath()
+                +"/Android/data/com.wiatec.btv_launcher/files/download/btvad.mp4";
     }
 
 }

@@ -31,4 +31,6 @@
     <color name="colorTranslucentWhite15">#15ffffff</color>
     <color name="colorTranslucentWhite3">#33ffffff</color>
     <color name="colorTranslucentWhite5">#55ffffff</color>
+    <color name="colorItemYellow1">#f9b120</color>
+    <color name="colorOrange">#ec7513</color>
 </resources>

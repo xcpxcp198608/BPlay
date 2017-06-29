@@ -56,6 +56,7 @@ public class MainActivity extends BaseActivity2 implements View.OnFocusChangeLis
             switch (view.getId()){
                 case R.id.ibt_btv:
                     AppUtils.launchApp(MainActivity.this , F.package_name.btv);
+                    finish();
                     break;
                 case R.id.ibt_plus:
                     intent.setClass(MainActivity.this , ChannelActivity1.class);
