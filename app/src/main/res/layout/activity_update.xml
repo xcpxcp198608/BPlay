@@ -11,8 +11,8 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:scaleType="centerInside"
-            android:src="@mipmap/bplay_logo"
+            android:id="@+id/ivAd"
+            android:src="@drawable/bg_logo"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
